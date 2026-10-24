@@ -1,0 +1,16 @@
+﻿.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+*.auto.tfvars
+*.tfplan
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
