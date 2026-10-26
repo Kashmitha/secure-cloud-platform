@@ -1,120 +1,182 @@
-# PROJECT_PROGRESS.md
+# SecureCloud Enterprise — Project Progress and AI Handover
 
-## Project Identity
-Name: Enterprise Secure Cloud-Native Platform
-Project Directory: 01-secure-cloud-platform
-Current Phase: 0 - Planning
-Current Status: Git environment learning checkpoint complete; documentation publication pending; requirements and initial threat model next
-Last Updated: 2026-10-24 (Asia/Colombo)
+> **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
+>
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-26 · **Current status:** BASELINE ADOPTED / PHASE 00 IN PROGRESS · **Current phase:** 00
 
-## Project Objective
-Build an enterprise-grade DevSecOps project through hands-on learning, design, implementation, security testing, and operations.
+## 1. Quick resume card (read this first)
 
-## Current Architecture
-Architecture direction approved by the user on 2026-10-24 and recorded in LEARNING_ROADMAP.md. No application or infrastructure implementation yet.
-Proposal presented in the 2026-10-24 session: an internal service-request platform with requester, operator, and administrator roles; a small Python API, PostgreSQL, and an OIDC identity provider. Develop in WSL using Docker Compose, progress to local Kubernetes, then consider time-limited AWS deployments. Proposed cloud target: ECR, EKS private worker nodes, managed PostgreSQL, TLS ingress, workload identity, managed secrets, and observability. The user approved this architecture direction; detailed design choices and cloud provisioning still require their appropriate review and approval.
+| Field | Verified status |
+|---|---|
+| Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
+| Canonical scope | `PROJECT_BLUEPRINT.md` v1.0 |
+| Current phase | **00 — Baseline and safe reset** |
+| Current section | **00.1 — Inspect existing WSL repository and reconcile documents** |
+| Last completed task | Six-document baseline adopted and obsolete documentation removed by explicit user instruction; no application implementation |
+| Next exact action | Learner confirms VS Code WSL: Ubuntu, explicitly stages the six root documents and two approved tracked deletions, runs staged whitespace/status/diff checks, and returns results before commit. Phase 00 remains active; commit/push/PR not yet completed. |
+| Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
+| Git branch / remote / HEAD | codex/p00-project-realignment; origin exists; HEAD b1186ac; no new commit or live remote verification |
+| AWS resources | **Unknown — inspect and ask before changes** |
+| Current blocker | Documentation review/commit and VS Code WSL connection verification pending; no technical blocker found |
+| Session owner | Any authorized AI or human engineer reading the repository |
 
-## Technology Stack
-Verified locally: WSL2 Ubuntu, Git, Docker Desktop integration, Docker Compose, AWS CLI, kubectl, Python, curl, and a VS Code launcher.
-Proposed later: FastAPI, PostgreSQL, OIDC, kind, Helm, Terraform, GitHub Actions, Argo CD, appropriate security scanners and observability tools. Introduce incrementally after approval and prerequisites.
+## 2. Phase tracker
 
-## Completed Tasks
-- [x] Read AGENTS.md and complete initial PROJECT_PROGRESS.md.
-- [x] Inspect repository, WSL environment, tool availability, Docker daemon connectivity, and representative ignore rules.
-- [ ] Initialize and validate the full project learning environment (installations and practical labs remain).
-- [x] Approve business scenario, architecture direction, and phased roadmap; detailed requirements remain unfinished.
-- [x] Verify project-local Git configuration, configured identity, clean working tree, and representative ignore tests.
-- [x] Complete learner explanation of Git concepts and validation results; reviewed with precision corrections.
+`NOT STARTED` means not verified, not necessarily that no work exists in the user's older local repository.
 
-## Current Task
-Git environment checkpoint complete. Review and publish its documentation through a feature branch and pull request; begin the Phase 0 requirements and initial threat-model exercise. Phase 0 is not complete.
+| Phase | Milestone | Status | Evidence / reference |
+|---|---|---|---|
+| 00 | Baseline, WSL, Git, documentation | **IN PROGRESS — baseline adopted** | WSL path/Git verified; exact six document names adopted; review/commit and VS Code verification pending |
+| 01 | Business architecture and threat model | NOT VERIFIED | — |
+| 02 | Linux, networking, Git and pre-commit | NOT VERIFIED | — |
+| 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
+| 04 | Docker and BuildKit | NOT VERIFIED | — |
+| 05 | Terraform, Ansible, AWS foundations | NOT VERIFIED | — |
+| 06 | Kubernetes local operations | NOT VERIFIED | — |
+| 07 | Helm packaging | NOT VERIFIED | — |
+| 08 | GitHub Actions and Jenkins comparison | NOT VERIFIED | — |
+| 09 | ECR/EKS and cloud identity | NOT VERIFIED | — |
+| 10 | Argo CD and GitOps | NOT VERIFIED | — |
+| 11 | Load balancing, Ingress/Gateway API, TLS | NOT VERIFIED | — |
+| 12 | Keycloak, OIDC, Secrets Manager, ESO | NOT VERIFIED | — |
+| 13 | Semgrep, Trivy, Checkov, Gitleaks, policy | NOT VERIFIED | — |
+| 14 | Syft, Cosign, SBOM and verification | NOT VERIFIED | — |
+| 15 | Prometheus, Grafana, Loki, OpenTelemetry | NOT VERIFIED | — |
+| 16 | HPA, PDB, backups, recovery drills | NOT VERIFIED | — |
+| 17 | Final hardening, cost cleanup and portfolio | NOT VERIFIED | — |
 
-## Next Tasks
-- [x] Architecture direction and roadmap approved; AGENTS.md and LEARNING_ROADMAP.md recorded in commit cd4a2b2.
-- [x] Finish first learner checkpoint: user explained working tree/index/commit, local configuration scope, Docker client versus daemon, and ignore-test exit codes. Assistant reviewed answers and clarified snapshot/stability, WSL user scope, and separate Docker ignore rules.
-- [ ] Review, commit, and publish the Git checkpoint documentation using a feature branch and pull request; no remote action performed by assistant.
-- [x] LEARNING_ROADMAP.md exists with approved phases 0-9.
-- [ ] Create README.md and DECISIONS.md incrementally; add TROUBLESHOOTING.md as useful incident evidence is produced. LEARNING_NOTES.md now records the Git checkpoint lessons.
-- [ ] Define the first application acceptance tests and threat model before coding.
+## 3. Current section worklist — Phase 00.1
 
-## Technical Decisions
-Approved direction: internal service-request platform; local application, Compose, kind, then time-limited AWS after explicit cost/provisioning approval. See LEARNING_ROADMAP.md. Identity provider and detailed cloud design remain unresolved.
-Inspection used Linux Git within WSL rather than adding a Windows Git safe.directory exception. Preserve the user's existing changes and the single Linux repository.
+- [x] Confirm actual WSL Linux working directory with `pwd` and `realpath .`; both returned the expected project path.
+- [x] Read the old documents and all six replacement sources before applying changes; no application or infrastructure code found.
+- [ ] Run `git status --short --branch`, `git remote -v`, `git log -5 --oneline` (where Git is initialized).
+- [x] Compare old and new scope; replace obsolete scenario with the canonical financial-services project.
+- [ ] Review uncommitted changes, local secrets and existing infrastructure state safely.
+- [x] Present migration plan; user explicitly superseded archiving with direct six-document replacement and obsolete-file removal. Applied that instruction without further confirmation.
+- [x] Adopt source blueprint default: NestJS with PostgreSQL and Redis. Spring Boot remains an explicit ADR alternative; do not reopen the default unnecessarily.
+- [ ] Create or reconcile initial GitHub repository, branching/PR policy and `.gitignore`.
+- [ ] Record Phase 00.1 evidence and prepare the first docs-only feature branch/PR checkpoint.
 
-## Files Created or Modified
-Before inspection, .gitignore, AGENTS.md, and PROJECT_PROGRESS.md already had uncommitted changes (one changed line each according to git diff --numstat).
-Initial inspection updated only PROJECT_PROGRESS.md. Subsequent user work committed the permanent instructions and roadmap as cd4a2b2. The earlier review updated only PROJECT_PROGRESS.md. The completion review updates PROJECT_PROGRESS.md and creates LEARNING_NOTES.md; no application, infrastructure, or Git configuration changes by the assistant.
+## 4. Implementation inventory
 
-## Commands and Validation Results
-- PowerShell Get-ChildItem / Get-Content: only .git, .gitignore, AGENTS.md, and PROJECT_PROGRESS.md existed; instructions and progress read completely.
-- Windows git status/log: failed with dubious ownership warning for WSL UNC path. No safe.directory exception added.
-- Initial sandboxed wsl --status / --list --verbose: failed with Wsl/E_ACCESSDENIED. Read-only WSL commands succeeded after approved execution outside that restriction.
-- WSL cat /etc/os-release / uname -r: Ubuntu 26.04.1 LTS; kernel 6.18.33.2-microsoft-standard-WSL2.
-- WSL git status --short --branch / git log -5 --oneline: main tracks origin/main; initial commit b275b61; three pre-existing modified tracked files. origin remote exists; network access/authentication not tested.
-- WSL command -v: Git, VS Code launcher, Docker, AWS CLI, kubectl, Python3, curl found. Terraform, Helm, kind, Node not found on PATH; absence from PATH does not prove no installation elsewhere.
-- WSL versions: Git 2.53.0; Docker client/server 29.7.2; Docker Desktop server 4.89.0; Compose v5.5.0; AWS CLI 2.37.9; kubectl v1.36.1; Python 3.14.4.
-- docker version: PASS, daemon responds. No image pulled or container run.
-- free -h / df -h .: approximately 15 GiB WSL RAM, 12 GiB available, 4 GiB swap, 948 GiB filesystem space available at inspection. Host physical capacity not independently checked.
-- git check-ignore --no-index with synthetic paths: .env, demo.pem, terraform.tfstate, terraform.tfvars, and .terraform/example ignored; .env.example not ignored as intended. PASS for these examples only; not a comprehensive secret scan.
-- git diff --check: FAIL before documentation update; trailing CR characters reported on the final lines of all three existing files. No normalization of .gitignore or AGENTS.md performed.
-- No application, Kubernetes cluster, AWS identity, cloud connectivity, security scanner, or recovery tests run. No credentials or kubeconfig contents inspected.
+| Component | Actual state | Evidence |
+|---|---|---|
+| Financial demo API | NOT IMPLEMENTED | Documentation-only repository inventory |
+| PostgreSQL and Redis | NOT IMPLEMENTED IN REPOSITORY | No application/Compose/database configuration |
+| Docker / BuildKit | No project builds or images implemented | Docker daemon was verified in earlier learning sessions; not rerun during reset |
+| AWS / Terraform / Ansible | No repository implementation; cloud account resources unknown | No cloud commands or provisioning performed |
+| Kubernetes / Helm / Argo CD | NOT IMPLEMENTED IN REPOSITORY | No manifests/charts/GitOps configuration |
+| Identity / secrets / policy | NOT IMPLEMENTED IN REPOSITORY | No configuration or runtime validation |
+| CI / scans / supply chain | NOT IMPLEMENTED IN REPOSITORY | No workflows or supply-chain artifacts |
+| Observability / recovery | NOT IMPLEMENTED IN REPOSITORY | No dashboards, telemetry configuration, or recovery evidence |
 
-## Known Issues and Blockers
-- Windows Git ownership warning: use WSL Git for this Linux repository.
-- Earlier working-tree CR findings no longer appear: git diff --check passes at this review. This does not prove all committed files use LF.
-- Terraform, Helm, kind, and Node unavailable on inspected WSL PATH; install only when needed.
-- VS Code WSL extension connection not verified; only launcher discovered.
-- Git learning checkpoint complete. Documentation commit/push/PR remains pending. Detailed requirements and initial threat model remain unfinished. No technical Git blocker observed.
+## 5. Decisions log (summary; full rationale in blueprint/ADRs)
 
-## Lessons Learned
-A CLI's presence is different from a working service: Docker daemon connectivity was verified separately. AWS CLI presence does not establish authentication. Ignore rules reduce accidental staging but do not remove tracked secrets or replace secret scanning.
+| Date | Decision | Status |
+|---|---|---|
+| 2026-10-25 | Original **SecureCloud Enterprise financial-services scenario** is canonical | User specified |
+| 2026-10-25 | Preserve exact technology stack and phase plan in `PROJECT_BLUEPRINT.md` | User specified |
+| 2026-10-25 | Use local-first WSL2 Ubuntu workflow and explicit cloud cost approvals | Adopted; WSL repository path verified, cloud account untouched |
+| 2026-10-25 | Default application is NestJS; Spring Boot is an explicit alternative | Adopted source default by explicit instruction to apply the six documents |
 
-## Environment and Dependencies
-Host: Windows environment; exact Windows edition/build not independently verified.
-Development: WSL2 Ubuntu 26.04.1, Linux filesystem repository, VS Code launcher present.
-AI Assistant: Codex.
-Cloud resources: None provisioned by this session; existing account resource inventory not inspected.
+## 6. Daily engineering log (append entries; do not rewrite history)
 
-## Git State
-Repository: Initialized (corrects original handover's uninitialized claim).
-Branch: main, tracking origin/main.
-Last Commit: cd4a2b2 docs: preserve mentoring standards and approved roadmap.
-Remote: origin configured; remote URL and credentials not printed.
-Working Tree: PROJECT_PROGRESS.md was already modified at completion-review start; this review also creates LEARNING_NOTES.md. HEAD and local origin/main match (0 ahead, 0 behind). No live remote query performed; no commits or pushes made by the assistant.
+### 2026-10-25 — Starter documentation baseline
 
-## Session Handover
-Last Action: Reviewed learner answers, revalidated Git settings and ignore tests, completed the Git learning checkpoint, and documented lessons.
-Next Exact Task: Learner reviews PROJECT_PROGRESS.md and LEARNING_NOTES.md, creates codex/git-baseline-checkpoint, stages only those documents, reviews and commits them, then pushes that branch and opens a PR when ready. Separately draft docs/requirements.md with actors, scope, role/action permissions, acceptance scenarios, and initial threats; submit for review. Phase 0 remains active; do not begin Phase 1 yet.
-Important Notes: Follow AGENTS.md and the learning-first approach. The user implements important tasks. No paid provisioning, installation, commits, pushes, or substantial scaffolding without required authorization. Architecture direction and roadmap are approved; the Git environment learning checkpoint is complete, while documentation publication and the remaining Phase 0 requirements/threat-model work remain incomplete.
+- **Task:** Reestablish original project definition and persistent AI handover system.
+- **What changed:** Created starter templates for `PROJECT_BLUEPRINT.md`, `PROJECT_PROGRESS.md`, `README.md`, `ENGINEERING_GUIDE.md`, `INTERVIEW_PREPARATION.md`, `AGENTS.md` outside the user's repository.
+- **Commands/tests actually run in user's WSL repo:** None. No repo access or environment verification performed.
+- **Git commit/PR:** None; the user or Codex must import and review the files.
+- **Issues:** Existing WSL project may contain prior work or conflicting documentation.
+- **Next:** Inspect, reconcile and adopt documentation without deleting existing work.
 
-## Session History
-- 2026-10-24: Initial progress document created. It initially recorded Git as uninitialized and no environment validation.
-- 2026-10-24: Initial mentoring inspection verified an existing Git repository, functioning WSL Docker integration, installed tools, and pre-existing line-ending issues. Corrected stale Git handover; proposed business scenario, architecture, roadmap, and first learner checkpoint. Architecture approval remains pending.
+#### Template for future daily entries
 
-Validation note: Final status still shows the same three modified files. An attempted .NET write failed because PowerShell supplied a provider-qualified path; the file was then saved using Set-Content with LF endings. The final whitespace check retains only the pre-existing .gitignore and AGENTS.md findings.
-## Git Checkpoint Review — 2026-10-24
-- Read AGENTS.md, PROJECT_PROGRESS.md, LEARNING_ROADMAP.md, and .gitignore completely; inspected directory and tracked files.
-- git status --short --branch: clean main tracking origin/main before this progress update.
-- git log -3 --oneline: cd4a2b2 followed by b275b61.
-- git diff --stat and git diff --cached --stat: no changes before the progress update.
-- git diff --check: PASS before the progress update; earlier whitespace findings are historical.
-- git rev-parse --show-toplevel / command -v git: expected Linux project path and /usr/bin/git.
-- git config --show-origin --get for core.autocrlf, core.editor, pull.ff, fetch.prune, push.default: all from .git/config; values input, code --wait, only, true, simple. PASS.
-- Local user.name/user.email existence and git var GIT_AUTHOR_IDENT validation: PASS without displaying identity. Email ownership/GitHub verification and editor launch were not tested.
-- git check-ignore --no-index .env demo.pem terraform.tfstate terraform.tfvars .terraform/example: all five paths printed. PASS for representative exclusions only.
-- Standalone git check-ignore --no-index .env.example: no output, exit 1. PASS for the intended allowlist. An earlier combined exit-code wrapper was inconclusive because of shell quoting; the standalone rerun is the authoritative result.
-- git ls-files: only .gitignore, AGENTS.md, LEARNING_ROADMAP.md, PROJECT_PROGRESS.md. No full historical secret scan performed.
-- git rev-list --left-right --count HEAD...origin/main: 0 / 0. Local refs match; live GitHub authentication and remote state not checked.
-- Learner understanding evidence: not yet provided; overall learning checkpoint INCOMPLETE. No next-phase lesson started.
-- Documentation decision: correct stale approval/Git state while retaining original inspection history. Last-updated date remains 2026-10-24.
-- Session history addition: 2026-10-24 — Verified configured Git environment; corrected handover for approved roadmap and commit cd4a2b2; left learning checkpoint open pending learner explanation.
-## Git Checkpoint Completion — 2026-10-24
-- Learner supplied all four requested explanations. Understanding accepted with refinements: commits store staged snapshots and do not inherently certify stability; global configuration is scoped to the WSL user; Docker ignore rules are separate; exit 1 from the single-path check means the path is not ignored, not that the command malfunctioned.
-- Revalidated five local Git settings and local identity presence: PASS. Identity values not displayed; GitHub email ownership not verified.
-- Revalidated representative exclusions: all five paths printed. PASS. Standalone .env.example check: no output, exit 1. PASS.
-- git status at completion-review start: main tracks origin/main; PROJECT_PROGRESS.md modified, nothing staged. Latest commit cd4a2b2; local ahead/behind counts 0/0. No live remote query performed.
-- git diff --check: PASS before documentation edits. No claim that historical committed line endings or full secret history were scanned.
-- Changed documents: PROJECT_PROGRESS.md updated for completion and next task; LEARNING_NOTES.md created for reusable Git lessons. No configuration/application/infrastructure changes.
-- GitHub checkpoint proposed: feature branch codex/git-baseline-checkpoint; commit docs: record verified Git environment checkpoint; push and PR performed by learner when ready. Publication is not claimed complete.
-- Next lesson introduced: Phase 0 requirements and initial threat modeling. Learner drafts docs/requirements.md; requirements, tests, and controls are design proposals until reviewed and implemented.
-- Session history addition: 2026-10-24 — Git environment learning checkpoint completed with technical evidence and learner answers. Phase 0 remains in progress; documentation publication and requirements exercise pending.
+```markdown
+### YYYY-MM-DD — Phase NN, Section NN.N: Task title
+- Goal and why:
+- Concepts learned:
+- Files changed:
+- Commands executed and verified outputs:
+- Functional/security tests (PASS/FAIL/NOT RUN):
+- Issues, root causes and fixes:
+- Architecture decisions:
+- Git branch, commit SHA, PR link, merge state:
+- Cloud resources and cost/teardown status:
+- Docs updated (blueprint/progress/README/guide/interview):
+- Exact next action:
+```
+
+## 7. Git and release checkpoint
+
+- **Current branch:** codex/p00-project-realignment, created from b1186ac without changing history.
+- **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Live authentication, PR state, and remote resource availability unverified.
+- **Last commit:** b1186ac docs: record verified Git environment checkpoint. Earlier commits cd4a2b2 and b275b61 preserved.
+- **Open PR:** UNKNOWN — check GitHub when connected.
+- **Working branch:** use existing codex/p00-project-realignment for this reset; do not create another repository or redundant branch.
+- **Next checkpoint:** Review docs; validate no secrets; stage only approved files; commit; push branch with approval; open PR to `main`.
+- **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
+
+## 8. Known blockers and risks
+
+1. Authorized documentation replacement is applied; pending changes require review and a commit. Git history and .gitignore remain intact.
+2. AWS spend and active resources are unknown; no cloud provisioning until approved.
+3. Repository inventory contains documentation only. No runtime/application/CI checks can be claimed passed. Verify VS Code WSL connection before completing Phase 00.
+4. `README.md` must remain truthful about features that are only planned.
+
+## 9. Exact handover instructions for the next AI
+
+1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
+2. Inspect current WSL directory and Git state, then compare with the records above.
+3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
+4. Continue **Phase 00.1**, not Phase 01, until the existing repo is safely audited.
+5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
+6. At section completion, give user tailored Git branch/commit/push/PR commands and wait for approval.
+7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
+
+## 10. Applied reset — 2026-10-25
+
+- **Authorization:** User explicitly directed applying the exact six Markdown sources and removing obsolete root/docs documents instead of archiving. No additional documentation files or archive were created.
+- **Active documents:** AGENTS.md, PROJECT_BLUEPRINT.md, PROJECT_PROGRESS.md, README.md, ENGINEERING_GUIDE.md, INTERVIEW_PREPARATION.md. Five are exact source copies; this progress file uses the source structure with actual verified status and this log.
+- **Removed:** DECISIONS.md, LEARNING_NOTES.md, LEARNING_ROADMAP.md, docs/requirements.md, docs/threat-model.md, and the now-empty docs directory. Old untracked drafts were removed as authorized, not archived. Previously committed files remain recoverable through Git history.
+- **Preserved:** .git and all three existing commits; .gitignore unchanged; all six .project-realignment source documents unchanged. No application, infrastructure, credentials, or cloud resources touched.
+- **Earlier learning evidence retained:** prior WSL/Git identity/settings checks, positive/negative ignore checks, learner Git explanations, and Docker daemon connectivity were recorded in earlier sessions. These remain historical evidence, not a claim of completing the restarted phases or fresh runtime verification.
+- **Actual commands:** read source/current documents; git status/log/ls-files; git switch -c codex/p00-project-realignment; pwd; realpath .; git --version; Copy-Item for the six sources; Remove-Item only for the five explicitly inspected obsolete files and empty docs directory. No recursive deletion.
+- **Five-document review:** blueprint, README, engineering guide, and interview preparation adopted directly from the supplied sources; progress reconciled to actual path, branch, commit, inventory, authorization, and next task. AGENTS adopted directly. No speculative phase entries or additional files generated.
+- **Next practical task:** in WSL open code ., confirm the editor is connected to WSL Ubuntu, read PROJECT_BLUEPRINT.md sections 1-6, review git status and diff, and return results. Then prepare a reviewed docs-only commit; no automatic push or merge.
+- **Commit/PR:** none created by this reset. Cloud account state and external infrastructure remain unknown; no cloud inventory or provisioning requested.
+- **Final validation:** PASS: exactly six root Markdown filenames; five source copies byte-identical by SHA-256; progress reconciled; local Markdown links resolve; all six files pass trailing-whitespace inspection; old docs directory absent. git diff --check PASS; .gitignore unchanged; staging area empty; three existing commits retained. Gitleaks not found on WSL PATH: automated secret scan NOT RUN. No runtime tests run.
+
+## Duplicate source cleanup — 2026-10-25
+
+- User explicitly authorized deleting .project-realignment after confirming active root copies exist.
+- Verified the source folder contained only the six expected Markdown files and all six active root documents existed; removed those six source files and the empty folder without recursive deletion.
+- Active root documents, .gitignore, and Git history preserved. Only PROJECT_PROGRESS.md content updated to record this cleanup; other active documents unchanged because their content did not change.
+- Current phase remains 00.1. Next action remains root blueprint review, VS Code WSL verification, and reviewed documentation Git checkpoint. No commit or push performed.
+## Session handover — 2026-10-25
+
+- User plans to resume building on 2026-10-26 (Asia/Colombo). No reminder or scheduled/background work requested.
+- Reconfirmed permanent AGENTS.md sections 4 and 7: after each verified completed section, update progress, add the engineering-guide entry and 1-3 interview Q&As; update README and blueprint only when their documented triggers apply. Inspect all five and report which changed and why.
+- Inspected all five documents. Only PROJECT_PROGRESS.md changed for this handover. Blueprint, README, engineering guide, and interview preparation remain unchanged because no new engineering section was completed today. AGENTS.md already contains the requested permanent rule; no duplicate instruction added.
+- Verified Git state: codex/p00-project-realignment, HEAD b1186ac; tracked modifications AGENTS.md and PROJECT_PROGRESS.md, tracked deletions LEARNING_NOTES.md and LEARNING_ROADMAP.md; four new root documents untracked. No staged changes or new commit. git diff --check PASS before the handover update.
+- Next session: read AGENTS.md, full blueprint, and progress; inspect actual Git state; resume Phase 00.1 with VS Code WSL verification and the pending reviewed documentation checkpoint. Proceed through blueprint phases only after their completion criteria are evidenced. No automatic commit, push, installation, or provisioning authorized.
+## 2026-10-26 — Phase 00.1 resumed: learner-run workspace checkpoint
+
+- **Goal:** Begin slowly with verified editor/workspace/Git context; no application scaffolding or installations.
+- **User preference:** learner executes project commands and scripts after brief explanations; assistant teaches, reviews, and maintains Markdown. Announce every checkpoint and guide publication to the dedicated Project 1 GitHub repository. Permanent rule added to AGENTS.md.
+- **Startup:** read full blueprint/progress and all five synchronized documents; inspected Linux path, Git status, branch/base, recent history, diffs, staging, whitespace, and remote name.
+- **Verified Git state:** codex/p00-project-realignment at b1186ac; based on the existing Git-baseline commit. main remains cd4a2b2. origin exists, but URL ownership/intended repository and live connectivity not yet verified in this resumed section.
+- **Actual checks:** pwd returned /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform. git status shows AGENTS.md and PROJECT_PROGRESS.md modified, LEARNING_NOTES.md and LEARNING_ROADMAP.md deleted, and four new root documents untracked. git diff --cached --stat empty. git diff --check PASS before this entry. No new branch, staging, commit, push, installation, or cloud action.
+- **Current task status:** IN PROGRESS; learner VS Code WSL confirmation and command results pending. No section/phase marked complete. No runtime/security scan executed.
+- **Documents:** PROJECT_PROGRESS.md changed for current evidence/date/next action; AGENTS.md changed for permanent execution/documentation preferences. Blueprint, README, engineering guide, and interview preparation inspected and unchanged: no new capability, approved architecture change, or completed learning section requires an entry yet.
+- **Next exact action:** learner runs the provided read-only checks from VS Code's WSL terminal and confirms WSL: Ubuntu. Expected branch is codex/p00-project-realignment; expected dirty status is the known documentation migration. Review origin locally and redact any embedded credentials before sharing output. Do not initialize another repository, create a redundant branch, or install tools.
+- **Next announced GitHub checkpoint:** after workspace verification, review all six root documents and tracked deletions, verify secret exposure risk, stage explicit approved paths, review staged diff, then learner commits/pushes/opens PR. Publication is pending, not completed.
+## 2026-10-26 — Announced checkpoint: documentation baseline staged review
+
+- **Learner results:** expected branch codex/p00-project-realignment, documentation changes/deletions, HEAD b1186ac, and origin fetch/push git@github.com:Kashmitha/secure-cloud-platform.git. No credentials in that SSH URL.
+- **Assistant revalidation:** pwd and command -v git confirm expected Linux paths; git status/log match learner output; git diff --check PASS; git diff --cached --stat empty. No staging, commit, push, or network authentication attempted by assistant.
+- **Bounded security check:** inspected six active root Markdown files and .gitignore for private-key headers, AWS access-key IDs, and recognized GitHub token patterns; no matches. Comprehensive secret/history scan NOT RUN. No additional files present beyond six root documents, .gitignore, and .git.
+- **Corrections before staging:** README now states NestJS default consistently with blueprint and distinguishes adopted documentation from pending architecture; engineering guide records verified Git observations without claiming the section complete.
+- **Five-document synchronization:** progress updated for evidence and staging instructions; README updated for accurate status/default; engineering guide updated with observed command behavior and limitations; blueprint unchanged because scope has not changed; interview preparation unchanged because Phase 00.1 and its Git checkpoint are not completed. AGENTS unchanged this turn.
+- **Pending evidence:** VS Code WSL indicator has not been explicitly confirmed. No claim that configured origin proves successful SSH access or publication. Proceed with review preparation, but do not mark Phase 00 complete.
+- **Learner next action:** git add with explicit eight paths (six active docs plus LEARNING_NOTES.md/LEARNING_ROADMAP.md deletions); git diff --cached --check; git diff --cached --stat; git status --short; git diff --cached. Read staged content, then share summary output and confirm WSL indicator. Commit proposal after review: docs: adopt SecureCloud Enterprise project baseline.
