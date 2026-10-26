@@ -58,7 +58,7 @@ See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the approved target desig
 
 | Milestone | Status |
 |---|---|
-| Project baseline and architecture | Documentation baseline adopted; WSL/Linux Git verified; reviewed Git checkpoint and Phase 01 architecture work pending |
+| Project baseline and architecture | Baseline merged via PR #2; WSL/Linux Git and local synchronization verified; VS Code WSL confirmed by learner; checkpoint-record publication and Phase 01 architecture work pending |
 | API and local containers | Not verified |
 | AWS and Terraform | Not verified |
 | Kubernetes, Helm and GitOps | Not verified |
@@ -112,7 +112,9 @@ As implementation grows, this README will link to `docs/architecture/`, `docs/se
 
 ## Evidence and demos
 
-Evidence links, architecture screenshots, successful pipeline runs, policy-denial demonstrations, observability dashboards and recovery-drill results will be added **after verification**.
+[PR #2: documentation baseline](https://github.com/Kashmitha/secure-cloud-platform/pull/2) is merged; baseline commit 1ac55f2, merge commit c3c2474. This is documentation/Git workflow evidence only.
+
+Application demonstrations, successful pipeline runs, policy-denial evidence, dashboards, and recovery results will be added **after verification**. None is claimed by the documentation baseline.
 
 ## Learning outcomes
 

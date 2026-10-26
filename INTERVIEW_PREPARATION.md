@@ -2,7 +2,7 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Starter questions for Phase 00 only. These are preparation material, **not proof that Phase 00 has been completed**.
+> **Status:** Phase 00 starter questions plus three project-based Git workflow Q&As. These support the demonstrated exercise; full Phase 00 completion and interview mastery are not claimed.
 
 ## How to study
 
@@ -17,6 +17,7 @@
 **Q1. Why use WSL2 Ubuntu instead of developing the entire cloud-native platform only in Windows folders?**
 
 **A:** WSL2 provides a Linux environment aligned with common containers, Kubernetes tooling and server operations. Keeping active repositories in the Linux filesystem reduces cross-filesystem friction. VS Code can edit the same Linux files through its WSL integration. Windows itself is still a valid host; the key is consistent execution and a single authoritative working copy.
+**Project example:** repository paths and Linux Git were checked in WSL; learner confirmed the VS Code WSL: Ubuntu indicator on 2026-10-26.
 
 **Q2. What is the difference between a Git commit, a branch and a pull request?**
 
@@ -60,3 +61,20 @@ Use this compact format:
 | 17 | Architecture tradeoffs, cost, incident stories, engineering evidence |
 
 **Rule:** Do not generate all future answers in advance. Update this file section by section as actual knowledge and evidence accumulate.
+
+## Phase 00 — Demonstrated Git baseline workflow (2026-10-26)
+
+**Q1. What is the difference between staging, committing, and pushing?**
+
+**A:** Staging selects the content for the next commit. A commit records that selected snapshot locally. Pushing publishes commits to a remote; uncommitted working-tree edits are not uploaded.
+**Project example:** eight documentation paths were staged and checked, committed as 1ac55f2, then pushed to origin/codex/p00-project-realignment. Later progress-note edits stayed local until separately recorded.
+
+**Q2. Does merging a pull request automatically update the local main branch?**
+
+**A:** No. GitHub updates the remote branch. After preserving local edits, switch to local main and pull; --ff-only refuses a divergent history instead of silently creating another merge. A clean status does not alone prove the branch is up to date without suitable remote verification.
+**Project example:** PR #2 merged as c3c2474; learner then synchronized local main and verified that exact merge commit in git log.
+
+**Q3. Why use stash apply instead of stash pop during a careful handover?**
+
+**A:** apply restores saved changes while retaining the stash as a backup. pop removes the stash after successful application. Keeping the backup until restoration and commit are verified makes recovery easier; neither action replaces review for conflicts or sensitive data.
+**Project example:** phase00-checkpoint-notes preserved PROJECT_PROGRESS.md during main synchronization and remained in stash@{0} after notes were restored onto codex/p00-checkpoint-record.

@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 workspace/Git evidence recorded below; VS Code WSL confirmation and documentation Git checkpoint remain pending. No application implementation yet.
+> **Status:** Phase 00 Git baseline workflow demonstrated through merged PR #2 and local synchronization; learner confirmed VS Code WSL: Ubuntu on 2026-10-26; checkpoint-record publication remains pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -96,4 +96,19 @@ git log -5 --oneline
 - **Staging concept:** git add selects content for the next commit, including deliberate deletions. git diff --cached reviews that exact selected snapshot. A plain unstaged diff does not include new untracked documents; review them after explicit staging.
 - **Security:** a bounded check of current documents found no private-key headers, AWS access-key IDs, or recognized GitHub token patterns. Gitleaks/history scanning has not run; do not describe this limited check as comprehensive.
 - **Troubleshooting:** if the branch/path differs, stop and inspect rather than running git init, resetting, or deleting files. A missing/new/deleted status can be expected during this approved documentation migration.
-- **Pending:** learner confirmation of VS Code WSL: Ubuntu; staged-diff review; commit, remote push and PR evidence. Section/phase is not complete yet.
+- **Current evidence:** baseline staged and checked; committed as 1ac55f2; pushed over SSH; PR #2 merged as c3c2474; local main synchronized; progress notes restored on codex/p00-checkpoint-record. The original observations above are historical, not the latest branch state.
+- **Editor evidence:** learner explicitly confirmed the lower-left VS Code indicator shows WSL: Ubuntu on 2026-10-26. This is user-provided UI evidence, not an assistant-observed screenshot.
+- **Pending:** reviewed publication of this checkpoint record. Full Phase 00 remains in progress until its Git checkpoint is finalized.
+
+## Phase 00 — Git baseline workflow demonstrated (2026-10-26)
+
+- **What:** staging selects content; a commit records it locally; push publishes commits; a PR reviews/integrates a branch; pull updates the local branch afterward.
+- **Why:** separate reviewable changes from the main baseline, retain evidence, and avoid losing uncommitted documentation while synchronizing.
+- **Project evidence:** commit 1ac55f2; [merged PR #2](https://github.com/Kashmitha/secure-cloud-platform/pull/2); merge c3c2474; current records branch codex/p00-checkpoint-record based on that merge.
+- **Verified learner commands:** git diff --cached --check passed; git commit and push -u origin codex/p00-project-realignment succeeded; git status/log verified synchronized main at c3c2474. A named path-specific stash preserved PROJECT_PROGRESS.md; restored working-tree status on the new branch shows only that file modified before these notes were added.
+- **Command meanings:** --cached reads the staging area. push -u establishes upstream tracking. pull --ff-only updates without creating a merge commit and refuses diverged history. stash apply restores saved edits and retains the stash; pop also removes it on successful restoration.
+- **Safe recovery:** stash only the intended tracked file; inspect stash list and working-tree changes; retain the backup until restoration and commit are verified. Stop on conflicts; do not force-reset or discard notes. Sensitive values must not be treated as safe merely because they are in a local stash.
+- **Observed process issue:** baseline merged before the requested review pause. No rollback needed for the inspected docs; future PRs must wait for review. No formal GitHub approval/check status was claimed.
+- **Security scope:** only documentation exists. Bounded credential-pattern checks found no matches; no comprehensive history scan or application security test has run. No AWS resources were created.
+- **References:** https://git-scm.com/docs/git-add ; https://git-scm.com/docs/git-stash ; https://git-scm.com/docs/git-pull
+- **Remaining section gate:** reviewed publication of checkpoint records; VS Code WSL confirmation is complete. This entry documents demonstrated Git work, not completion of Phase 00.
