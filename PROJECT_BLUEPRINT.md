@@ -2,7 +2,7 @@
 
 > **Document role:** The authoritative, stable specification for Project #1. Read this before proposing architecture or implementation. Do not silently replace the business scenario or the committed technology stack.
 >
-> **Version:** 1.0 · **Status:** Proposed baseline awaiting initial architecture approval · **Last reviewed:** 2026-10-25
+> **Version:** 1.0.1 · **Status:** Proposed baseline awaiting initial architecture approval · **Last reviewed:** 2026-10-26
 
 ## 1. Identity and mission
 
@@ -158,7 +158,7 @@ flowchart LR
 
 **Repository:** One GitHub repository for Project #1, e.g. `securecloud-enterprise`. Do not create a Git repository inside another Git repository by accident. Keep Project #2 and #3 separate.
 
-**Branch policy (recommended):** Protected `main`; each section/task uses `feature/pNN-short-description` (e.g. `feature/p01-threat-model`); fixes use `fix/pNN-short-description`; documentation-only work may use `docs/pNN-short-description`. A PR targets `main` after validation. Use a dedicated `dev` integration branch only if the user explicitly chooses a more complex multi-environment workflow.
+**Branch policy (adopted 2026-10-26):** Protected `main`; each section/task uses `feature/pNN-short-description` (e.g. `feature/p01-threat-model`); fixes use `fix/pNN-short-description`; documentation/design work uses `docs/pNN-short-description`; maintenance uses `chore/pNN-short-description`. Names describe the task, without assistant/model branding. Existing historical branch names remain factual records. A PR targets `main` after validation. Use a dedicated `dev` integration branch only if the user explicitly chooses a more complex multi-environment workflow.
 
 **At the beginning of every section:**
 
@@ -207,3 +207,7 @@ A task/section is done only when the user has learned the concept, implementatio
 - OpenTelemetry: https://opentelemetry.io/docs/
 
 Always check current official docs for commands, versions, deprecations and pricing before using them.
+
+## Change log
+
+- 1.0.1 — 2026-10-26: user adopted purpose-based feature/, fix/, docs/, and chore/ branch naming for all future work. Workflow clarification only; financial-services scope, stack, phases, and pending architecture-approval status unchanged.

@@ -44,6 +44,8 @@ The AI is responsible for keeping **all five documents accurate**:
 
 **Before starting a new section:** Inspect Git status, current branch, remote and base; propose a dedicated `feature/pNN-description` branch (or appropriate `fix/` or `docs/` branch). Explain commands and avoid losing uncommitted work.
 
+Adopted branch naming: use feature/pNN-description for implementation, fix/pNN-description for corrections, docs/pNN-description for documentation/design, and chore/pNN-description for maintenance. Branch names describe work and must not use assistant/model branding. Follow this convention for the rest of the project. Preserve existing branch names in historical evidence; do not rename, delete, or rewrite history merely to change its appearance.
+
 **At section/phase checkpoint:** Run actual checks where permitted; show `git status`, `git diff`, `git diff --check`, review staged files, secret scan, tailored `git add`, `git diff --cached`, conventional `git commit`, `git push -u origin <branch>` and PR instructions. Explain merge checks and branch cleanup. Record actual commit SHA/PR link in progress after they exist. Prefer protected `main` and PR reviews. No direct pushes to protected `main`.
 
 **Permission boundary:** Do **not** commit, push, merge, delete branches, rewrite history, destroy data, install large dependencies or provision billable AWS resources without explicit user approval. Never print or commit secrets, Terraform state or private keys.

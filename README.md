@@ -2,7 +2,7 @@
 
 **Enterprise Secure Cloud-Native Platform — a hands-on DevSecOps and platform engineering portfolio project**
 
-> **Status:** Architecture and repository baseline in preparation. The components below describe the **planned target**, not features already deployed. Verified implementation evidence will be added as milestones are completed.
+> **Status:** Phase 00 workspace/documentation baseline complete; Phase 01 business architecture in progress. The components below describe the **planned target**, not features already deployed. Verified implementation evidence will be added as milestones are completed.
 
 ## The challenge
 
@@ -58,7 +58,8 @@ See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the approved target desig
 
 | Milestone | Status |
 |---|---|
-| Project baseline and architecture | Baseline merged via PR #2; WSL/Linux Git and local synchronization verified; VS Code WSL confirmed by learner; checkpoint-record publication and Phase 01 architecture work pending |
+| Phase 00 workspace and documentation baseline | Complete; PRs #2/#3 merged; Linux Git and WSL editor verified; local main synchronized at 2cb63f9 |
+| Phase 01 business architecture | Introductory ownership/role-separation learning review passed; section Git checkpoint, detailed architecture and threat model pending |
 | API and local containers | Not verified |
 | AWS and Terraform | Not verified |
 | Kubernetes, Helm and GitOps | Not verified |
@@ -97,7 +98,7 @@ As implementation grows, this README will link to `docs/architecture/`, `docs/se
 ## Development and contribution workflow
 
 1. Read the blueprint and current progress before beginning a task.
-2. Work on a dedicated feature branch (`feature/pNN-description`) from the approved base.
+2. Work on a purpose-based branch from the approved base: `feature/pNN-description` for implementation, `fix/pNN-description` for corrections, `docs/pNN-description` for documentation/design, or `chore/pNN-description` for maintenance.
 3. Implement and validate one milestone at a time; capture evidence.
 4. Update relevant documentation and check for exposed secrets.
 5. Review, commit and push the branch; open a PR to protected `main` when configured.
@@ -113,6 +114,8 @@ As implementation grows, this README will link to `docs/architecture/`, `docs/se
 ## Evidence and demos
 
 [PR #2: documentation baseline](https://github.com/Kashmitha/secure-cloud-platform/pull/2) is merged; baseline commit 1ac55f2, merge commit c3c2474. This is documentation/Git workflow evidence only.
+
+[PR #3: Phase 00 checkpoint evidence](https://github.com/Kashmitha/secure-cloud-platform/pull/3) is merged; reviewed head f929c74, merge commit 2cb63f9. Local main synchronization and learner WSL editor confirmation complete the baseline milestone. No application deployment or CI implementation is implied.
 
 Application demonstrations, successful pipeline runs, policy-denial evidence, dashboards, and recovery results will be added **after verification**. None is claimed by the documentation baseline.
 

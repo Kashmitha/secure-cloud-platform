@@ -2,7 +2,7 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 starter questions plus three project-based Git workflow Q&As. These support the demonstrated exercise; full Phase 00 completion and interview mastery are not claimed.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; Git checkpoint pending.
 
 ## How to study
 
@@ -62,7 +62,7 @@ Use this compact format:
 
 **Rule:** Do not generate all future answers in advance. Update this file section by section as actual knowledge and evidence accumulate.
 
-## Phase 00 — Demonstrated Git baseline workflow (2026-10-26)
+## Phase 00 — Git baseline workflow (COMPLETED 2026-10-26)
 
 **Q1. What is the difference between staging, committing, and pushing?**
 
@@ -72,9 +72,21 @@ Use this compact format:
 **Q2. Does merging a pull request automatically update the local main branch?**
 
 **A:** No. GitHub updates the remote branch. After preserving local edits, switch to local main and pull; --ff-only refuses a divergent history instead of silently creating another merge. A clean status does not alone prove the branch is up to date without suitable remote verification.
-**Project example:** PR #2 merged as c3c2474; learner then synchronized local main and verified that exact merge commit in git log.
+**Project example:** PR #2 merged as c3c2474; learner synchronized local main. The reviewed checkpoint record f929c74 then merged through PR #3 as 2cb63f9; learner again pulled --ff-only and verified a clean synchronized main.
 
 **Q3. Why use stash apply instead of stash pop during a careful handover?**
 
 **A:** apply restores saved changes while retaining the stash as a backup. pop removes the stash after successful application. Keeping the backup until restoration and commit are verified makes recovery easier; neither action replaces review for conflicts or sensitive data.
 **Project example:** phase00-checkpoint-notes preserved PROJECT_PROGRESS.md during main synchronization and remained in stash@{0} after notes were restored onto codex/p00-checkpoint-record.
+
+## Phase 01.1 — Ownership and role separation (LEARNED 2026-10-27; Git checkpoint pending)
+
+**Q1. Does logging in authorize access to every customer account?**
+
+**A:** No. Authentication establishes identity; authorization checks whether that identity may perform an action on a particular resource. A customer must not read or modify another customer's private account just because they are logged in.
+**Project example:** the learner explained cross-customer privacy and unauthorized-change risks. API checks are planned, not implemented or tested.
+
+**Q2. Why separate deployment permission from business permissions?**
+
+**A:** Releasing software and performing account actions are different responsibilities. Grant only the permissions needed for each task; releasing a login fix does not require an application role that edits balances. Deployment remains powerful, so reviewed releases and restricted, audited privileged access are also needed.
+**Project example:** the learner correctly selected deployment permission without balance-editing permission for a login bug fix. This verifies introductory understanding, not a deployed control.
