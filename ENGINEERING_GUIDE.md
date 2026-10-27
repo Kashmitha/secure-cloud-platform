@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 introductory learning review passed on 2026-10-27; documentation Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 introductory failure-scenario review passed; documentation Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 learning review passed; Git checkpoint pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 complete; 01.2 acceptance draft introduced |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -113,11 +113,11 @@ git log -5 --oneline
 - **References:** https://git-scm.com/docs/git-add ; https://git-scm.com/docs/git-stash ; https://git-scm.com/docs/git-pull
 - **Section gate satisfied:** checkpoint record f929c74 reviewed here, merged via PR #3 as 2cb63f9, and synchronized locally; WSL editor confirmed. Phase 00 complete. No automated CI pass or formal GitHub approval is claimed.
 
-## Phase 01.1 — Business goal, actors, and protected assets (LEARNING REVIEW PASSED 2026-10-27; Git checkpoint pending)
+## Phase 01.1 — Business goal, actors, and protected assets (COMPLETED 2026-10-27)
 
 ### Objective and prerequisites
 
-Understand the small financial-services simulation before deciding detailed permissions, network boundaries or tools. Phase 00 is complete; no new installation is required. The learner created docs/p01-business-architecture from verified main 2cb63f9; branch and HEAD verified on 2026-10-26. The docs/ prefix identifies documentation/design work; p01 identifies the phase. Future implementation uses feature/, fixes use fix/, and maintenance uses chore/. The six prepared Markdown edits carried into the branch; nothing is staged.
+Understand the small financial-services simulation before deciding detailed permissions, network boundaries or tools. Phase 00 is complete; no new installation is required. The learner created docs/p01-business-architecture from verified main 2cb63f9; branch and HEAD verified on 2026-10-26. The docs/ prefix identifies documentation/design work; p01 identifies the phase. Future implementation uses feature/, fixes use fix/, and maintenance uses chore/. At branch creation the six prepared Markdown edits carried across with nothing staged. This is historical setup evidence.
 
 ### What and why
 
@@ -175,3 +175,30 @@ Learner branch exists; learner can distinguish actors, assets, authentication, a
 
 - [OWASP threat modeling](https://community.owasp.org/Threat_Modeling)
 - [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+
+**Phase 01.1 Git closure:** reviewed commit e92d71f published and merged via [PR #4](https://github.com/Kashmitha/secure-cloud-platform/pull/4) as 0389e9c; main synchronized and progress notes restored on docs/p01-acceptance-requirements. No implemented authorization controls or CI pass implied.
+
+## Phase 01.2 — Acceptance requirements: own-account read (LEARNING REVIEW PASSED 2026-10-27; Git checkpoint pending)
+
+- **Objective:** Turn one business capability into observable outcomes that can later become tests.
+- **Concept / why:** A requirement states what must happen. An acceptance scenario gives a starting situation (Given), an action (When), and an observable result (Then). This makes a vague statement such as “accounts are secure” reviewable before writing code. Plain prose is sufficient; no new test framework or installation is needed.
+- **Where:** This guide holds the small draft; progress records its review state. The blueprint remains the scope authority. Current branch: docs/p01-acceptance-requirements at 0389e9c.
+- **Proposed capability AC-READ-01:** An authenticated customer can retrieve their own existing synthetic account information when the data dependency is available. Ownership must be checked by the API; a supplied account identifier is not proof of permission. This read operation must not change balances.
+
+| Scenario | Given | When | Then (proposed acceptance outcome) |
+|---|---|---|---|
+| Success | Customer A is authenticated, owns the requested existing account, and the database is available | A requests that account | Return A's stored synthetic account information without changing it |
+| Unauthorized access | A is authenticated but the requested account belongs to B | A requests B's private account | Deny access and return none of B's private account data |
+| Dependency failure | A is authenticated and the database cannot supply the requested account | A requests their account | Return a controlled error; do not invent a balance, return success with zero, or disclose connection secrets |
+
+These three rows are **design scenarios, NOT EXECUTED tests**. They are a first slice, not the full acceptance suite. Anonymous/expired sessions, absent accounts and exact endpoint/status-code behavior will be specified later. No stale-cache fallback is proposed here.
+
+- **Small learner task:** Review the rows and explain what should happen when the database is unavailable and why a zero balance is misleading. The assistant writes the documentation; the learner reviews the behavior. No application commands yet.
+- **Expected result:** Learner distinguishes a legitimate stored zero from missing/unavailable data and accepts or corrects the proposed outcomes.
+- **Validation/security plan:** Later tests must verify returned ownership, no cross-customer data, no write during reads and controlled dependency failure. For now validate scenario clarity through learner review; do not record runtime PASS.
+- **Troubleshooting drill:** A proposed response says “success, balance 0” during a database outage. Identify that unavailable data has been converted into false account information; require an explicit failure instead.
+- **Completion criteria:** Learner reviews these outcomes, explains the failure case, and any corrections/open questions are documented. Then perform the reviewed documentation Git checkpoint. This does not complete Phase 01's overall architecture/threat-model deliverables.
+- **GitHub checkpoint:** After review, inspect changed files and staged diff, run whitespace and bounded secret-exposure checks, then guide learner commit/push/PR. Include restored previous-section evidence; do not create a separate cleanup-only PR.
+- **Reference:** [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) for enforcing resource permissions. The scenario identifiers and proposed outcomes above are this project's design draft.
+
+**Learning review — 2026-10-27:** Learner correctly identified that database unavailability must not produce balance data. Clarification: the true stored balance may be zero or nonzero; neither can be inferred from a failed read. A controlled error preserves the distinction between unknown data and a valid zero. The learner's answer is conceptual evidence only; the three draft scenarios have not been run against an API. Section Git checkpoint remains pending.
