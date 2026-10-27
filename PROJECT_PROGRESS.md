@@ -2,7 +2,7 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-27 · **Current status:** PHASE 01.1 LEARNING REVIEW COMPLETE / GIT CHECKPOINT PENDING · **Current phase:** 01
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-27 · **Current status:** PHASE 01.2 LEARNING REVIEW PASSED / GIT CHECKPOINT PENDING · **Current phase:** 01
 
 ## 1. Quick resume card (read this first)
 
@@ -11,13 +11,13 @@
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
 | Canonical scope | `PROJECT_BLUEPRINT.md` v1.0.1 |
 | Current phase | **01 — Business architecture and threat model** |
-| Current section | **01.1 — Business goal, actors, and protected assets** (introductory learning review complete; Git checkpoint pending) |
-| Last completed task | Phase 00 completed: baseline and checkpoint records merged through PRs #2/#3; local main synchronized at 2cb63f9; no application implementation |
-| Next exact action | Branch docs/p01-business-architecture created and verified at 2cb63f9 with the prepared documentation edits. Both introductory access/ownership answers accepted. Review the six-document diff, stage the explicit paths, and share staged validation before committing. No installs, code scaffolding, or cloud provisioning. |
+| Current section | **01.2 — Acceptance requirements: own-account read** (failure-scenario review passed; Git checkpoint pending) |
+| Last completed task | Phase 01.1 introductory learning review and reviewed six-document commit e92d71f merged through PR #4 as 0389e9c; main synchronized and progress notes restored on the next section branch; no application implementation |
+| Next exact action | Review the four changed Markdown files; stage only progress, guide, interview preparation and README; run cached checks and review staged content before committing. No application implementation or runtime tests yet. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | docs/p01-business-architecture at 2cb63f9; six modified Markdown files, nothing staged. PRs #2 and #3 merged; no new commit or publication for this branch |
+| Git branch / remote / HEAD | docs/p01-acceptance-requirements at 0389e9c; base matches local main/origin/main (0/0). Prior progress notes restored; current section documentation edits uncommitted; staging empty. Both named stashes retained. PR #4 merged and synchronized. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | No baseline blocker. Phase 01.1 introductory concept review passed; documentation Git checkpoint pending. No runtime implementation or tests yet |
+| Current blocker | No technical blocker. Phase 01.2 introductory failure-scenario answer accepted with clarification that stored balances may genuinely be zero; reviewed Git checkpoint pending. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -27,7 +27,7 @@
 | Phase | Milestone | Status | Evidence / reference |
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
-| 01 | Business architecture and threat model | **IN PROGRESS — 01.1 learning review complete; publication pending** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
+| 01 | Business architecture and threat model | **IN PROGRESS — 01.1 learning review and PR merge complete** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
 | 02 | Linux, networking, Git and pre-commit | NOT VERIFIED | — |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** docs/p01-business-architecture at verified merge 2cb63f9; learner created the branch with six documentation changes carried across.
+- **Current branch:** docs/p01-acceptance-requirements at 0389e9c; based on synchronized main; latest progress evidence restored from p01-checkpoint-notes.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** 2cb63f9 Merge pull request #3 from Kashmitha/codex/p00-checkpoint-record. Reviewed head f929c74; baseline/earlier history preserved.
+- **Last commit:** 0389e9c Merge pull request #4 from Kashmitha/docs/p01-business-architecture; reviewed head e92d71f; earlier history preserved.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active section branch:** docs/p01-business-architecture, created by learner and verified on 2026-10-26. No separate cleanup-only PR required.
-- **Next checkpoint:** Phase 01.1 introductory learning review passed; staged documentation review, commit and PR on docs/p01-business-architecture. Include these closeout notes with Phase 01 work. No additional baseline exercise or automatic Git mutation.
+- **Active section branch:** docs/p01-acceptance-requirements, created by learner from 0389e9c and verified on 2026-10-27. Prior section PR: https://github.com/Kashmitha/secure-cloud-platform/pull/4 — MERGED.
+- **Next checkpoint:** After Phase 01.2 learner review, validate the small acceptance-requirements draft and synchronized records, then guide explicit staging, reviewed commit, push and PR on the active branch. No new cleanup-only PR or assistant Git mutation.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Continue **Phase 01.1** with staged review and Git publication; introductory learning questions have passed on the verified section branch. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Continue **Phase 01.2** with own-account-read acceptance-scenario review. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give user tailored Git branch/commit/push/PR commands and wait for approval.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -268,3 +268,48 @@
 - Checkpoint includes Phase 00 closeout, approved branch naming and Phase 01.1 learning notes. Learner next runs git diff, explicit six-file git add, git diff --cached --check, git diff --cached --stat, git status --short and git diff --cached, then shares results for final staged review. Proposed commit: docs(p01): record business access review and baseline closeout. Push/PR guidance follows staged review; no automatic Git mutation.
 - Section publication remains pending. Do not start the next section until the reviewed checkpoint is fulfilled. Next planned lesson afterward: small functional/security acceptance requirements, staying within Phase 01.
 - Final preparation checks: git diff --check PASS; bounded credential-pattern check of the six root Markdown files PASS (no matching patterns). This is not a comprehensive secret/history scan. Staged content must still be reviewed after learner staging.
+
+### 2026-10-27 — Phase 01.1 local checkpoint commit verified
+
+- Learner committed the reviewed six-document snapshot as e92d71f, docs(p01): record business access review and baseline closeout. Assistant independently verified correct WSL path, branch, HEAD, expected six-file commit summary (162 insertions/35 deletions), clean working tree before this entry, expected origin and git diff --check PASS.
+- Earlier staged review and bounded credential-pattern check passed. No application/runtime tests apply to this documentation-only commit. No remote publication or PR for this branch verified yet; no formal GitHub approval or CI pass claimed.
+- Only progress changed in this step to record actual commit evidence and publication next action. Other four synchronized documents were inspected during the staged review and need no further edits: no new learning section, approved scope change or operational capability. AGENTS unchanged.
+- Next learner command: git push -u origin docs/p01-business-architecture. It publishes committed history and sets tracking; this new uncommitted progress entry is not uploaded. Preserve it for the next documentation checkpoint rather than repeatedly amending the verified commit. No assistant Git mutation performed. Phase 01.1 publication remains pending.
+
+### 2026-10-27 — Phase 01.1 branch publication verified
+
+- Learner push -u succeeded to github.com:Kashmitha/secure-cloud-platform.git, creating origin/docs/p01-business-architecture and establishing upstream tracking. Assistant read-only inspection confirms HEAD e92d71f, tracking branch, local tracking ahead/behind 0/0, only PROJECT_PROGRESS.md modified, empty staging and git diff --check PASS. Push success is evidenced by learner output; no separate live remote query performed.
+- Next: learner opens a PR to main, title docs(p01): record business access review and baseline closeout, and shares its actual URL before merge. PR existence, GitHub review/check status and merge remain unverified. No application or infrastructure tests run.
+- Only progress updated for publication evidence and next action. Blueprint, README, engineering guide and interview preparation retain the reviewed checkpoint content; no new learning section or capability requires further edits. AGENTS unchanged. New local progress notes are not included in pushed e92d71f; preserve for the next checkpoint, without repeated amend/push cycles.
+
+### 2026-10-27 — PR #4 reviewed; learner merge pending
+
+- PR https://github.com/Kashmitha/secure-cloud-platform/pull/4 attached to this chat. GitHub connector verifies open, merged=false, mergeable=true, draft=false, base main at 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010 and head docs/p01-business-architecture at e92d71fae28823f6f3a23241baabce235c1f2735; one commit, six files, 162 insertions/35 deletions.
+- Compared complete GitHub diff to local git diff 2cb63f9 e92d71f: identical after line-ending normalization. The prior reviewed snapshot's whitespace and bounded credential-pattern checks apply to this exact content. No blocking findings; scope remains documentation only. No application/runtime tests apply.
+- GitHub status and PR-triggered workflow-run queries returned empty lists. Formal review submissions also empty. This is an in-chat review, not a GitHub approval or successful CI claim. Mergeability is current evidence, not a guarantee that repository requirements are satisfied later. No review/comment/merge posted by assistant.
+- Next: learner merges PR #4 on GitHub if required checks/reviews permit, reports completion, then receives safe synchronization commands. Local progress notes are uncommitted; do not discard them or delete branches/stashes yet. No merge commit recorded because merged=false.
+- Five-document checkpoint review complete through the exact PR diff. Only progress changed locally for verified PR/review/check evidence. Blueprint, guide, README and interview preparation need no additional edit: no new scope, capability or lesson learned since the reviewed snapshot. AGENTS unchanged. Preserve latest notes for a subsequent documentation checkpoint.
+
+### 2026-10-27 — PR #4 merge verified; safe main synchronization pending
+
+- Learner reported merge. GitHub connector independently verifies PR #4 closed, merged=true, merged_at 2026-10-27T15:12:39Z; merge commit 0389e9cfd4160e55687f97d805178dfc74ef4cd7; reviewed head e92d71fae28823f6f3a23241baabce235c1f2735. Local main update is not implied by the remote merge.
+- Read-only local checks: still docs/p01-business-architecture at e92d71f; only PROJECT_PROGRESS.md modified; staging empty; git diff --check PASS; existing phase00-checkpoint-notes stash retained. No local stash/switch/pull performed by assistant.
+- Next learner sequence: git stash push -m p01-checkpoint-notes -- PROJECT_PROGRESS.md; git switch main; git pull --ff-only origin main; git status --short --branch; git log -1 --oneline; git stash list. Stop on errors/conflicts. Expect main at 0389e9c if no newer remote commits. Keep both stashes; do not apply or drop until synchronization and the new section branch are verified.
+- After synchronization, next unfinished task is Phase 01.2: small functional/security acceptance requirements. Create an appropriate docs branch and restore the named p01 notes there, then teach one small requirement at a time. No application implementation or whole-phase completion claimed.
+- Five-document review: only progress updated with actual merge evidence and safe next action. Blueprint, README, guide and interview preparation retain the reviewed learning snapshot and need no new scope/capability/lesson entry at this synchronization step. AGENTS unchanged. These local evidence notes await the next section documentation checkpoint; no assistant Git mutation or branch/stash deletion.
+
+### 2026-10-27 — Phase 01.1 closed; Phase 01.2 acceptance requirements introduced
+
+- Learner synchronized clean main at PR #4 merge 0389e9c, created docs/p01-acceptance-requirements, and restored p01-checkpoint-notes. Assistant verifies current branch/HEAD, expected origin, base ahead/behind 0/0 against origin/main, only progress modified before lesson edits, empty staging, both named stashes retained and git diff --check PASS. Restored progress contains the previous commit/push/PR/merge evidence; no conflict markers observed.
+- Phase 01.1 checkpoint complete. Phase 01 remains in progress; detailed architecture, threats, ADRs and requirements are not complete. Phase 01.2 introduces one draft capability: an authenticated customer reads their own synthetic account, with explicit success, cross-customer denial and dependency-failure outcomes. This is a document review exercise, not executed application tests.
+- Next learner action: review the three scenarios and explain why database unavailability must produce an error rather than a fabricated zero balance. Endpoint paths/status codes and implementation remain undecided; no installation or programming commands requested.
+- Five-document review: progress updated for actual restoration/current task; guide closes 01.1 and introduces the small 01.2 draft; README and interview status corrected to reflect merged PR #4. No new 01.2 interview answers until learned. Blueprint inspected and unchanged: no scope/architecture change. AGENTS unchanged. No extra files, Git mutations, infrastructure or application code changes.
+- Section Git checkpoint announced for after learner review: staged diff/whitespace/credential checks, learner commit/push/PR; no new commit or PR claimed. Keep stashes as backups; do not discard them.
+
+### 2026-10-27 — Phase 01.2 failure-scenario review passed; documentation checkpoint prepared
+
+- Learner correctly reasoned that unavailable database data must not be returned as balance information. Clarified that an account may legitimately have a stored zero balance; the issue is inability to verify the value, not an assumption that all accounts hold money. Under the proposed current design, return a controlled error without private account data or internal connection details; no cached fallback promised.
+- Learning evidence covers the introductory unavailable-data scenario. The three AC-READ-01 rows remain proposed testable requirements, not implemented controls or executed tests. Authentication edge cases, exact HTTP behavior and full architecture approval remain pending later Phase 01 work.
+- Verification: docs/p01-acceptance-requirements at 0389e9c, expected origin, four intended Markdown changes, staging empty, git diff --check PASS before this update. No app/infra code, installations, commits or publication by assistant.
+- Five-document review: guide records the answer/zero-balance clarification; progress records evidence and staging next action; interview preparation adds one short learned failure-handling Q&A; README identifies the small requirement review and pending checkpoint. Blueprint inspected and unchanged because scope/architecture remain stable. AGENTS unchanged.
+- Announced checkpoint: review git diff; learner stages exactly PROJECT_PROGRESS.md ENGINEERING_GUIDE.md INTERVIEW_PREPARATION.md README.md; inspect git diff --cached --check, --stat, status and full cached diff. Proposed commit after staged review: docs(p01): define own-account read acceptance scenarios. Push/PR instructions follow review; phase and section publication not marked complete.

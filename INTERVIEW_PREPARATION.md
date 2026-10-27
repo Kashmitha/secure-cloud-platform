@@ -2,7 +2,7 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; Git checkpoint pending.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; Git checkpoint pending.
 
 ## How to study
 
@@ -79,7 +79,7 @@ Use this compact format:
 **A:** apply restores saved changes while retaining the stash as a backup. pop removes the stash after successful application. Keeping the backup until restoration and commit are verified makes recovery easier; neither action replaces review for conflicts or sensitive data.
 **Project example:** phase00-checkpoint-notes preserved PROJECT_PROGRESS.md during main synchronization and remained in stash@{0} after notes were restored onto codex/p00-checkpoint-record.
 
-## Phase 01.1 — Ownership and role separation (LEARNED 2026-10-27; Git checkpoint pending)
+## Phase 01.1 — Ownership and role separation (LEARNED 2026-10-27; checkpoint merged via PR #4)
 
 **Q1. Does logging in authorize access to every customer account?**
 
@@ -90,3 +90,10 @@ Use this compact format:
 
 **A:** Releasing software and performing account actions are different responsibilities. Grant only the permissions needed for each task; releasing a login fix does not require an application role that edits balances. Deployment remains powerful, so reviewed releases and restricted, audited privileged access are also needed.
 **Project example:** the learner correctly selected deployment permission without balance-editing permission for a login bug fix. This verifies introductory understanding, not a deployed control.
+
+## Phase 01.2 — Unavailable data versus a valid zero (LEARNED 2026-10-27; Git checkpoint pending)
+
+**Q1. Why must a failed account read not default to a successful zero balance?**
+
+**A:** An unavailable database means the balance is unknown. Zero is a possible valid stored value, but substituting it after a read failure invents financial information. For this project's current acceptance draft, return a controlled error without account data or internal database details.
+**Project example:** the learner recognized that no balance data should be returned during database unavailability; the mentor clarified that not every account necessarily has a nonzero balance. This was a scenario review, not an executed API test.
