@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 introductory failure-scenario review passed; documentation Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 missing-login learning review passed on 2026-10-28; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 complete; 01.2 acceptance draft introduced |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1/01.2 complete; 01.3 missing-login review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -178,7 +178,7 @@ Learner branch exists; learner can distinguish actors, assets, authentication, a
 
 **Phase 01.1 Git closure:** reviewed commit e92d71f published and merged via [PR #4](https://github.com/Kashmitha/secure-cloud-platform/pull/4) as 0389e9c; main synchronized and progress notes restored on docs/p01-acceptance-requirements. No implemented authorization controls or CI pass implied.
 
-## Phase 01.2 — Acceptance requirements: own-account read (LEARNING REVIEW PASSED 2026-10-27; Git checkpoint pending)
+## Phase 01.2 — Acceptance requirements: own-account read (COMPLETED 2026-10-27)
 
 - **Objective:** Turn one business capability into observable outcomes that can later become tests.
 - **Concept / why:** A requirement states what must happen. An acceptance scenario gives a starting situation (Given), an action (When), and an observable result (Then). This makes a vague statement such as “accounts are secure” reviewable before writing code. Plain prose is sufficient; no new test framework or installation is needed.
@@ -201,4 +201,22 @@ These three rows are **design scenarios, NOT EXECUTED tests**. They are a first 
 - **GitHub checkpoint:** After review, inspect changed files and staged diff, run whitespace and bounded secret-exposure checks, then guide learner commit/push/PR. Include restored previous-section evidence; do not create a separate cleanup-only PR.
 - **Reference:** [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) for enforcing resource permissions. The scenario identifiers and proposed outcomes above are this project's design draft.
 
-**Learning review — 2026-10-27:** Learner correctly identified that database unavailability must not produce balance data. Clarification: the true stored balance may be zero or nonzero; neither can be inferred from a failed read. A controlled error preserves the distinction between unknown data and a valid zero. The learner's answer is conceptual evidence only; the three draft scenarios have not been run against an API. Section Git checkpoint remains pending.
+**Learning review — 2026-10-27:** Learner correctly identified that database unavailability must not produce balance data. Clarification: the true stored balance may be zero or nonzero; neither can be inferred from a failed read. A controlled error preserves the distinction between unknown data and a valid zero. The learner's answer is conceptual evidence only; the three draft scenarios have not been run against an API. Section Git checkpoint completed through PR #5 as recorded below.
+
+**Phase 01.2 Git closure:** reviewed commit 352b3b8 published and merged through [PR #5](https://github.com/Kashmitha/secure-cloud-platform/pull/5) as a0faee1. Main synchronized; latest AGENTS/progress notes restored on docs/p01-authentication-cases. The acceptance scenarios remain unimplemented and unexecuted.
+
+## Phase 01.3 — Authentication acceptance cases: missing login (LEARNING REVIEW PASSED 2026-10-28; Git checkpoint pending)
+
+- **Objective:** Specify the minimum identity condition for reading private account data.
+- **Concept / why:** Authentication establishes who is requesting access; authorization decides what they may access. An account identifier selects a record, but does not prove the requester's identity. A hidden page or an unguessable-looking identifier cannot replace API checks.
+- **Where / prerequisites:** This guide holds the draft. Branch docs/p01-authentication-cases starts at a0faee1; Phase 01.2 is complete. No new technology, setup, installation or application command is required for this design exercise.
+- **Proposed requirement AC-AUTH-01:** The API must reject a request for private account information when the requester has no valid authentication. Return no private account data and do not disclose whether a supplied account identifier exists to the unauthenticated requester. The exact HTTP response contract remains to be specified.
+- **Given / When / Then:** Given a requester has not logged in and supplies no valid authentication, when they request private account information using a known account identifier, then reject access without returning the account's private data. This is a proposed scenario, NOT an executed API test.
+- **Small learner task / expected result:** Explain whether a requester who knows a valid account identifier may retrieve its private data without a valid login, and why. The learner reviews; the assistant writes the Markdown.
+- **Validation/security plan:** Later send a direct API request without authentication, bypassing the browser UI, and check that the API denies access and returns no private data or existence signal. No runtime PASS is claimed now. Compare with the earlier positive own-account scenario, which requires both identity and ownership checks.
+- **Troubleshooting drill:** The website redirects to login, but a direct API request still returns account data. That is incomplete protection: enforce authentication at the API, not only the website.
+- **Completion criteria:** Learner reviews the proposed missing-login behavior and explains why account-ID knowledge is insufficient; corrections/open questions are recorded. Prepare the reviewed documentation checkpoint. Expired/invalid credentials and detailed response codes are follow-up cases, not silently completed here.
+- **GitHub checkpoint:** After learning review, present explicit staging/checks, commit, push, PR creation and merge instructions together; learner executes and shares results for verification. Stop on unexpected changes, failures or unmet GitHub requirements. Include restored prior checkpoint evidence and the permanent workflow preference; no cleanup-only PR needed.
+- **Reference:** [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html). These requirement identifiers are local design labels, not implemented endpoints.
+
+**Learning review — 2026-10-28:** Learner correctly explained that exposing balance data to someone who only knows an account ID violates privacy and may assist fraud. Account-ID knowledge proves neither identity nor permission; valid authentication and resource authorization are still required. A balance alone is not proof of another person's identity. This confirms the introductory missing-login case conceptually, not through an executed API test. Expired/invalid credentials and exact response codes remain unfinished; commit/push/PR/merge must be verified before advancing.

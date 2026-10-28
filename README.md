@@ -59,7 +59,7 @@ See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the approved target desig
 | Milestone | Status |
 |---|---|
 | Phase 00 workspace and documentation baseline | Complete; PRs #2/#3 merged; Linux Git and WSL editor verified; local main synchronized at 2cb63f9 |
-| Phase 01 business architecture | Introductory ownership/role-separation review completed via PR #4; own-account-read acceptance scenarios documented and introductory failure case reviewed; section Git checkpoint, detailed architecture and threat model pending |
+| Phase 01 business architecture | Introductory ownership/role-separation review completed via PR #4; own-account-read acceptance review completed via PR #5; missing-login learning review passed, with its Git checkpoint pending; detailed architecture and threat model pending |
 | API and local containers | Not verified |
 | AWS and Terraform | Not verified |
 | Kubernetes, Helm and GitOps | Not verified |

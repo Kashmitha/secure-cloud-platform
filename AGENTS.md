@@ -48,6 +48,8 @@ Adopted branch naming: use feature/pNN-description for implementation, fix/pNN-d
 
 **At section/phase checkpoint:** Run actual checks where permitted; show `git status`, `git diff`, `git diff --check`, review staged files, secret scan, tailored `git add`, `git diff --cached`, conventional `git commit`, `git push -u origin <branch>` and PR instructions. Explain merge checks and branch cleanup. Record actual commit SHA/PR link in progress after they exist. Prefer protected `main` and PR reviews. No direct pushes to protected `main`.
 
+**Checkpoint delivery preference:** Once the section changes have been prepared, validated and reviewed, provide the complete learner-run checkpoint in one message: explicit git add paths, staged checks/review, conventional commit, push, PR creation details and merge instructions. These Git steps are familiar; do not require a separate chat turn after each command. The learner executes the workflow and shares command outputs, commit SHA and PR URL for verification. Require stopping on command failures, unexpected diffs, conflicts or unmet GitHub checks/reviews. The learner may create and merge the PR within that reviewed checkpoint when repository requirements permit; do not impose another conversational approval gate solely because the next familiar Git command is due. This does not authorize the assistant to commit, push or merge automatically. Verify actual results before claiming completion or advancing.
+
 **Permission boundary:** Do **not** commit, push, merge, delete branches, rewrite history, destroy data, install large dependencies or provision billable AWS resources without explicit user approval. Never print or commit secrets, Terraform state or private keys.
 
 ## 6. Safety and environment
@@ -62,7 +64,7 @@ When the user types **`Done`**:
 2. Run appropriate non-destructive validation; if incomplete, report missing evidence and **do not advance**.
 3. If complete, update `PROJECT_PROGRESS.md`, `ENGINEERING_GUIDE.md`, `INTERVIEW_PREPARATION.md`, and `README.md`/`PROJECT_BLUEPRINT.md` **when their documented update triggers apply**.
 4. Summarize which of the five documents changed, which remained unchanged, and why.
-5. Show the Git checkpoint and obtain approval before commit/push/PR.
+5. Present the complete learner-run Git checkpoint in one message under the adopted delivery preference; the learner performs and approves their own commit/push/PR/merge. Obtain explicit approval before any assistant-executed Git mutation.
 6. After the required checkpoint, teach the next unfinished section. At phase boundaries, verify all phase completion criteria first.
 
 ## 8. Restart and cross-account handover

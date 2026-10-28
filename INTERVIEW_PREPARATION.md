@@ -2,7 +2,7 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; Git checkpoint pending.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; Git checkpoint pending.
 
 ## How to study
 
@@ -91,9 +91,16 @@ Use this compact format:
 **A:** Releasing software and performing account actions are different responsibilities. Grant only the permissions needed for each task; releasing a login fix does not require an application role that edits balances. Deployment remains powerful, so reviewed releases and restricted, audited privileged access are also needed.
 **Project example:** the learner correctly selected deployment permission without balance-editing permission for a login bug fix. This verifies introductory understanding, not a deployed control.
 
-## Phase 01.2 — Unavailable data versus a valid zero (LEARNED 2026-10-27; Git checkpoint pending)
+## Phase 01.2 — Unavailable data versus a valid zero (LEARNED 2026-10-27; checkpoint merged via PR #5)
 
 **Q1. Why must a failed account read not default to a successful zero balance?**
 
 **A:** An unavailable database means the balance is unknown. Zero is a possible valid stored value, but substituting it after a read failure invents financial information. For this project's current acceptance draft, return a controlled error without account data or internal database details.
 **Project example:** the learner recognized that no balance data should be returned during database unavailability; the mentor clarified that not every account necessarily has a nonzero balance. This was a scenario review, not an executed API test.
+
+## Phase 01.3 — Account identifiers are not authentication (LEARNED 2026-10-28; Git checkpoint pending)
+
+**Q1. Is knowing an account ID sufficient to read its private balance?**
+
+**A:** No. The ID selects a record; it does not establish the requester's identity or authorize access. The API must reject unauthenticated private-account requests without returning private data, even if the website normally redirects users to login. Authenticated requests still require ownership/permission checks.
+**Project example:** the learner correctly rejected balance disclosure based on account-ID knowledge and identified privacy/fraud risks. AC-AUTH-01 is a proposed requirement, not implemented authentication or an executed security test.
