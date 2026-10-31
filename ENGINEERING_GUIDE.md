@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 missing-login learning review passed on 2026-10-28; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 credential-validity learning review passed on 2026-10-31; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1/01.2 complete; 01.3 missing-login review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1/01.2/01.3 complete; 01.4 learning review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -205,7 +205,7 @@ These three rows are **design scenarios, NOT EXECUTED tests**. They are a first 
 
 **Phase 01.2 Git closure:** reviewed commit 352b3b8 published and merged through [PR #5](https://github.com/Kashmitha/secure-cloud-platform/pull/5) as a0faee1. Main synchronized; latest AGENTS/progress notes restored on docs/p01-authentication-cases. The acceptance scenarios remain unimplemented and unexecuted.
 
-## Phase 01.3 — Authentication acceptance cases: missing login (LEARNING REVIEW PASSED 2026-10-28; Git checkpoint pending)
+## Phase 01.3 — Authentication acceptance cases: missing login (COMPLETED 2026-10-28)
 
 - **Objective:** Specify the minimum identity condition for reading private account data.
 - **Concept / why:** Authentication establishes who is requesting access; authorization decides what they may access. An account identifier selects a record, but does not prove the requester's identity. A hidden page or an unguessable-looking identifier cannot replace API checks.
@@ -219,4 +219,29 @@ These three rows are **design scenarios, NOT EXECUTED tests**. They are a first 
 - **GitHub checkpoint:** After learning review, present explicit staging/checks, commit, push, PR creation and merge instructions together; learner executes and shares results for verification. Stop on unexpected changes, failures or unmet GitHub requirements. Include restored prior checkpoint evidence and the permanent workflow preference; no cleanup-only PR needed.
 - **Reference:** [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html). These requirement identifiers are local design labels, not implemented endpoints.
 
-**Learning review — 2026-10-28:** Learner correctly explained that exposing balance data to someone who only knows an account ID violates privacy and may assist fraud. Account-ID knowledge proves neither identity nor permission; valid authentication and resource authorization are still required. A balance alone is not proof of another person's identity. This confirms the introductory missing-login case conceptually, not through an executed API test. Expired/invalid credentials and exact response codes remain unfinished; commit/push/PR/merge must be verified before advancing.
+**Learning review — 2026-10-28:** Learner correctly explained that exposing balance data to someone who only knows an account ID violates privacy and may assist fraud. Account-ID knowledge proves neither identity nor permission; valid authentication and resource authorization are still required. A balance alone is not proof of another person's identity. This confirms the introductory missing-login case conceptually, not through an executed API test. Expired/invalid credentials and exact response codes remain unfinished; this introductory section closes only the missing-login scenario.
+
+**Phase 01.3 Git closure:** learner committed the five reviewed documents as 612c3d8, published the branch, merged [PR #6](https://github.com/Kashmitha/secure-cloud-platform/pull/6) as b81ccf0 and synchronized clean main. Remote/local diffs match and committed whitespace checks pass. No CI run or executed API security test claimed. The PR description was empty; future PRs should include the supplied change and validation summary. Next section covers credential validity after learner branch preparation.
+
+## Phase 01.4 — Expired or invalid authentication proof (LEARNING REVIEW PASSED 2026-10-31; Git checkpoint pending)
+
+- **Objective / why:** Recognize that a past login does not authorize requests indefinitely. The API must validate the authentication proof accompanying the current request, then apply ownership/role permissions. This limits reuse of stale or invalid credentials.
+- **Where / prerequisites:** Documentation exercise on docs/p01-session-validity at b81ccf0. No installation or application command. Phase 03 will implement the app; Phase 12 integrates the full Keycloak/OIDC identity setup with evidence. These draft requirements do not claim that either exists now.
+- **Draft requirement AC-AUTH-02:** Deny a private-account request if its sole authentication proof is expired or invalid. Do not return private account information. Knowing the account ID or having logged in earlier does not override failed validation.
+
+| Proposed case | Starting situation and request | Expected outcome |
+|---|---|---|
+| Expired proof | Customer A owns the account, but the only authentication proof supplied with the request is expired | Deny this request without private account data |
+| Invalid proof | Request supplies authentication proof that fails validation, for example because it was altered | Deny this request without private account data |
+
+These are proposed acceptance scenarios, NOT EXECUTED tests. An approved refresh/sign-in flow may obtain fresh valid proof for a subsequent request; the API must not accept expired proof merely because such a flow exists. Exact credential format, response codes, refresh, revocation, time validation details and provider setup remain to be specified and verified later.
+
+- **Small learner task / expected result:** Explain whether account ownership and a successful login yesterday permit an account read today when the request supplies only expired authentication proof. Distinguish ownership permission from current valid identity proof.
+- **Validation/security plan:** Later compare a valid authenticated owner request with expired and invalid-proof requests; verify rejection and no private-data disclosure in negative cases. No runtime PASS now.
+- **Troubleshooting drill:** The API accepts expired proof because it only remembers that the user once logged in. Require validation of the proof actually supplied to the protected endpoint; browser-only checks are insufficient.
+- **Completion criteria:** Learner reviews both related cases and explains the expired-owner scenario; document corrections/open questions and complete the combined reviewed Git/PR checkpoint. This does not finish Phase 01 architecture or remaining business requirements.
+- **GitHub checkpoint:** Group these related credential-validity cases in one section checkpoint. Present explicit add/checks/commit/push/PR/merge together after review; learner executes and shares results. Stop on errors or unmet repository requirements.
+- **When coding begins:** Canonical Phase 02 includes Bash/Python and Linux/networking exercises. Phase 03 starts the NestJS/PostgreSQL/Redis application baseline. Remaining Phase 01 requirements, architecture/trust boundaries, ADRs, diagrams and threat/risk review must be completed first. Do not generate the entire app or skip the agreed learning sequence.
+- **Reference:** [OWASP authentication guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html); consult current official Keycloak/OIDC documentation before implementation. No new technology setup is performed in this lesson.
+
+**Learning review — 2026-10-31:** Learner correctly rejected returning balance/personal information for an expired-proof request and recognized the risk of reuse. A stolen expired proof is useful to an attacker only if the API fails to enforce expiry; a correct API rejects it even when it names the account owner. The expiry case and invalid-proof denial remain proposed acceptance requirements, not executed API tests. Refresh/sign-in, credential format and exact response contract remain implementation decisions. Git checkpoint pending.

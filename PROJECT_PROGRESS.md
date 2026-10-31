@@ -2,7 +2,7 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-28 · **Current status:** PHASE 01.3 LEARNING REVIEW PASSED / GIT CHECKPOINT PENDING · **Current phase:** 01
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-31 · **Current status:** PHASE 01.4 LEARNING REVIEW PASSED / GIT CHECKPOINT PENDING · **Current phase:** 01
 
 ## 1. Quick resume card (read this first)
 
@@ -11,13 +11,13 @@
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
 | Canonical scope | `PROJECT_BLUEPRINT.md` v1.0.1 |
 | Current phase | **01 — Business architecture and threat model** |
-| Current section | **01.3 — Authentication acceptance cases: missing login** (missing-login learning review passed; Git checkpoint pending) |
-| Last completed task | Phase 01.2 learning review and PR #5 merged as a0faee1; main synchronized and latest AGENTS/progress notes restored on the next section branch. |
-| Next exact action | Learner reviews the prepared five-document diff, stages explicit paths, checks staged content, commits/pushes docs/p01-authentication-cases, creates and merges its PR if GitHub requirements permit, then synchronizes clean main. Provide all familiar Git/PR steps in one message; verify outputs and PR URL afterward. |
+| Current section | **01.4 — Authentication acceptance cases: expired or invalid credentials** (expired-proof learning review passed; Git checkpoint pending) |
+| Last completed task | Phase 01.3 missing-login learning review and five-document commit 612c3d8 merged through PR #6 as b81ccf0; clean local main synchronized and independently verified. |
+| Next exact action | Learner runs the complete reviewed four-file add/checks/commit/push/PR/merge checkpoint, then synchronizes clean main and shares commit SHA, PR URL and final status/log. Stop on failures, unexpected changes or unmet repository requirements. No API implementation or runtime tests yet. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | docs/p01-authentication-cases at a0faee1; base matches local main/origin/main (0/0). Latest AGENTS/progress notes restored; section documentation edits uncommitted; staging empty. All three named stashes retained. |
+| Git branch / remote / HEAD | docs/p01-session-validity at b81ccf0, created by learner from synchronized main; four carried closeout documents modified before this lesson, staging empty. Existing stashes retained; no assistant Git mutation. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | No technical blocker. Phase 01.3 missing-login learning review passed; publication/merge/main synchronization pending. No application implementation or runtime tests. |
+| Current blocker | No technical blocker. Credential-validity introductory learning review passed; Git publication/merge pending; no application implementation or executed API tests. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -27,7 +27,7 @@
 | Phase | Milestone | Status | Evidence / reference |
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
-| 01 | Business architecture and threat model | **IN PROGRESS — 01.1/01.2 complete; 01.3 learning review passed** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
+| 01 | Business architecture and threat model | **IN PROGRESS — 01.1/01.2/01.3 complete; 01.4 learning review passed** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
 | 02 | Linux, networking, Git and pre-commit | NOT VERIFIED | — |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** docs/p01-authentication-cases at a0faee1; latest AGENTS/progress notes restored; documentation changes uncommitted.
+- **Current branch:** docs/p01-session-validity at b81ccf0, created and verified on 2026-10-28; closeout/lesson notes uncommitted.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** a0faee1 Merge pull request #5 from Kashmitha/docs/p01-acceptance-requirements; reviewed head 352b3b8; earlier history preserved.
+- **Last commit:** b81ccf0 Merge pull request #6 from Kashmitha/docs/p01-authentication-cases; head 612c3d8; earlier history preserved.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active section branch:** docs/p01-authentication-cases, created by learner from a0faee1 and verified on 2026-10-27. Prior section PR: https://github.com/Kashmitha/secure-cloud-platform/pull/5 — MERGED.
-- **Next checkpoint:** Phase 01.3 missing-login requirement and restored workflow/evidence notes. Present explicit add/checks/commit/push plus PR creation/merge/main synchronization together. Learner executes; assistant verifies actual results. No new cleanup-only PR or assistant Git mutation.
+- **Active section branch:** docs/p01-session-validity, created by learner and verified on 2026-10-28. Prior section PR: https://github.com/Kashmitha/secure-cloud-platform/pull/6 — MERGED; merge b81ccf092fdbfadacb6795f52d4b120f1cb1a0d1, head 612c3d82af32d93b008583de347061dd26ee16a9.
+- **Next checkpoint:** After Phase 01.4 learner review, combine its small requirement with these closeout notes in the next normal documentation checkpoint. Present all familiar Git/PR/merge steps together; learner executes and assistant verifies. No cleanup-only PR or assistant Git mutation.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Continue **Phase 01.3** with the combined learner-run Git checkpoint; missing-login learning review passed on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Continue **Phase 01.4** with the complete learner-run Git checkpoint; the expired-owner explanation passed on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give the full learner-run add/checks/commit/push/PR/merge workflow in one message; user executes and shares results for verification. Do not impose a separate conversational gate for each familiar command.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -359,3 +359,35 @@
 - Review scope: proposed missing-login denial and no private-data disclosure, prior PR #5 closure evidence, permanent delivery preference. Expired/invalid credential cases and exact HTTP contract remain unfinished follow-ups; no whole-phase completion claimed.
 - Learner receives all familiar steps together: status/diff/check, explicit five-file add, cached checks/review, commit docs(p01): define missing-login acceptance requirement, push -u origin docs/p01-authentication-cases, web PR to main with same title, review/checks/merge, then switch/pull clean main. Stop on errors/unexpected diffs/conflicts/unmet GitHub requirements. Share commit SHA, PR URL, final status/log; no assistant mutations or publication claimed.
 - Final preparation validation: complete five-file diff reviewed without blocking findings; git diff --check PASS; bounded credential-pattern check across six root Markdown files PASS, not a comprehensive history scan. Nothing staged or committed by assistant. Learner must inspect staged content before committing; unexpected changes require stopping.
+
+### 2026-10-28 — Phase 01.3 merged and synchronized; next branch prepared
+
+- Learner supplied clean main/status and pull output to b81ccf0. Assistant independently verified correct WSL path, clean main matching origin/main, commit b81ccf0, head 612c3d8, expected origin, empty staging and three retained stashes before closeout edits.
+- GitHub connector confirms PR #6 merged=true at 2026-10-28T16:11:02Z, merge b81ccf092fdbfadacb6795f52d4b120f1cb1a0d1, reviewed head 612c3d82af32d93b008583de347061dd26ee16a9; one commit, five files, 94 insertions/21 deletions. Full remote diff matches local git diff a0faee1 612c3d8; committed whitespace check PASS. The extra line versus earlier summary is the already prepared final-validation record.
+- GitHub status/workflow-run queries returned empty lists; no CI pass claimed. PR body is empty: a documentation-quality omission, not a blocker to the verified docs-only merge. Include the supplied change/validation summary in future PR descriptions. No runtime/API tests or implemented identity controls claimed.
+- Phase 01.3 checkpoint complete. Next unfinished task: 01.4 expired/invalid credential scenarios, starting with one expiry case. Learner next creates docs/p01-session-validity from current b81ccf0 and checks status; prepared closeout edits carry across without another stash because base is unchanged. Branch not created by assistant.
+- Five-document review: progress records actual commit/PR/merge/sync and next task; guide closes 01.3; README and interview checkpoint status now reflect merged PR #6. Blueprint and AGENTS unchanged; no new scope/architecture or permanent preference. No future 01.4 interview answers added before learning.
+- These four closeout documents will join the next normal section checkpoint. No new cleanup-only PR, assistant Git mutation, branch deletion or stash deletion. Phase 01 architecture, remaining requirements, ADRs, diagrams and risk register remain incomplete.
+
+### 2026-10-28 — Phase 01.4 branch verified; coding timeline explained
+
+- Learner created docs/p01-session-validity and carried four closeout Markdown edits. Read-only verification confirms WSL path, branch at b81ccf0, expected origin, four expected modified documents, empty staging and git diff --check PASS. No Git mutation by assistant.
+- Learner asked when real application scripts begin. Reconciled to canonical blueprint: Phase 02 includes Bash/Python and Linux/networking exercises; Phase 03 starts NestJS application/data implementation. Phase 01 still requires remaining financial-demo requirements, architecture/trust boundaries, ADRs, diagrams and initial threat/risk register. Do not imply one more authentication answer completes the phase, or bypass validation to scaffold sooner.
+- Introduced expired and invalid credential cases together within 01.4, with an owner/expired-proof scenario for learner review. Planned acceptance cases only; no auth implementation or runtime tests. No new tool install required.
+- Next: learner explains why owning an account and a past login are insufficient when the current request has no valid authentication proof. Supported refresh/sign-in behavior and exact response contract are later implementation decisions; do not assume all expiry requires manual login.
+- Documentation review: progress updated for actual branch and next action; guide adds the small credential-validity lesson and coding timeline. README, blueprint and interview preparation inspected and unchanged in this step: no new implemented capability/scope change/completed lesson. No future interview answers generated. AGENTS unchanged. Group related cases into the section checkpoint after learning review; provide familiar Git/PR/merge workflow together.
+
+### 2026-10-31 — Phase 01.4 Done review; learning evidence pending
+
+- Learner reported Done without an explanation of the expired-owner scenario or new implementation/Git outputs. Read-only checks verify correct WSL path, docs/p01-session-validity at b81ccf0, expected origin, four modified Markdown files, empty staging and git diff --check PASS. No new local checkpoint commit evidenced; no remote query or executed API test performed.
+- Phase 01.4 remains in progress under its documented completion criteria: learner must briefly explain why expired authentication proof cannot authorize the current request even if the requester owns the account and logged in previously. Done alone is not evidence of this understanding; no section advancement or interview mastery claimed.
+- Only progress updated for actual revalidation/date and missing evidence. Other project documents retain their previously inspected lesson/scope/status content; no completed section, capability or architecture change requires further edits. Next action: learner answers the one pending scenario question, then prepare the complete familiar Git/PR checkpoint together after review.
+
+### 2026-10-31 — Phase 01.4 expired-proof learning review passed; checkpoint prepared
+
+- Learner correctly rejected balance/personal-data disclosure when authentication proof has expired and identified reuse of expired proof as a risk. Clarified that an attacker can exploit expired proof only if the API incorrectly accepts it; expiry enforcement must reject the current request even for the owner. Invalid/altered proof is also denied under the documented draft. Supported refresh/sign-in may obtain fresh valid proof for a later request; no mandatory manual-login behavior assumed.
+- Read-only checks: correct WSL path, docs/p01-session-validity at b81ccf0, expected origin, four modified Markdown files, empty staging and git diff --check PASS before edits. No auth implementation, runtime tests or new commit/push/PR verified.
+- Five-document review: progress records answer/evidence/combined checkpoint; guide records the passed introductory review and remaining implementation decisions; interview preparation adds one learned expiry Q&A; README marks credential-validity learning review passed with publication pending. Blueprint unchanged because scope/architecture remain stable. AGENTS unchanged and its combined checkpoint preference applies.
+- Proposed checkpoint: docs(p01): define credential-validity acceptance cases; explicitly stage ENGINEERING_GUIDE.md INTERVIEW_PREPARATION.md PROJECT_PROGRESS.md README.md, review cached checks/diff, commit and push docs/p01-session-validity, create PR to main with change/validation description, inspect required checks/reviews and merge only if permitted, then synchronize clean main. Learner executes all steps and shares actual results afterward. No automatic assistant Git mutation.
+- Section publication remains pending; Phase 01 architecture and remaining financial-demo requirements are incomplete. After checkpoint verification, next unfinished work is the simulated-transfer acceptance requirements, followed by remaining business requirements/architecture/threat review. Do not generate application code or assume full identity implementation complete.
+- Final preparation checks: full four-file diff reviewed without blocking findings; git diff --check PASS; bounded credential-pattern check across six root Markdown files PASS (not a comprehensive secret/history scan). Learner must inspect the actual staged snapshot before committing. No staging, commit, push, PR or merge performed by assistant.
