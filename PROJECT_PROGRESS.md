@@ -2,7 +2,7 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-31 · **Current status:** PHASE 01.4 LEARNING REVIEW PASSED / GIT CHECKPOINT PENDING · **Current phase:** 01
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-10-31 · **Current status:** PHASE 01.5 LEARNING REVIEW PASSED / GIT CHECKPOINT PENDING · **Current phase:** 01
 
 ## 1. Quick resume card (read this first)
 
@@ -11,13 +11,13 @@
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
 | Canonical scope | `PROJECT_BLUEPRINT.md` v1.0.1 |
 | Current phase | **01 — Business architecture and threat model** |
-| Current section | **01.4 — Authentication acceptance cases: expired or invalid credentials** (expired-proof learning review passed; Git checkpoint pending) |
-| Last completed task | Phase 01.3 missing-login learning review and five-document commit 612c3d8 merged through PR #6 as b81ccf0; clean local main synchronized and independently verified. |
-| Next exact action | Learner runs the complete reviewed four-file add/checks/commit/push/PR/merge checkpoint, then synchronizes clean main and shares commit SHA, PR URL and final status/log. Stop on failures, unexpected changes or unmet repository requirements. No API implementation or runtime tests yet. |
+| Current section | **01.5 — Simulated-transfer acceptance requirements** (commit/rollback learning review passed; Git checkpoint pending) |
+| Last completed task | Phase 01.4 learning review and four-document commit f781b79 merged through PR #7 as 23607a2; clean local main synchronized and independently verified. |
+| Next exact action | Learner runs the complete reviewed four-file add/checks/commit/push/PR/merge checkpoint on docs/p01-transfer-requirements, synchronizes clean main and shares commit SHA, PR URL and final status/log. Stop on failed checks or unexpected changes. No API/database implementation yet. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | docs/p01-session-validity at b81ccf0, created by learner from synchronized main; four carried closeout documents modified before this lesson, staging empty. Existing stashes retained; no assistant Git mutation. |
+| Git branch / remote / HEAD | docs/p01-transfer-requirements at 23607a2, created by learner from synchronized main; four carried closeout documents modified before this lesson, staging empty. Existing local branches preserved. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | No technical blocker. Credential-validity introductory learning review passed; Git publication/merge pending; no application implementation or executed API tests. |
+| Current blocker | No technical blocker. Atomic-transfer learning review passed; publication/merge pending; no app implementation or executed API tests. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -27,7 +27,7 @@
 | Phase | Milestone | Status | Evidence / reference |
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
-| 01 | Business architecture and threat model | **IN PROGRESS — 01.1/01.2/01.3 complete; 01.4 learning review passed** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
+| 01 | Business architecture and threat model | **IN PROGRESS — 01.1 through 01.4 complete; 01.5 learning review passed** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
 | 02 | Linux, networking, Git and pre-commit | NOT VERIFIED | — |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** docs/p01-session-validity at b81ccf0, created and verified on 2026-10-28; closeout/lesson notes uncommitted.
+- **Current branch:** docs/p01-transfer-requirements at 23607a2, created and verified on 2026-10-31; closeout/lesson notes uncommitted.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** b81ccf0 Merge pull request #6 from Kashmitha/docs/p01-authentication-cases; head 612c3d8; earlier history preserved.
+- **Last commit:** 23607a2 Merge pull request #7 from Kashmitha/docs/p01-session-validity; head f781b79; earlier history preserved.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active section branch:** docs/p01-session-validity, created by learner and verified on 2026-10-28. Prior section PR: https://github.com/Kashmitha/secure-cloud-platform/pull/6 — MERGED; merge b81ccf092fdbfadacb6795f52d4b120f1cb1a0d1, head 612c3d82af32d93b008583de347061dd26ee16a9.
-- **Next checkpoint:** After Phase 01.4 learner review, combine its small requirement with these closeout notes in the next normal documentation checkpoint. Present all familiar Git/PR/merge steps together; learner executes and assistant verifies. No cleanup-only PR or assistant Git mutation.
+- **Active section branch:** docs/p01-transfer-requirements, created by learner and verified on 2026-10-31. Prior section PR: https://github.com/Kashmitha/secure-cloud-platform/pull/7 — MERGED; merge 23607a2afaca2041dbdf691e2cdb1a60e9c03f08, head f781b79325bd6131d49ae7d165dd429f5e7285ff.
+- **Next checkpoint:** After Phase 01.5 learner review, combine simulated-transfer requirements with these closeout notes in the next normal documentation checkpoint. Present all familiar Git/PR/merge steps together; learner executes and assistant verifies. No cleanup-only PR or assistant Git mutation.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Continue **Phase 01.4** with the complete learner-run Git checkpoint; the expired-owner explanation passed on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Continue **Phase 01.5** with the combined learner-run Git checkpoint; success and pre-commit failure balance checks passed on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give the full learner-run add/checks/commit/push/PR/merge workflow in one message; user executes and shares results for verification. Do not impose a separate conversational gate for each familiar command.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -391,3 +391,30 @@
 - Proposed checkpoint: docs(p01): define credential-validity acceptance cases; explicitly stage ENGINEERING_GUIDE.md INTERVIEW_PREPARATION.md PROJECT_PROGRESS.md README.md, review cached checks/diff, commit and push docs/p01-session-validity, create PR to main with change/validation description, inspect required checks/reviews and merge only if permitted, then synchronize clean main. Learner executes all steps and shares actual results afterward. No automatic assistant Git mutation.
 - Section publication remains pending; Phase 01 architecture and remaining financial-demo requirements are incomplete. After checkpoint verification, next unfinished work is the simulated-transfer acceptance requirements, followed by remaining business requirements/architecture/threat review. Do not generate application code or assume full identity implementation complete.
 - Final preparation checks: full four-file diff reviewed without blocking findings; git diff --check PASS; bounded credential-pattern check across six root Markdown files PASS (not a comprehensive secret/history scan). Learner must inspect the actual staged snapshot before committing. No staging, commit, push, PR or merge performed by assistant.
+
+### 2026-10-31 — Phase 01.4 merged and synchronized; transfer-requirements branch proposed
+
+- Learner supplied clean main/status and merge log 23607a2. Assistant independently verifies correct WSL path, main matching origin/main, commit 23607a2 with head f781b79, expected origin, clean working tree and empty staging before closeout edits.
+- GitHub connector verifies PR #7 merged=true at 2026-10-31T11:42:06Z, merge 23607a2afaca2041dbdf691e2cdb1a60e9c03f08, head f781b79325bd6131d49ae7d165dd429f5e7285ff; one commit, four files, 83 insertions/19 deletions. Change/validation description present. Attached PR to chat. Remote diff exactly matches local git diff b81ccf0 f781b79 after newline normalization; committed whitespace and bounded credential-pattern review PASS. This is not a comprehensive secret/history scan.
+- GitHub combined statuses and PR-triggered workflow runs returned empty lists; no CI pass claimed. These remain proposed authentication acceptance requirements, not implemented controls or executed API tests.
+- Phase 01.4 complete. Next unfinished task is Phase 01.5 simulated-transfer requirements. Learner creates docs/p01-transfer-requirements from current main 23607a2, carrying closeout edits without a stash, then verifies status. Name validated and no existing matching local branch found. No branch created by assistant.
+- Five-document review: progress records actual head/PR/merge/synchronization and next task; guide closes 01.4; README and interview checkpoint status corrected to merged PR #7. Blueprint and AGENTS unchanged: no scope/architecture/permanent preference change. No future transfer interview answers generated before learning.
+- Old local branches are preserved and do not affect active work. Cleanup can be a separate explicitly authorized task; do not rename/delete or rewrite historical branches for appearance. Four closeout edits join the next normal checkpoint, not a cleanup-only PR. No assistant Git mutation, code changes or cloud activity.
+
+### 2026-10-31 — Phase 01.5 branch verified; atomic-transfer requirement introduced
+
+- Learner created docs/p01-transfer-requirements with four closeout documents carried across. Assistant independently verifies WSL path, branch at 23607a2, expected origin, four expected modifications, empty staging and git diff --check PASS before lesson edits. No assistant Git mutation.
+- First transfer slice is atomicity: with synthetic A=100 and B=40, transfer 25 gives A=75/B=65 only when the whole operation commits. A failure that prevents completion before commit must leave stored A=100/B=40, without success. The controlled example assumes no concurrent transfers and no fees. Post-commit/lost-response ambiguity, retries, idempotency, concurrency and further input/business rules remain later review, not silently solved.
+- Consulted official PostgreSQL transaction tutorial for all-or-nothing behavior. No PostgreSQL installation, SQL execution, API implementation or runtime tests performed. Redis is not the durable transaction source per the unchanged blueprint.
+- Next learner task: calculate final stored balances after a failure between tentative debit and credit, before commit, and explain why keeping the debit would be wrong. The guide authors the acceptance draft; learner reviews the behavior.
+- Five-document review: progress records actual branch and task; guide adds the first small simulated-transfer lesson. Blueprint, README and interview preparation inspected and unchanged in this step: no new scope decision, operational capability or completed lesson. AGENTS unchanged. No future transfer interview answers added before learning.
+- After review, prepare the combined learner-run Git/PR/merge checkpoint for this small slice plus closeout evidence; do not mark the entire financial requirements or Phase 01 complete. Stop on failed checks; preserve old branches/stashes.
+
+### 2026-10-31 — Phase 01.5 atomic-transfer learning review passed; checkpoint prepared
+
+- Learner initially described the broken partial result A=75/B=40. Explained tentative writes, commit and rollback: a failure preventing completion before commit must cancel the debit rather than save it and refund later. Learner then correctly answered success A=75/B=65 and failed-before-commit A=100/B=40. Introductory understanding verified through these answers; no claim of broader transaction mastery.
+- The requirement AC-TRANSFER-01 and numeric scenarios remain proposed and unexecuted. No PostgreSQL/API code or installation. Post-commit lost-response uncertainty, idempotency, concurrency, amount validation and insufficient-funds cases remain unfinished follow-ups; do not mark all transfer requirements or Phase 01 complete.
+- Read-only verification: correct WSL path, docs/p01-transfer-requirements at 23607a2, expected origin, four modified Markdown files, empty staging and git diff --check PASS before edits. No new checkpoint commit/PR or remote publication verified.
+- Five-document review: progress records correction/answers/evidence and next action; guide records commit/rollback learning result; interview preparation adds one learned atomicity Q&A; README records this introductory transfer learning review with publication pending. Blueprint unchanged because scope/architecture remain stable. AGENTS unchanged; combined checkpoint-delivery preference retained.
+- Proposed commit docs(p01): define atomic transfer acceptance requirement. Provide explicit four-file staging/checks, commit, push docs/p01-transfer-requirements, web PR to main with change/validation description, review/checks/merge and clean main synchronization in one message. Learner executes and shares actual outputs/commit/PR afterward. No assistant Git mutation. Next follow-up after verification: transfer amount/insufficient-funds validation and retry/idempotency requirements, taught in small related groups.
+- Final preparation validation: complete four-file diff reviewed without blocking findings; git diff --check PASS; bounded credential-pattern check across six root Markdown files PASS (not a comprehensive history scan). Nothing staged by assistant; learner must review the actual cached snapshot before commit.

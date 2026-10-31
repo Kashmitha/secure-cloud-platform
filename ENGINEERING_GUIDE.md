@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 credential-validity learning review passed on 2026-10-31; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 atomic-transfer learning review passed on 2026-10-31; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1/01.2/01.3 complete; 01.4 learning review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.4 complete; 01.5 atomic-transfer review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -223,7 +223,7 @@ These three rows are **design scenarios, NOT EXECUTED tests**. They are a first 
 
 **Phase 01.3 Git closure:** learner committed the five reviewed documents as 612c3d8, published the branch, merged [PR #6](https://github.com/Kashmitha/secure-cloud-platform/pull/6) as b81ccf0 and synchronized clean main. Remote/local diffs match and committed whitespace checks pass. No CI run or executed API security test claimed. The PR description was empty; future PRs should include the supplied change and validation summary. Next section covers credential validity after learner branch preparation.
 
-## Phase 01.4 — Expired or invalid authentication proof (LEARNING REVIEW PASSED 2026-10-31; Git checkpoint pending)
+## Phase 01.4 — Expired or invalid authentication proof (COMPLETED 2026-10-31)
 
 - **Objective / why:** Recognize that a past login does not authorize requests indefinitely. The API must validate the authentication proof accompanying the current request, then apply ownership/role permissions. This limits reuse of stale or invalid credentials.
 - **Where / prerequisites:** Documentation exercise on docs/p01-session-validity at b81ccf0. No installation or application command. Phase 03 will implement the app; Phase 12 integrates the full Keycloak/OIDC identity setup with evidence. These draft requirements do not claim that either exists now.
@@ -244,4 +244,30 @@ These are proposed acceptance scenarios, NOT EXECUTED tests. An approved refresh
 - **When coding begins:** Canonical Phase 02 includes Bash/Python and Linux/networking exercises. Phase 03 starts the NestJS/PostgreSQL/Redis application baseline. Remaining Phase 01 requirements, architecture/trust boundaries, ADRs, diagrams and threat/risk review must be completed first. Do not generate the entire app or skip the agreed learning sequence.
 - **Reference:** [OWASP authentication guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html); consult current official Keycloak/OIDC documentation before implementation. No new technology setup is performed in this lesson.
 
-**Learning review — 2026-10-31:** Learner correctly rejected returning balance/personal information for an expired-proof request and recognized the risk of reuse. A stolen expired proof is useful to an attacker only if the API fails to enforce expiry; a correct API rejects it even when it names the account owner. The expiry case and invalid-proof denial remain proposed acceptance requirements, not executed API tests. Refresh/sign-in, credential format and exact response contract remain implementation decisions. Git checkpoint pending.
+**Learning review — 2026-10-31:** Learner correctly rejected returning balance/personal information for an expired-proof request and recognized the risk of reuse. A stolen expired proof is useful to an attacker only if the API fails to enforce expiry; a correct API rejects it even when it names the account owner. The expiry case and invalid-proof denial remain proposed acceptance requirements, not executed API tests. Refresh/sign-in, credential format and exact response contract remain implementation decisions. The introductory section checkpoint is complete as recorded below.
+
+**Phase 01.4 Git closure:** learner committed four reviewed documents as f781b79, published the branch, merged [PR #7](https://github.com/Kashmitha/secure-cloud-platform/pull/7) as 23607a2 and synchronized clean main. Remote/local diffs match; committed whitespace and bounded credential-pattern checks pass. No CI run, implemented auth control or executed API test claimed. Next: simulated-transfer acceptance requirements after learner branch preparation.
+
+## Phase 01.5 — Simulated-transfer requirements: atomic balance changes (LEARNING REVIEW PASSED 2026-10-31; Git checkpoint pending)
+
+- **Objective / concept:** Specify that a simulated transfer's debit (subtract from sender) and credit (add to recipient) succeed together. Atomicity means the database operation takes effect as a whole or has no effect. It prevents a stored half-transfer that loses or creates synthetic funds.
+- **Where / prerequisites:** Draft on docs/p01-transfer-requirements at 23607a2. Use synthetic account balances and integer demo units. This exercise assumes no fees or concurrent operations; it is not a full currency/data model decision. No application commands, SQL execution or installation yet.
+- **How it fits:** An authenticated customer may initiate a permitted transfer from their own source account to a valid recipient through business validation. That does not grant direct arbitrary balance-editing permission. PostgreSQL is the durable system of record; Redis is not a substitute for the committed transfer record.
+- **Proposed requirement AC-TRANSFER-01:** For a permitted transfer between two existing distinct synthetic accounts, commit the debit and credit together. A failure preventing completion before commit must leave neither balance change committed and must not be reported as success. A completed transfer record must agree with the committed balance changes; audit/retry details are follow-up work.
+
+| Case | Given / When | Required final stored result |
+|---|---|---|
+| Success | A has 100, B has 40; permitted transfer of 25 from A to B completes and commits | A=75, B=65; report one completed transfer |
+| Failure before commit | Same starting balances; a failure between the tentative debit and credit prevents completion before commit | A=100, B=40; no completed transfer or success response |
+
+Both starting and successful totals equal 140. A=75/B=40 after failure would be a stored half-transfer and violate the requirement. These are proposed acceptance scenarios, NOT EXECUTED database/API tests. The failure case is explicitly before commit; if commit succeeds but the response is lost, the client cannot infer rollback. That retry/unknown-outcome case is separate follow-up work.
+
+- **Technology preview / alternatives:** A PostgreSQL database transaction will later group these related writes. Independent committed updates followed by an ad hoc refund are not an equivalent guarantee; the refund could also fail. SQL transaction commands, application-library behavior, setup, verification and failure injection belong to the Phase 03 hands-on implementation; no executable commands are prescribed here.
+- **Small learner task:** Starting from A=100/B=40, the tentative debit runs but the credit fails before commit. State the final stored balances and explain why leaving A at 75 would be incorrect. No Markdown authoring or code is required from the learner for this review.
+- **Expected result / completion criteria:** Learner identifies that neither balance change may remain committed, explains the missing-funds risk and reviews/corrects this first acceptance slice. Further validation, insufficient funds, concurrent transfers, audit persistence and idempotent retries remain unfinished requirements; this slice alone does not finish financial requirements or Phase 01.
+- **Validation/security plan:** Later test both successful commit and controlled failure before commit, inspect stored balances and transfer status, and verify authentication/source ownership. No runtime PASS now. Keep sensitive details out of error responses and use only synthetic data.
+- **Troubleshooting drill:** A failure test leaves A=75/B=40. Suspect independently committed updates or a write outside the intended transaction; inspect the transaction boundary during implementation rather than disabling the test.
+- **GitHub checkpoint:** After learning review, validate the documentation diff, whitespace and bounded credential exposure, then provide explicit staging/commit/push/PR/merge together. Learner executes and shares results for verification; include previous-section closeout records in that normal checkpoint.
+- **Official reading:** [PostgreSQL transaction tutorial](https://www.postgresql.org/docs/current/tutorial-transactions.html), checked 2026-10-31. This lesson introduces a requirement; it does not claim a database is running or transaction code exists.
+
+**Learning review — 2026-10-31:** Learner initially treated the tentative deduction as permanently saved and described A=75/B=40 after failure. Clarified that commit saves the whole operation and rollback cancels its tentative changes; this is not an independently committed deduction followed by a refund. Rechecks passed: successful commit A=75/B=65, and failure before commit A=100/B=40. These are verbal acceptance-scenario checks, not executed SQL/API tests. Follow-up transaction/retry/concurrency requirements and section Git publication remain pending.
