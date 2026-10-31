@@ -2,7 +2,7 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; Git checkpoint pending.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; Git checkpoint pending.
 
 ## How to study
 
@@ -112,9 +112,16 @@ Use this compact format:
 **A:** No. The API must reject a protected request whose only proof is expired, without returning private data. Ownership is an authorization condition and does not replace current valid authentication. An approved refresh/sign-in flow may obtain fresh valid proof for a later request; it does not make the expired proof valid.
 **Project example:** the learner correctly denied balance/personal-data access and identified the risk of accepting reused expired proof. AC-AUTH-02 specifies expired/invalid-proof rejection; these are design scenarios, not implemented controls or executed tests.
 
-## Phase 01.5 — Atomic simulated transfers (LEARNED 2026-10-31; Git checkpoint pending)
+## Phase 01.5 — Atomic simulated transfers (LEARNED 2026-10-31; checkpoint merged via PR #8)
 
 **Q1. What must happen if a transfer's credit fails before the transaction commits?**
 
 **A:** Roll back the operation so neither balance change remains committed. Atomicity means the grouped writes take effect together or not at all. A successful commit saves both changes; a failed-before-commit operation must not be reported as a completed transfer. This does not imply that a lost response after commit means rollback.
 **Project example:** with A=100/B=40 and transfer 25, the learner correctly identified successful A=75/B=65 and failed-before-commit A=100/B=40 after resolving a partial-write misconception. AC-TRANSFER-01 is a proposed requirement; no database/API test has run.
+
+## Phase 01.6 — Invalid amount versus insufficient funds (REVIEWED 2026-10-31; Git checkpoint pending)
+
+**Q1. Under the proposed no-overdraft rule, why reject a transfer of 80 or -10 when the source holds 50?**
+
+**A:** 80 exceeds available funds; -10 violates the positive-amount rule. Either rejection must leave both balances unchanged and create no completed transfer. Zero completed transfers does not mean account balances become zero. Validation must run at the API, not only in browser controls.
+**Project example:** learner correctly explained the two rejection reasons and stated 0 transfers; mentor clarified unchanged A=50/B=20. These are proposed AC-TRANSFER-02 scenarios, not executed API/database tests.

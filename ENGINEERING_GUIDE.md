@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 atomic-transfer learning review passed on 2026-10-31; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 introductory rejection-rule review recorded on 2026-10-31; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.4 complete; 01.5 atomic-transfer review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.5 complete; 01.6 introductory review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -248,7 +248,7 @@ These are proposed acceptance scenarios, NOT EXECUTED tests. An approved refresh
 
 **Phase 01.4 Git closure:** learner committed four reviewed documents as f781b79, published the branch, merged [PR #7](https://github.com/Kashmitha/secure-cloud-platform/pull/7) as 23607a2 and synchronized clean main. Remote/local diffs match; committed whitespace and bounded credential-pattern checks pass. No CI run, implemented auth control or executed API test claimed. Next: simulated-transfer acceptance requirements after learner branch preparation.
 
-## Phase 01.5 — Simulated-transfer requirements: atomic balance changes (LEARNING REVIEW PASSED 2026-10-31; Git checkpoint pending)
+## Phase 01.5 — Simulated-transfer requirements: atomic balance changes (COMPLETED 2026-10-31)
 
 - **Objective / concept:** Specify that a simulated transfer's debit (subtract from sender) and credit (add to recipient) succeed together. Atomicity means the database operation takes effect as a whole or has no effect. It prevents a stored half-transfer that loses or creates synthetic funds.
 - **Where / prerequisites:** Draft on docs/p01-transfer-requirements at 23607a2. Use synthetic account balances and integer demo units. This exercise assumes no fees or concurrent operations; it is not a full currency/data model decision. No application commands, SQL execution or installation yet.
@@ -270,4 +270,33 @@ Both starting and successful totals equal 140. A=75/B=40 after failure would be 
 - **GitHub checkpoint:** After learning review, validate the documentation diff, whitespace and bounded credential exposure, then provide explicit staging/commit/push/PR/merge together. Learner executes and shares results for verification; include previous-section closeout records in that normal checkpoint.
 - **Official reading:** [PostgreSQL transaction tutorial](https://www.postgresql.org/docs/current/tutorial-transactions.html), checked 2026-10-31. This lesson introduces a requirement; it does not claim a database is running or transaction code exists.
 
-**Learning review — 2026-10-31:** Learner initially treated the tentative deduction as permanently saved and described A=75/B=40 after failure. Clarified that commit saves the whole operation and rollback cancels its tentative changes; this is not an independently committed deduction followed by a refund. Rechecks passed: successful commit A=75/B=65, and failure before commit A=100/B=40. These are verbal acceptance-scenario checks, not executed SQL/API tests. Follow-up transaction/retry/concurrency requirements and section Git publication remain pending.
+**Learning review — 2026-10-31:** Learner initially treated the tentative deduction as permanently saved and described A=75/B=40 after failure. Clarified that commit saves the whole operation and rollback cancels its tentative changes; this is not an independently committed deduction followed by a refund. Rechecks passed: successful commit A=75/B=65, and failure before commit A=100/B=40. These are verbal acceptance-scenario checks, not executed SQL/API tests. Follow-up transfer-validation/retry/concurrency requirements remain pending; this introductory section publication is complete as recorded below.
+
+**Phase 01.5 Git closure:** learner committed four reviewed documents as 415e537, published the branch, merged [PR #8](https://github.com/Kashmitha/secure-cloud-platform/pull/8) as 3766713 and synchronized clean main. Remote/local diffs match; committed whitespace and bounded credential-pattern checks pass. No CI or runtime database/API tests claimed. Learner reports deleting the merged branch; its local counterpart still exists and does not affect continuation. Next: amount/insufficient-funds validation after learner branch preparation.
+
+## Phase 01.6 — Transfer amount and insufficient-funds validation (INTRODUCTORY REVIEW PASSED 2026-10-31; Git checkpoint pending)
+
+- **Objective / why:** Reject an invalid simulated transfer before it can change account balances. Atomicity protects grouped changes; validation decides whether the operation should happen at all. Both are needed.
+- **Where / prerequisites:** Draft on docs/p01-transfer-validation at 3766713. No new tool, installation or programming command. Examples use integer synthetic units, no fees/concurrent activity, existing distinct accounts and valid authentication/source permission; these assumptions are not a full currency-model decision.
+- **Proposed requirement AC-TRANSFER-02:** A transfer amount must be greater than zero and must not exceed the source's available balance. This is a proposed no-overdraft rule for learner review. Reject an invalid amount or insufficient funds without changing either balance or recording a completed transfer. The API must enforce it even if the request bypasses browser controls.
+
+Starting balances for each independent scenario: **A=50, B=20**.
+
+| Requested amount from A to B | Proposed outcome | Final stored balances |
+|---|---|---|
+| 25 | Valid in this controlled example; success only after atomic commit | A=25, B=45 |
+| 0 | Reject: amount must be positive | A=50, B=20 |
+| -10 | Reject: negative amount is not a valid transfer | A=50, B=20 |
+| 80 | Reject: insufficient source funds | A=50, B=20 |
+
+A request equal to the available balance can leave A at zero under this proposed no-fee rule, assuming all other checks pass. Do not silently introduce overdraft, partial-transfer or fee behavior. These are proposed acceptance scenarios, NOT EXECUTED API/database tests.
+
+- **Small learner task:** For amounts 80 and -10, state whether the API should accept or reject, the final balances and why. The assistant writes Markdown; the learner reviews the rules. No code required for this exercise.
+- **Expected result / completion criteria:** Learner distinguishes invalid amount from insufficient funds and explains that neither rejected request changes balances. Accept/correct the draft rule, record open questions, then complete the normal combined Git checkpoint. This does not complete all transfer/business requirements or Phase 01.
+- **Validation/security plan:** Later test positive, zero, negative, exact-balance and excessive amounts, inspect persisted balances/transfer status and send direct API requests bypassing UI checks. Check malformed/non-numeric input too when the request schema is defined. No runtime PASS claimed now.
+- **Troubleshooting drill:** Subtracting -10 would mathematically add 10 to A, while crediting -10 would remove 10 from B. Reject the input rather than relying on the balance-update arithmetic to make it safe. Test rejection at the API boundary during implementation.
+- **Implementation questions left open:** Currency representation/precision and upper bounds, request schema/error codes, concurrent spend protection and audit/retry behavior. A browser or stale balance check alone cannot guarantee correctness under concurrency; database enforcement will be designed and tested later.
+- **GitHub checkpoint:** After review, validate documentation/whitespace/bounded credential exposure and provide explicit add/checks/commit/push/PR/merge in one message. Learner executes and shares results; include prior closeout evidence in that section checkpoint.
+- **Reference:** The blueprint's simulated-transactions scope and [PostgreSQL transaction tutorial](https://www.postgresql.org/docs/current/tutorial-transactions.html) for grouping writes. The positive-amount/no-overdraft policy here is a proposed project business rule, not a claim that database transactions automatically enforce it.
+
+**Learning review — 2026-10-31:** Learner correctly rejected 80 because the source holds only 50, and rejected -10 as a negative transfer amount. Learner answered 0 transfers for the remaining-state question; clarified that zero operations complete, while both stored balances remain A=50/B=20. This is conceptual review with a mentor-supplied balance clarification, not an executed validation test or proof of broader mastery. Draft policy and Git checkpoint remain pending publication; detailed amount representation and concurrency/retry requirements remain open.
