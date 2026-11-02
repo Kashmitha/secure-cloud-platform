@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 introductory rejection-rule review recorded on 2026-10-31; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 introductory same-key retry outcome reviewed on 2026-11-02; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.5 complete; 01.6 introductory review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.6 complete; 01.7 introductory retry review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -274,7 +274,7 @@ Both starting and successful totals equal 140. A=75/B=40 after failure would be 
 
 **Phase 01.5 Git closure:** learner committed four reviewed documents as 415e537, published the branch, merged [PR #8](https://github.com/Kashmitha/secure-cloud-platform/pull/8) as 3766713 and synchronized clean main. Remote/local diffs match; committed whitespace and bounded credential-pattern checks pass. No CI or runtime database/API tests claimed. Learner reports deleting the merged branch; its local counterpart still exists and does not affect continuation. Next: amount/insufficient-funds validation after learner branch preparation.
 
-## Phase 01.6 — Transfer amount and insufficient-funds validation (INTRODUCTORY REVIEW PASSED 2026-10-31; Git checkpoint pending)
+## Phase 01.6 — Transfer amount and insufficient-funds validation (INTRODUCTORY SECTION COMPLETED 2026-10-31)
 
 - **Objective / why:** Reject an invalid simulated transfer before it can change account balances. Atomicity protects grouped changes; validation decides whether the operation should happen at all. Both are needed.
 - **Where / prerequisites:** Draft on docs/p01-transfer-validation at 3766713. No new tool, installation or programming command. Examples use integer synthetic units, no fees/concurrent activity, existing distinct accounts and valid authentication/source permission; these assumptions are not a full currency-model decision.
@@ -299,4 +299,34 @@ A request equal to the available balance can leave A at zero under this proposed
 - **GitHub checkpoint:** After review, validate documentation/whitespace/bounded credential exposure and provide explicit add/checks/commit/push/PR/merge in one message. Learner executes and shares results; include prior closeout evidence in that section checkpoint.
 - **Reference:** The blueprint's simulated-transactions scope and [PostgreSQL transaction tutorial](https://www.postgresql.org/docs/current/tutorial-transactions.html) for grouping writes. The positive-amount/no-overdraft policy here is a proposed project business rule, not a claim that database transactions automatically enforce it.
 
-**Learning review — 2026-10-31:** Learner correctly rejected 80 because the source holds only 50, and rejected -10 as a negative transfer amount. Learner answered 0 transfers for the remaining-state question; clarified that zero operations complete, while both stored balances remain A=50/B=20. This is conceptual review with a mentor-supplied balance clarification, not an executed validation test or proof of broader mastery. Draft policy and Git checkpoint remain pending publication; detailed amount representation and concurrency/retry requirements remain open.
+**Learning review — 2026-10-31:** Learner correctly rejected 80 because the source holds only 50, and rejected -10 as a negative transfer amount. Learner answered 0 transfers for the remaining-state question; clarified that zero operations complete, while both stored balances remain A=50/B=20. This is conceptual review with a mentor-supplied balance clarification, not an executed validation test or proof of broader mastery. The introductory section Git checkpoint is complete as recorded below; detailed amount representation and concurrency/retry requirements remain open.
+
+**Phase 01.6 Git closure:** learner committed four reviewed documents as d7e3011, published the branch, merged [PR #9](https://github.com/Kashmitha/secure-cloud-platform/pull/9) as 14297c6 and synchronized clean main. Remote/local diffs match; committed whitespace and bounded credential-pattern checks pass. No CI or runtime database/API tests claimed. Next: transfer retries/idempotency after learner branch preparation; retain the original learning clarification without assuming broader mastery.
+
+## Phase 01.7 — Transfer retries and idempotency (INTRODUCTORY REVIEW PASSED 2026-11-02; Git checkpoint pending)
+
+- **Objective / why:** Prevent a customer retry from applying an already completed simulated transfer again. A network timeout or lost response leaves the client uncertain; it does not prove the database failed or rolled back.
+- **Concept:** Idempotency means repeating the same logical request has no additional business effect. A client-supplied request key identifies the intended operation. Reuse it for a retry of that same operation; a new intended transfer needs a new key. The key is not a password or proof of identity and does not replace authentication/authorization.
+- **Where / prerequisites:** Draft on docs/p01-transfer-retries at 14297c6; synthetic data only. No new tool, install or application command. Implementation belongs to the later application phase.
+- **Proposed requirement AC-TRANSFER-03:** For the same authenticated customer, same request key and same transfer details, an authorized retry of a completed transfer returns its existing result without another debit/credit or completed-transfer record. Reusing that key with changed source, recipient or amount must be rejected without another transfer. Identity/permissions must still be validated for each request; do not reveal another customer's stored result.
+
+Example: **A=100, B=40; permitted transfer of 25**, with illustrative request key `demo-transfer-001`.
+
+| Event | Stored balances | Completed transfers for this logical request |
+|---|---|---:|
+| First request commits, but its response is lost | A=75, B=65 | 1 |
+| Customer retries the identical request using the same key | A=75, B=65 | 1 |
+| Incorrect duplicate processing to prevent | A=50, B=90 | 2 |
+
+These are proposed acceptance scenarios, NOT EXECUTED API/database tests. A response loss after commit differs from a confirmed failure preventing commit: do not assume rollback or issue another transfer merely because the caller saw a timeout.
+
+- **Design considerations / alternatives:** The request identity/result and transfer effects need consistent durable recording so a crash cannot leave a committed transfer with no duplicate-detection record. PostgreSQL remains the system of record; a Redis cache alone is not a durable correctness guarantee. Guessing duplicates only from equal amounts/recipients is inadequate because a customer may intentionally request two identical transfers. Exact persistence/constraint design and response handling are not implemented or approved here.
+- **Scope limits / open questions:** Define the key's retention/replay window, concurrent same-key/in-progress behavior, missing-key/error handling and status lookup before implementation. The numeric exercise assumes a retained completed record. Do not claim unlimited replay protection, automatic exactly-once execution, or successful processing of every retry. No retry policy for all errors is prescribed.
+- **Small learner task:** Starting at A=100/B=40, transfer25 commits but its response is lost. An identical authorized request then arrives with the same request key. State final balances and completed-transfer count, and explain why no second deduction is allowed.
+- **Expected result / completion criteria:** Learner distinguishes lost response from confirmed rollback and recognizes reuse of the existing result rather than another balance change. Review/correct this acceptance slice, record open questions and complete the combined Git checkpoint. This does not complete concurrency requirements or Phase 01.
+- **Validation/security plan:** Later test first commit plus dropped response, identical same-key retry, changed-payload rejection and concurrent duplicates; inspect durable balances and transfer records. Also verify unauthorized callers cannot retrieve stored results. No runtime PASS now.
+- **Troubleshooting drill:** A retry leaves A=50/B=90. Check whether the client generated a new key for the retry or whether the server failed to enforce duplicate protection. Do not disable retries or claim a UI-only solution is sufficient.
+- **GitHub checkpoint:** After learner review, validate documentation/whitespace/bounded credential exposure and provide explicit add/checks/commit/push/PR/merge together. Learner executes; verify actual outputs and PR afterward. Include prior closeout records in the normal checkpoint.
+- **Official reading:** [AWS Builders Library: Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/), checked 2026-10-31. Reading this design reference does not provision AWS or alter the local-first plan.
+
+**Learning review — 2026-11-02:** Learner correctly supplied A=75/B=65 and one completed transfer after the same-key retry, rather than a second transfer or rollback. Mentor reinforced returning the existing result without additional balance changes. This is conceptual evidence for the introductory lost-response scenario, not executed API/database tests. The example assumes the completed record is retained and the retry has the same authorized caller and details; retention, concurrency and implementation remain open. Git checkpoint pending.
