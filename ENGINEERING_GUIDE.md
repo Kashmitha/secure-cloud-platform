@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 introductory concurrency review passed on 2026-11-02; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 completed through locally verified PR #11 merge and main synchronization on 2026-11-02; Phase 01.9 introductory notification-failure outcome reviewed on 2026-11-02; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.7 complete; 01.8 introductory concurrency review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.8 complete; 01.9 introductory notification review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -333,7 +333,7 @@ These are proposed acceptance scenarios, NOT EXECUTED API/database tests. A resp
 
 **Phase 01.7 Git closure:** local history verifies reviewed four-document commit 68c5d40 merged via PR #10 as 4499352 and clean main matching origin/main. Committed diff reviewed and whitespace check passed. GitHub connector unavailable: no live PR metadata, formal review or CI check queried this turn. No API/database tests claimed. Next: concurrent-transfer requirements after learner branch preparation.
 
-## Phase 01.8 — Concurrent transfers competing for funds (INTRODUCTORY REVIEW PASSED 2026-11-02; Git checkpoint pending)
+## Phase 01.8 — Concurrent transfers competing for funds (INTRODUCTORY SECTION COMPLETED 2026-11-02)
 
 - **Objective / why:** Preserve the no-overdraft rule when different requests overlap. Concurrency means operations are in progress at the same time; both may read the same old balance before either finishes. That observation alone does not make both spends valid.
 - **Where / prerequisites:** Documentation exercise on docs/p01-concurrent-transfers at 4499352. Learner corrected the po1/p01 branch typo without losing work. No new software, installation or executable application commands.
@@ -358,4 +358,33 @@ These are proposed acceptance scenarios, NOT EXECUTED tests. The exercise assume
 - **Completion criteria / Git checkpoint:** Learner reviews the constrained two-request outcome and distinguishes separate requests from retries. Record open implementation questions, validate the documents and present the full learner-run staging/checks/commit/push/PR/merge sequence together. This does not finish Phase 01 architecture or all transfer requirements.
 - **Official reading:** [PostgreSQL transaction isolation](https://www.postgresql.org/docs/current/transaction-iso.html), checked 2026-11-02. Consult the chosen database/library version again before implementing a locking/isolation strategy.
 
-**Learning review — 2026-11-02:** Learner correctly rejected the second 80-unit transfer and supplied remaining A=20 after the first commits from 100. Mentor reiterated that only 20 is available and one transfer completes under the controlled assumptions. This is conceptual outcome review, not an executed concurrency test or a selected database locking/isolation strategy. Implementation and section Git publication remain pending.
+**Learning review — 2026-11-02:** Learner correctly rejected the second 80-unit transfer and supplied remaining A=20 after the first commits from 100. Mentor reiterated that only 20 is available and one transfer completes under the controlled assumptions. This is conceptual outcome review, not an executed concurrency test or a selected database locking/isolation strategy. Implementation remains pending; the introductory section Git checkpoint is closed as recorded below.
+
+**Phase 01.8 Git closure:** local history verifies prepared four-document commit 6f33270 merged through PR #11 as bf8c932, with clean main matching origin/main. Committed whitespace and bounded credential-pattern checks pass. Live GitHub metadata/reviews/CI not queried; no runtime API/database tests claimed. Next: audit/mock-notification requirements after learner branch preparation.
+
+## Phase 01.9 — Audit evidence and mock-notification failure (INTRODUCTORY REVIEW PASSED 2026-11-02; Git checkpoint pending)
+
+- **Objective / why:** Distinguish the authoritative record of a completed transfer from the message informing the customer. Delivery failure must not cause a second transfer or erase the history of the first.
+- **Where / prerequisites:** Documentation exercise on docs/p01-audit-notifications at bf8c932; synthetic accounts and mock delivery only. No new technology setup, scripts or real messages to customers.
+- **Concept:** Audit evidence records who performed an action, what happened and when. A notification reports an event to a recipient. A delivered message is not the financial system of record; a failed message does not prove a committed transfer failed. PostgreSQL remains the durable source of truth under the blueprint.
+- **Proposed AC-AUDIT-01:** A completed transfer must have durable, consistent evidence linking synthetic actor ID, action/outcome, transfer ID, timestamp and correlation ID. Preserve that evidence when notification delivery fails. Exclude secrets, authentication tokens and real PII. Append-only behavior, access control, retention and consistent record persistence need a reviewed implementation; a log line alone does not establish those guarantees.
+- **Proposed AC-NOTIFY-01:** Handle mock notification delivery separately from the committed transfer outcome. If delivery fails after commit, record/retain delivery failure or pending status and make notification work recoverable for retry. Do not repeat debit/credit or claim the message was delivered. A notification retry must refer to the existing transfer, rather than submit another transfer.
+
+Controlled example: A=100/B=40, permitted transfer25 commits with durable transfer/audit evidence; only the later mock delivery fails.
+
+| State | Required outcome |
+|---|---|
+| Transfer committed | A=75/B=65; one completed transfer and its durable evidence |
+| Mock notification fails afterward | Balances and completed transfer remain unchanged; delivery is pending/failed, not delivered |
+| Notification work is retried | Attempt delivery for the existing transfer; no new debit/credit or completed-transfer record |
+
+These are proposed requirements, NOT EXECUTED API/database/delivery tests. This scenario assumes durable commit/evidence already succeeded; it does not excuse losing audit evidence during a crash. A business reversal would be a separate authorized operation, not automatic rollback of an already committed transfer because its message failed.
+
+- **Design questions / alternatives:** Reliable handoff from durable commit to asynchronous work, deduplication, retry limits/backoff and terminal-failure handling must be specified and tested later. A durable pending-event record with asynchronous dispatch is one option to evaluate; no pattern/library is selected here. Redis queue/pub-sub alone is not proof of crash-safe delivery; do not claim exactly-once notification delivery.
+- **Small learner task / expected result:** State A/B balances after the notification fails and explain whether we should repeat the transfer or retry only notification work. Distinguish completed transfer from delivery status.
+- **Validation/security plan:** Later inject delivery failure after commit, inspect balances/transfer/audit evidence, recover notification work and verify no extra transfer. Review redaction and authorized access to audit records. No runtime PASS now.
+- **Troubleshooting drill:** A notification retry creates a second debit. Trace whether the retry calls the transfer operation instead of delivery for its existing transfer ID; enforce separation in the implementation and tests.
+- **Completion criteria / checkpoint:** Learner reviews the committed-transfer/delivery-failure outcome and the purpose of durable evidence. Record open persistence/security questions, validate docs and provide the full learner-run add/checks/commit/push/PR/merge workflow together. This does not complete Phase 01 architecture or all audit/recovery design.
+- **Project reference:** PROJECT_BLUEPRINT.md section 3 specifies simulated transactions, audit and asynchronous mock notifications. This draft elaborates those proposed behaviors without claiming runtime implementation or approving a detailed persistence architecture.
+
+**Learning review — 2026-11-02:** Learner correctly supplied A=75/B=65 and chose retrying only notification delivery, without repeating the committed transfer. Retain the existing transfer/audit evidence and delivery's pending/failed status; retry delivery for the existing transfer ID. This is introductory scenario review, not an executed delivery/recovery test or demonstrated audit-control implementation. Persistence consistency, retention/access/redaction controls and retry/deduplication mechanics still require design/testing. Git publication pending.

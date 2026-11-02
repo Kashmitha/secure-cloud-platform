@@ -2,7 +2,7 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; checkpoint merged via PR #9. Phase 01.7 same-key retry question reviewed on 2026-11-02; checkpoint merge via PR #10 verified in local Git history. Phase 01.8 competing-transfer question reviewed on 2026-11-02; Git checkpoint pending.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; checkpoint merged via PR #9. Phase 01.7 same-key retry question reviewed on 2026-11-02; checkpoint merge via PR #10 verified in local Git history. Phase 01.8 competing-transfer question reviewed on 2026-11-02; PR #11 merge locally verified. Phase 01.9 notification-failure outcome reviewed on 2026-11-02; Git checkpoint pending.
 
 ## How to study
 
@@ -133,9 +133,16 @@ Use this compact format:
 **A:** No. A lost response does not prove rollback. For the same authorized caller, request key and transfer details, return the retained existing result without another debit/credit or completed transfer. A request key identifies the operation; it does not replace authentication or authorization. Replay retention and concurrent requests still need a defined design.
 **Project example:** learner correctly answered A=75/B=65 and one completed transfer after retrying a committed transfer of 25 from starting A=100/B=40. AC-TRANSFER-03 remains a proposed requirement with no executed API/database tests.
 
-## Phase 01.8 — Concurrent requests sharing funds (REVIEWED 2026-11-02; Git checkpoint pending)
+## Phase 01.8 — Concurrent requests sharing funds (REVIEWED 2026-11-02; PR #11 merge locally verified)
 
 **Q1. Can two distinct concurrent requests each spend 80 from a source holding 100?**
 
 **A:** Not both under the proposed no-overdraft rule with no other activity. Once one commits, only 20 remains, so the other cannot commit an 80-unit spend. Two stale reads of 100 do not authorize spending 160. Atomicity protects one transfer's grouped changes; concurrency protection coordinates different transfers. Different idempotency keys do not replace funds checks.
 **Project example:** learner correctly answered that the second request cannot succeed and A remains 20. AC-TRANSFER-04 is a proposed requirement, not an implemented database strategy or executed API/concurrency test.
+
+## Phase 01.9 — Committed transfer versus failed notification (REVIEWED 2026-11-02; Git checkpoint pending)
+
+**Q1. Should notification failure repeat or undo an already committed transfer?**
+
+**A:** No. Keep the committed balances and durable transfer/audit evidence. Track delivery as pending/failed and retry notification work for that existing transfer; do not debit/credit again or claim successful delivery. A business reversal would require a separate authorized operation. Reliable delivery handoff, recovery and deduplication still need design and tests.
+**Project example:** learner correctly identified A=75/B=65 after a committed transfer of 25 from A=100/B=40, and selected notification-only retry. These are proposed AC-AUDIT-01/AC-NOTIFY-01 scenarios, not executed API/database/delivery tests.
