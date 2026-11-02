@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 introductory same-key retry outcome reviewed on 2026-11-02; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 introductory concurrency review passed on 2026-11-02; Git checkpoint pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.6 complete; 01.7 introductory retry review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.7 complete; 01.8 introductory concurrency review passed; publication pending |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -303,7 +303,7 @@ A request equal to the available balance can leave A at zero under this proposed
 
 **Phase 01.6 Git closure:** learner committed four reviewed documents as d7e3011, published the branch, merged [PR #9](https://github.com/Kashmitha/secure-cloud-platform/pull/9) as 14297c6 and synchronized clean main. Remote/local diffs match; committed whitespace and bounded credential-pattern checks pass. No CI or runtime database/API tests claimed. Next: transfer retries/idempotency after learner branch preparation; retain the original learning clarification without assuming broader mastery.
 
-## Phase 01.7 — Transfer retries and idempotency (INTRODUCTORY REVIEW PASSED 2026-11-02; Git checkpoint pending)
+## Phase 01.7 — Transfer retries and idempotency (INTRODUCTORY SECTION COMPLETED 2026-11-02)
 
 - **Objective / why:** Prevent a customer retry from applying an already completed simulated transfer again. A network timeout or lost response leaves the client uncertain; it does not prove the database failed or rolled back.
 - **Concept:** Idempotency means repeating the same logical request has no additional business effect. A client-supplied request key identifies the intended operation. Reuse it for a retry of that same operation; a new intended transfer needs a new key. The key is not a password or proof of identity and does not replace authentication/authorization.
@@ -329,4 +329,33 @@ These are proposed acceptance scenarios, NOT EXECUTED API/database tests. A resp
 - **GitHub checkpoint:** After learner review, validate documentation/whitespace/bounded credential exposure and provide explicit add/checks/commit/push/PR/merge together. Learner executes; verify actual outputs and PR afterward. Include prior closeout records in the normal checkpoint.
 - **Official reading:** [AWS Builders Library: Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/), checked 2026-10-31. Reading this design reference does not provision AWS or alter the local-first plan.
 
-**Learning review — 2026-11-02:** Learner correctly supplied A=75/B=65 and one completed transfer after the same-key retry, rather than a second transfer or rollback. Mentor reinforced returning the existing result without additional balance changes. This is conceptual evidence for the introductory lost-response scenario, not executed API/database tests. The example assumes the completed record is retained and the retry has the same authorized caller and details; retention, concurrency and implementation remain open. Git checkpoint pending.
+**Learning review — 2026-11-02:** Learner correctly supplied A=75/B=65 and one completed transfer after the same-key retry, rather than a second transfer or rollback. Mentor reinforced returning the existing result without additional balance changes. This is conceptual evidence for the introductory lost-response scenario, not executed API/database tests. The example assumes the completed record is retained and the retry has the same authorized caller and details; retention, concurrency and implementation remain open. This introductory checkpoint is closed as recorded below.
+
+**Phase 01.7 Git closure:** local history verifies reviewed four-document commit 68c5d40 merged via PR #10 as 4499352 and clean main matching origin/main. Committed diff reviewed and whitespace check passed. GitHub connector unavailable: no live PR metadata, formal review or CI check queried this turn. No API/database tests claimed. Next: concurrent-transfer requirements after learner branch preparation.
+
+## Phase 01.8 — Concurrent transfers competing for funds (INTRODUCTORY REVIEW PASSED 2026-11-02; Git checkpoint pending)
+
+- **Objective / why:** Preserve the no-overdraft rule when different requests overlap. Concurrency means operations are in progress at the same time; both may read the same old balance before either finishes. That observation alone does not make both spends valid.
+- **Where / prerequisites:** Documentation exercise on docs/p01-concurrent-transfers at 4499352. Learner corrected the po1/p01 branch typo without losing work. No new software, installation or executable application commands.
+- **Concept distinction:** Atomicity protects the debit/credit inside one transfer. Idempotency prevents repeating one logical transfer. Concurrency protection coordinates different transfers that share account state. Two different request keys do not bypass the available-funds rule.
+- **Proposed AC-TRANSFER-04:** Concurrent distinct transfers must not together spend more than the source's available funds. Each committed transfer must satisfy the funds rule under the concurrency-control design, with its debit/credit recorded atomically. A rejected/aborted request must not leave balance changes or be reported as completed. The winner need not be chosen in advance.
+
+Controlled scenario: **A=100, B=0, C=0**, no fees, deposits or other activity. Two valid authorized requests with different keys overlap: A sends 80 to B and A sends 80 to C.
+
+| Event / outcome | Required stored result |
+|---|---|
+| Both requests initially observe A=100 | Do not treat two stale observations as approval for spending 160 |
+| Transfer to B commits first | A=20, B=80, C=0 |
+| Transfer to C then resolves against the remaining funds | It cannot commit an 80-unit spend; A=20, B=80, C=0; one completed transfer |
+| Transfer to C wins instead | Symmetric permitted result: A=20, B=0, C=80; one completed transfer |
+
+These are proposed acceptance scenarios, NOT EXECUTED tests. The exercise assumes one request commits successfully. Other operational failures could leave neither completed; if the first rolls back instead of committing, funds may remain available to the second. Both transfers completing is not permitted with only the starting 100 and no other activity.
+
+- **Implementation preview / alternatives:** Later compare a database lock plus a funds check, a guarded balance update with its result checked, and stronger transaction isolation with appropriate retries. None is selected or implemented here. Plain transaction boundaries alone or a browser/application pre-read check are not proof of correct concurrent behavior. PostgreSQL remains the durable source of truth; an in-process lock alone would not coordinate multiple application replicas.
+- **Small learner task / expected result:** After the first 80-unit transfer commits from A=100, can the second distinct 80-unit transfer also commit, and what should A's balance remain? Explain the insufficient-funds reason.
+- **Validation/security plan:** Later coordinate overlapping API/database requests, inspect balances and completed-transfer records, check funds conservation/no overdraft, and verify every request's authentication/source permission. Include both potential winners and controlled failures. No runtime PASS claimed now.
+- **Troubleshooting drill:** Both calls check 100 and return success. Suspect a race between checking funds and applying the write; inspect the database enforcement and transaction/isolation behavior, not just the UI's disabled button.
+- **Completion criteria / Git checkpoint:** Learner reviews the constrained two-request outcome and distinguishes separate requests from retries. Record open implementation questions, validate the documents and present the full learner-run staging/checks/commit/push/PR/merge sequence together. This does not finish Phase 01 architecture or all transfer requirements.
+- **Official reading:** [PostgreSQL transaction isolation](https://www.postgresql.org/docs/current/transaction-iso.html), checked 2026-11-02. Consult the chosen database/library version again before implementing a locking/isolation strategy.
+
+**Learning review — 2026-11-02:** Learner correctly rejected the second 80-unit transfer and supplied remaining A=20 after the first commits from 100. Mentor reiterated that only 20 is available and one transfer completes under the controlled assumptions. This is conceptual outcome review, not an executed concurrency test or a selected database locking/isolation strategy. Implementation and section Git publication remain pending.
