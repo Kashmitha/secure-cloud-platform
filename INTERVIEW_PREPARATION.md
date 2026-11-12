@@ -2,15 +2,31 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; checkpoint merged via PR #9. Phase 01.7 same-key retry question reviewed on 2026-11-02; checkpoint merge via PR #10 verified in local Git history. Phase 01.8 competing-transfer question reviewed on 2026-11-02; PR #11 merge locally verified. Phase 01.9 notification-failure outcome reviewed on 2026-11-02; Git checkpoint pending.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; checkpoint merged via PR #9. Phase 01.7 same-key retry question reviewed on 2026-11-02; checkpoint merge via PR #10 verified in local Git history. Phase 01.8 competing-transfer question reviewed on 2026-11-02; PR #11 merge locally verified. Phase 01.9 notification-failure outcome reviewed on 2026-11-02; PR #12 merge locally verified. Consolidated Phase 01 design approved 2026-11-12; publication pending.
 
 ## How to study
+
+**2026-11-12 update:** Consolidated remaining Phase 01 design reviewed and approved; publication pending. Reference answers below do not assert independently demonstrated implementation mastery.
 
 1. Answer aloud **before** reading the sample answer.
 2. Explain a practical example from your repository once that phase is complete.
 3. Be able to demonstrate the related command, configuration or validation.
 4. If you cannot explain a tradeoff or failure case, revisit `ENGINEERING_GUIDE.md`.
 5. After each completed section, add 1–3 concise Q&As and label them by phase/section.
+
+## Phase 01 consolidated design — approved 2026-11-12; reference answers
+
+**Q1. Why save notification intent in the transfer transaction?**
+
+**A:** It closes the crash window between committing a transfer and publishing its notification. A worker can recover pending delivery without repeating the transfer. Consumers still need duplicate handling; an outbox does not promise exactly-once external delivery.
+
+**Q2. Why separate liveness and readiness?**
+
+**A:** A process can respond while its database is unavailable. Marking it unready stops unsuitable traffic; restarting healthy processes does not repair the database. Redis-outage tolerance requires durable notification recovery to be implemented and tested.
+
+**Q3. Does deployment permission grant balance-editing permission?**
+
+**A:** No. Deployment and business permissions are separate. Business administrators also cannot arbitrarily edit balances. Privileged database/recovery access requires separate restrictions and auditing. Runtime enforcement remains unimplemented.
 
 ## Phase 00 — Development environment and Git (starter)
 
@@ -140,7 +156,7 @@ Use this compact format:
 **A:** Not both under the proposed no-overdraft rule with no other activity. Once one commits, only 20 remains, so the other cannot commit an 80-unit spend. Two stale reads of 100 do not authorize spending 160. Atomicity protects one transfer's grouped changes; concurrency protection coordinates different transfers. Different idempotency keys do not replace funds checks.
 **Project example:** learner correctly answered that the second request cannot succeed and A remains 20. AC-TRANSFER-04 is a proposed requirement, not an implemented database strategy or executed API/concurrency test.
 
-## Phase 01.9 — Committed transfer versus failed notification (REVIEWED 2026-11-02; Git checkpoint pending)
+## Phase 01.9 — Committed transfer versus failed notification (REVIEWED 2026-11-02; PR #12 merge locally verified)
 
 **Q1. Should notification failure repeat or undo an already committed transfer?**
 

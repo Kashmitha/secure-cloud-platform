@@ -47,19 +47,21 @@ flowchart LR
   API --> Auth[Keycloak / OIDC]
   Dev[Developer] --> CI[GitHub Actions]
   CI --> Registry[ECR / Image Registry]
-  Registry --> GitOps[Argo CD]
+  CI --> Desired[Reviewed desired-state Git]
+  Desired --> GitOps[Argo CD]
+  Registry -->|runtime image pull| API
   GitOps --> API
   API --> Telemetry[OpenTelemetry / Prometheus / Loki / Grafana]
 ```
 
-See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the approved target design and scope. Architecture diagrams will be revised to match actual implementation.
+See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the canonical scope and approved architecture. Architecture diagrams will be revised to match actual implementation.
 
 ## Implementation status
 
 | Milestone | Status |
 |---|---|
 | Phase 00 workspace and documentation baseline | Complete; PRs #2/#3 merged; Linux Git and WSL editor verified; local main synchronized at 2cb63f9 |
-| Phase 01 business architecture | Introductory ownership/role-separation review completed via PR #4; own-account-read acceptance review completed via PR #5; missing-login requirement review completed via PR #6; credential-validity requirement review completed via PR #7; atomic-transfer requirement review completed via PR #8; amount/insufficient-funds introductory review completed via PR #9; introductory retry/idempotency review completed via PR #10 (merge verified in local Git history); introductory concurrent-transfer review completed via PR #11 (merge verified in local Git history); introductory audit/notification-failure review passed with its Git checkpoint pending; remaining business requirements, detailed architecture and threat model pending |
+| Phase 01 business architecture | Introductory requirements learning checkpoints published through PR #12; consolidated permissions/architecture/ADRs/threat-register draft prepared in ENGINEERING_GUIDE.md. Design approved 2026-11-12; one remaining publication checkpoint pending; no application implementation. |
 | API and local containers | Not verified |
 | AWS and Terraform | Not verified |
 | Kubernetes, Helm and GitOps | Not verified |
@@ -68,6 +70,10 @@ See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the approved target desig
 | Observability and recovery | Not verified |
 
 For the current verified state, see [`PROJECT_PROGRESS.md`](PROJECT_PROGRESS.md).
+
+## Phase 01 design review
+
+The consolidated design in [ENGINEERING_GUIDE.md](ENGINEERING_GUIDE.md#phase-01-consolidated-design-review--remaining-requirements-architecture-and-threats) contains permissions, data/delivery diagrams, decision records, acceptance-test mapping and an initial threat register. The learner approved it on 2026-11-12; PROJECT_BLUEPRINT.md v1.1.0 records the authoritative accepted summary. Controls remain unimplemented and unverified; publication checkpoint pending. Related concepts share one milestone checkpoint.
 
 ## Getting started
 
