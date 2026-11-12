@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 completed through locally verified PR #11 merge and main synchronization on 2026-11-02; Phase 01.9 introductory notification-failure outcome reviewed on 2026-11-02; Git checkpoint pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 completed through locally verified PR #11 merge and main synchronization on 2026-11-02; Phase 01.9 completed through locally verified PR #12 merge and main synchronization on 2026-11-02; remaining Phase 01 design consolidated below as draft v0.1; learner review/approval pending. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | 01.1 through 01.8 complete; 01.9 introductory notification review passed; publication pending |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | Prior learning checkpoints complete; consolidated design/threat review draft pending approval |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -362,7 +362,7 @@ These are proposed acceptance scenarios, NOT EXECUTED tests. The exercise assume
 
 **Phase 01.8 Git closure:** local history verifies prepared four-document commit 6f33270 merged through PR #11 as bf8c932, with clean main matching origin/main. Committed whitespace and bounded credential-pattern checks pass. Live GitHub metadata/reviews/CI not queried; no runtime API/database tests claimed. Next: audit/mock-notification requirements after learner branch preparation.
 
-## Phase 01.9 — Audit evidence and mock-notification failure (INTRODUCTORY REVIEW PASSED 2026-11-02; Git checkpoint pending)
+## Phase 01.9 — Audit evidence and mock-notification failure (INTRODUCTORY SECTION COMPLETED 2026-11-02)
 
 - **Objective / why:** Distinguish the authoritative record of a completed transfer from the message informing the customer. Delivery failure must not cause a second transfer or erase the history of the first.
 - **Where / prerequisites:** Documentation exercise on docs/p01-audit-notifications at bf8c932; synthetic accounts and mock delivery only. No new technology setup, scripts or real messages to customers.
@@ -387,4 +387,198 @@ These are proposed requirements, NOT EXECUTED API/database/delivery tests. This 
 - **Completion criteria / checkpoint:** Learner reviews the committed-transfer/delivery-failure outcome and the purpose of durable evidence. Record open persistence/security questions, validate docs and provide the full learner-run add/checks/commit/push/PR/merge workflow together. This does not complete Phase 01 architecture or all audit/recovery design.
 - **Project reference:** PROJECT_BLUEPRINT.md section 3 specifies simulated transactions, audit and asynchronous mock notifications. This draft elaborates those proposed behaviors without claiming runtime implementation or approving a detailed persistence architecture.
 
-**Learning review — 2026-11-02:** Learner correctly supplied A=75/B=65 and chose retrying only notification delivery, without repeating the committed transfer. Retain the existing transfer/audit evidence and delivery's pending/failed status; retry delivery for the existing transfer ID. This is introductory scenario review, not an executed delivery/recovery test or demonstrated audit-control implementation. Persistence consistency, retention/access/redaction controls and retry/deduplication mechanics still require design/testing. Git publication pending.
+**Learning review — 2026-11-02:** Learner correctly supplied A=75/B=65 and chose retrying only notification delivery, without repeating the committed transfer. Retain the existing transfer/audit evidence and delivery's pending/failed status; retry delivery for the existing transfer ID. This is introductory scenario review, not an executed delivery/recovery test or demonstrated audit-control implementation. Persistence consistency, retention/access/redaction controls and retry/deduplication mechanics still require design/testing. Introductory section Git closure is recorded below.
+
+**Phase 01.9 Git closure:** local history verifies prepared four-document commit 803832b merged through PR #12 as 5acf3b7, with clean main matching origin/main. Committed whitespace and bounded credential-pattern checks pass. Live GitHub metadata/reviews/CI not queried; no runtime API/database/delivery tests claimed. Next: administration/health requirements after learner branch preparation.
+
+## Phase 01 consolidated design review — remaining requirements, architecture and threats
+
+**Design v1.0 — learner approved 2026-11-12; drafted 2026-11-02. Status: ACCEPTED DESIGN / PUBLICATION PENDING; not implemented.** The learner approved this consolidated package, including P01-ADR-001 through P01-ADR-006 and the documented defaults/implementation-entry limits. PROJECT_BLUEPRINT.md v1.1.0 records the authoritative accepted summary. Proposal wording below preserves the reviewed draft; it no longer denotes pending design approval. Runtime tests remain NOT RUN and risks OPEN. Publication uses one milestone on `docs/p01-admin-health`.
+
+### Review objective and reading order
+
+Understand what we will build, which identities may act, where data crosses a trust boundary, and how failures/security controls will later be tested. Read the permissions and architecture first, then proposed decisions and the risk register. The learner reviews one cohesive design; the assistant authors documentation. A short overall explanation or requested correction is sufficient; no separate quiz/PR for each row.
+
+### A. Proposed application boundary and permissions
+
+Business goal: demonstrate frequent, traceable, secure releases of a fictional financial API, not build a real bank. Use synthetic identities, fixed seeded demo accounts and simulated transfers. Phase 03 starts with the smallest working slice; it does not implement every platform tool at once. Keycloak registration/login is the eventual identity flow; no real email, real payments or customer PII.
+
+Default-deny applies to business endpoints. Permissions are checked by the API against validated identity and ownership, not trusted request fields or hidden UI buttons. Customer A may intentionally send to a valid B account without receiving B's private account details.
+
+| Actor | Proposed permitted actions | Explicit boundary / negative test |
+|---|---|---|
+| Customer | Read own synthetic accounts and transfer history; initiate validated transfer from own account; retrieve own authorized transfer result | Cannot read another customer's private balance/history, debit another customer's source, use admin endpoints or bypass amount/funds checks |
+| Application administrator | Read a redacted operational transfer/audit view; suspend/reactivate a synthetic account with a required reason and an audit event | No arbitrary balance edits, deletion/rewrite of completed transfers or audit history, unrestricted role assignment, or bypass of identity checks |
+| Platform operator | Deploy reviewed versions, inspect redacted health/telemetry, perform approved backup/recovery procedures | Deployment permission grants no business API role. Privileged DB/cloud recovery access is separately restricted and audited; operator technical power is not assumed harmless |
+| Notification worker | Process pending delivery for an existing transfer and update delivery status | Cannot initiate transfers, edit balances or expose private records to other recipients; account data is minimized in messages |
+| Anonymous requester / probe caller | Only explicitly exposed minimal health responses and identity-provider sign-in flow | No private account/admin/audit data; diagnostic dependency details require internal authorization |
+
+**Proposed admin acceptance AC-ADMIN-01:** an authenticated administrator can suspend an existing demo account with a reason; after suspension commits, new outgoing transfers from it are denied without changing balances. A normal customer cannot perform this action. Reactivation requires the same specific privilege and audit evidence. Suspension is not a reversal of completed transfers. This draft blocks new transfers involving a suspended source or recipient; reads of one's own history remain available. Ordering with an already in-flight transfer must follow a defined transaction order and be tested; no retroactive cancellation promised.
+
+No admin endpoint directly changes authentication roles. Keycloak role provisioning for test users stays a separate restricted identity-administration task. All admin reads/writes require authorization and are audited as appropriate; audit views must be redacted and access-controlled. The admin feature is a proposal for review, not an already approved permission grant.
+
+### B. Proposed health and failure behavior
+
+Liveness asks whether the process is functioning; readiness asks whether this instance can currently serve its intended requests. Startup allowance prevents slow initialization from being treated as a running-process failure. Kubernetes can later use these separate signals; no manifests or endpoints exist now.
+
+| Condition | Proposed behavior / future validation |
+|---|---|
+| Process works; PostgreSQL available | API can become ready after initialization; success probes reveal no credentials, account data or internal connection strings |
+| PostgreSQL unavailable | Core account/transfer readiness fails; requests that cannot be served return controlled dependency errors. Never invent a zero balance or false transfer success |
+| PostgreSQL unavailable but process still responsive | Liveness need not fail solely because the DB is down; avoid restarting every healthy process in an external dependency outage |
+| Redis/notification delivery unavailable | Durable transfer work can continue under the proposed outbox decision below; pending notifications accumulate visibly. Worker readiness reflects its own required dependencies; do not claim delivery success |
+| Identity proof cannot be validated | Fail protected access closed; never skip identity checks to keep a demo available. Provider outage does not automatically invalidate already verifiable tokens; key caching/rotation/outage rules need implementation tests |
+| Process truly stuck / startup incomplete | Apply bounded startup/liveness policy later, separately from dependency checks; thresholds and timeouts set after measured local behavior |
+
+**AC-HEALTH-01:** public health output is minimal; dependency diagnostics are internal/restricted. Later verify DB outage makes core readiness unhealthy without forcing liveness failure solely for DB outage, and restores readiness on recovery. Redis-degraded behavior is conditional on durable notification handoff and must be demonstrated, not assumed.
+
+### C. Target application data flow and trust boundaries (all planned)
+
+```mermaid
+flowchart LR
+  subgraph Clients[Untrusted client boundary]
+    Customer[Demo customer]
+    Admin[Business administrator]
+  end
+  subgraph Identity[Identity boundary]
+    KC[Keycloak OIDC]
+  end
+  subgraph Runtime[Private application boundary]
+    Edge[HTTPS ingress]
+    API[NestJS modular API]
+    Worker[Notification dispatcher and worker]
+  end
+  subgraph Data[Restricted data boundary]
+    PG[(PostgreSQL: accounts, transfers, audit, request keys, outbox)]
+    Redis[(Redis: async work)]
+  end
+  Customer -->|sign in| KC
+  Admin -->|sign in| KC
+  Customer -->|authenticated request| Edge
+  Admin -->|privileged request| Edge
+  Edge --> API
+  API -->|validate identity via trusted keys| KC
+  API -->|authorized transactional changes| PG
+  PG -->|durable pending events polled| Worker
+  Worker --> Redis
+  Redis --> Worker
+  Worker -->|mock delivery and status| PG
+```
+
+The key-validation arrow is a logical trust relationship, not a requirement for one synchronous Keycloak call per API request. Only validated tokens/claims are trusted; issuer, audience, signature and time validity must be checked in implementation. The polling arrow represents worker-initiated DB queries, not an autonomous database push. Redis work carries a reference/minimal payload, not a replacement durable ledger.
+
+| Boundary | Assets / threat | Planned enforcement and later proof |
+|---|---|---|
+| TB1 Client to API/edge | Tokens, account IDs, request body; impersonation and unauthorized object access | HTTPS when exposed, token validation, ownership/role checks, schema/size/rate limits; negative API tests |
+| TB2 API/worker to private data | Balances, history, audit/outbox, DB credentials | Private DB/Redis exposure, scoped credentials, transactions, constrained writes, encryption/secrets management by phase; verify denied unauthorized access |
+| TB3 API to identity provider | Signing keys, issuer/audience, role claims | Trusted provider configuration, rotation and validation tests; do not trust caller-supplied actor/role IDs |
+| TB4 Durable commit to async delivery | Pending events, duplicate or missing messages | Proposed outbox plus stable event identity/reconciliation; crash/duplicate/Redis-outage drills |
+| TB5 Runtime to observability | Logs/traces/metrics, correlation IDs, audit views | Redaction, scoped dashboards/access/retention; scan diagnostic outputs and deny unauthorized reads |
+| TB6 Engineer/CI/registry/GitOps to runtime | Source, image, deployment authority, cloud identity | Reviewed PRs, scoped CI/OIDC, scans, image digest/signature/policy and controlled promotion in later phases; demonstrate seeded rejection |
+
+An account balance can be synthetic and still require integrity; availability, secrets and deployment authority are also protected assets. Separate namespaces alone are not proof of dev/staging/prod isolation; exact account/cluster/network separation belongs to later AWS/Kubernetes design.
+
+### D. Delivery/operations target diagram (no pipeline currently implemented)
+
+```mermaid
+flowchart LR
+  Engineer[Developer Git branch] --> PR[GitHub PR review and checks]
+  PR --> CI[GitHub Actions tests and security gates]
+  CI --> Image[BuildKit image plus SBOM/signature/provenance]
+  Image --> ECR[ECR or approved local registry]
+  CI --> Desired[Reviewed desired-state promotion in Git]
+  Desired --> Argo[Argo CD reconciliation]
+  ECR -->|approved image pulled by runtime| K8s[Local Kubernetes then approved EKS lab]
+  Argo --> K8s
+  K8s --> Telemetry[Metrics logs traces alerts]
+  K8s --> Recovery[Encrypted backups and tested restore]
+```
+
+Argo CD reconciles desired state in Git; a new registry image does not by itself authorize deployment. Local development precedes cloud labs. Jenkins remains a comparison exercise; the exact blueprint stack remains intact. This diagram does not add services, deploy resources or claim security gates exist.
+
+### E. Compact architecture decision records — proposed unless noted
+
+These ADRs live here within the six-document layout. All six are ACCEPTED as design on 2026-11-12, superseding their draft status labels below; implementation qualifications and required tests remain open. The blueprint v1.1.0 records their authoritative summary.
+
+| ADR | Context and proposed decision | Alternative and tradeoff | Status |
+|---|---|---|---|
+| P01-ADR-001 | Retain blueprint default NestJS modular monolith, PostgreSQL system of record and Redis async/cache role. Separate app modules; optional worker shares controlled codebase with distinct runtime identity | Spring Boot is allowed only by an explicit decision; multiple microservices add networking/deployment/consistency overhead before a useful baseline | Existing blueprint baseline; restated, not a new stack decision |
+| P01-ADR-002 | Store balances/transfer, idempotency result, audit success evidence and pending notification event consistently in one PostgreSQL transaction. Serialize conflicting source changes using a scoped DB locking/check design, acquire account locks in stable order, recheck funds under that protection; use a nonnegative DB constraint as defense in depth | Conditional writes or serializable transactions are valid alternatives but require checked outcomes/retries. Plain application pre-read or an in-process lock does not coordinate multiple replicas | PROPOSED; ORM/query design, deadlock/timeout handling and concurrent tests required |
+| P01-ADR-003 | Use a transactional outbox: commit durable notification intent with the transfer, dispatch asynchronously through Redis, retain durable state until delivery is resolved. Stable event IDs and idempotent mock consumers tolerate redelivery | A direct DB write plus queue publish has a crash window. A single synchronous send couples transfers to delivery. Outbox adds worker/reconciliation complexity; does not guarantee exactly-once external delivery | PROPOSED; no new broker/tool; persistence and crash tests required |
+| P01-ADR-004 | Retain Keycloak/OIDC; API validates identity plus action/resource permissions. Use synthetic test users and controlled dev-only identities for earlier application tests; no publicly exposed insecure bypass. Full provider rollout remains Phase 12 | Custom password/auth system adds avoidable security work; trusting a UI check or actor header is unacceptable. Local tests may inject a test identity through an explicit test harness, isolated from deployed runtime | Baseline provider retained; test/integration approach PROPOSED; fail-closed deployment gate required |
+| P01-ADR-005 | API core readiness depends on PostgreSQL, not successful notification delivery, only if ADR-003 recovery guarantee is implemented. Worker readiness depends on its required stores/queue. Liveness is process-oriented; admin actions are least-privilege and audited | Failing all API traffic on transient notification failure hurts availability; pretending durable notification recovery without evidence risks loss. Dedicated probes add configuration/tests | PROPOSED; no availability promise before failure drills |
+| P01-ADR-006 | Local-first WSL/Docker, then kind or k3d; no paid AWS provisioning in current phases. GitHub Actions first, GitOps later as blueprint phases specify | Starting EKS now creates cost and operational complexity. Self-managed EC2 Kubernetes is a comparison, not equivalent managed EKS | Existing local-first baseline retained; no cloud spending authorized |
+
+Proposed earlier application tests cover required business behavior before full identity infrastructure rollout. Phase 12 hardens actual Keycloak/OIDC integration; it does not permit an anonymously exposed application in the meantime. Immutable history means no ordinary business endpoint edits/deletes completed audit/transfer records; powerful database administrators still require restricted, audited access and restore procedures.
+
+### F. Proposed request/data contract and unresolved implementation limits
+
+- Single synthetic currency for the first application slice; positive integer minor units, never binary floating-point balances. Source/recipient must differ and exist; reject malformed amount, unsupported currency, zero/negative, noninteger and insufficient-funds requests without a completed transfer. Supported numeric upper bounds and safe serialization must be fixed and boundary-tested before money columns/API schema are implemented.
+- Actor comes from validated identity. Caller cannot assign balance, role, completion state or audit fields through request payloads. Reject unknown/mass-assignment fields according to the explicit schema contract later.
+- Scope idempotency identity to customer plus key and bind it to canonical transfer intent. Changed intent with a retained same key is a conflict. Simultaneous same-key requests may wait or return an explicit in-progress result, but never create two transfers. Proposed replay retention: at least 24 hours for the first local demo, subject to review; after expiry do not promise duplicate suppression. Client must reconcile an uncertain old request instead of blindly using a new key. Exact purge/status lookup/replay policy must be settled before implementation.
+- Missing/expired/invalid identity produces a controlled authentication error. Authenticated but disallowed operations produce authorization denial; conceal unauthorized account existence where appropriate. Proposed HTTP contract: 401 invalid/missing authentication; 403 action denial or 404 object concealment consistently; 400 invalid schema; 409 idempotency-intent conflict or business-state conflict; 503 unavailable required dependency. Exact headers, response schema and object-concealment policy reviewed with endpoint tests; errors reveal no secrets or stack traces.
+- Proposed local SRE learning targets, not achieved guarantees: a documented 99.5% availability SLO over a meaningful observation window; p95 valid account-read latency under 500 ms at a defined small local load; restore objectives RPO 24h / RTO 60 min for a synthetic-data drill. Measurement window/load, backup schedule and cost feasibility must be reviewed before publishing actual reliability claims. Thousands of customers remains a scenario, not a measured capacity result.
+
+These defaults make tradeoffs reviewable now; the pending bounds/retention/HTTP details are explicit implementation-entry conditions, not excuses to install every future platform tool before coding. No production/compliance certification or real-money suitability is implied.
+
+### G. Requirements-to-evidence plan — all execution pending
+
+| ID / capability | Proposed positive/negative/failure evidence | Phase / status |
+|---|---|---|
+| IDENTITY / AC-AUTH-01/02 | Test-user sign-in and authenticated own-account request; reject anonymous/expired/altered proof, wrong issuer/audience and role escalation | Business tests Phase 03; real OIDC integration Phase 12; NOT RUN |
+| ACCOUNTS / AC-READ-01 | Seed synthetic A/B; read own record/history; reject cross-customer read and mutation; DB outage returns controlled error, no invented zero | Phase 03; NOT RUN |
+| AC-TRANSFER-01/02 | One atomic transfer; rollback before commit; reject malformed/zero/negative/excessive/same-account/suspended-account transfers; boundary-test amounts | Phase 03; NOT RUN |
+| AC-TRANSFER-03 | Lost response after commit, same-key replay, changed intent, simultaneous duplicate, retained result after restart, retention boundary | Phase 03; NOT RUN |
+| AC-TRANSFER-04 | Two distinct simultaneous spends from one source; preserve funds/nonnegative balances under both winner orders and deadlock/failure handling | Phase 03; NOT RUN |
+| AC-AUDIT-01 | Consistent actor/action/outcome/time/correlation/transfer evidence; append-only business interface; reject unauthorized history alteration; redact logs/exports | Phase 03 and security hardening; NOT RUN |
+| AC-NOTIFY-01 | Drop Redis/send after commit; recover pending event, duplicate delivery handling, terminal failure visible; no extra debit/credit or false delivery success | Phase 03/04 failure exercise; NOT RUN |
+| AC-ADMIN-01 | Authorized suspend/reactivate with reason/audit; customer forbidden; outgoing/incoming suspended-account transfer denied; history preserved | Phase 03; NOT RUN |
+| AC-HEALTH-01 | Process/DB/Redis outage distinctions; no public diagnostics/secrets; readiness recovery; no DB-outage-induced liveness restart loop | Phase 03 locally, Phase 06 probes; NOT RUN |
+| DELIVERY / OPERATIONS | PR gates, seeded scan/policy rejection, signed/digest-pinned promotion, secrets retrieval, telemetry and restore/teardown drills | Blueprint Phases 04–17; NOT IMPLEMENTED / NOT RUN |
+
+### H. Initial STRIDE-style risk register — every control is planned
+
+STRIDE prompts review of spoofing, tampering, repudiation, information disclosure, denial of service and elevation of privilege. Priorities below are qualitative estimates for this lab, not measured risk scores. One learner owns implementation, review and recorded evidence; role names identify the engineering responsibility.
+
+| Risk | Boundary / category / priority | Concrete failure or abuse | Proposed mitigation and verification | Owner / residual risk / status |
+|---|---|---|---|---|
+| R01 | TB1/TB3 Spoofing; High | Forged/expired/wrong-audience token or actor-ID header impersonates customer | Trusted issuer/audience/signature/time checks; deny invalid proof; negative identity tests | App/security; key rotation/revocation window remains; OPEN |
+| R02 | TB1 Tampering/Elevation; High | Customer changes account ID or mass-assigns admin/balance fields | Deny by default, schema allowlist, ownership/action checks; adversarial cross-account/body tests | App; authorization regressions require maintained tests; OPEN |
+| R03 | TB2 Tampering; High | Concurrent overspend or duplicate replay creates invalid ledger state | Transactional writes, locked/guarded funds validation, request-key uniqueness/intent binding; coordinated rollback/replay/race tests | App/data; deadlocks/retry logic still need design; OPEN |
+| R04 | TB2/TB5 Repudiation; High | Transfer or privileged action lacks attributable durable evidence; operator rewrites logs | Durable transaction-linked audit, scoped append/read permissions, external backup/evidence plan; crash and unauthorized-modification tests | App/platform; DB superuser remains powerful; OPEN |
+| R05 | TB1/TB5 Information disclosure; High | Token, credentials, private data or connection string leaks in errors/logs/health | Redaction, minimal public probes, restricted diagnostics, synthetic data; pattern checks and unauthorized audit/log-access tests | Security/ops; screenshots/manual exports need care; OPEN |
+| R06 | TB1/TB2 Denial of service; Medium | Oversized requests, unbounded history queries or expensive auth floods exhaust resources | Request limits, pagination, throttling and resource budgets; bounded load/failure tests and alerts | App/SRE; thresholds depend on measured capacity; OPEN |
+| R07 | TB6 Elevation/Tampering; High | Stolen CI credential or malicious dependency deploys unreviewed image | PR controls, least-privilege OIDC, scans/SBOM/signature/digest promotion/policy; deliberate unsafe artifact rejection | Platform/security; trusted accounts/dependency compromise still possible; OPEN |
+| R08 | TB4 Tampering/availability; High | Crash between commit and queue publish loses event, or duplicate event creates extra work | Proposed outbox/reconciliation and consumer deduplication; crash/Redis outage/replay drills | App/data; exactly-once external delivery not promised; OPEN |
+| R09 | TB2 availability; High | Database loss, unusable backups or exposed data store | Private network/scoped access, encrypted backups, restore drill and recorded RPO/RTO; deny public access | Platform/SRE; recovery targets not validated; OPEN |
+| R10 | TB6 cloud authority; High | Broad IAM/public data ports or forgotten cloud resources expose assets/incur cost | Reviewed IaC/IAM, private data endpoints, inventory, spend approval/timebox/teardown; scan plans and verify cleanup | Cloud/platform; cloud environment not inventoried; OPEN |
+
+**Review result so far:** scenarios, planned controls and future verification are documented; controls have not been implemented or proven effective. No risk is marked mitigated solely because this table exists. Revisit after application tests and each platform phase.
+
+### I. Cost, open questions and phase gate
+
+Current activity creates no AWS resources and requires no paid service. Existing hardware/local Docker are assumed available; this is not an audited statement that the user's AWS account has no charges. Before any cloud lab: inspect current resources, price the chosen region/topology using current official rates, estimate EKS/compute/storage/LB/NAT/data-transfer costs, obtain explicit spend/timebox approval, and record teardown verification. A numerical AWS budget is intentionally deferred until a concrete lab is proposed; no unknown cloud spend authorized.
+
+**Decisions requiring review now:** proposed admin suspend/reactivate behavior; transaction/audit/idempotency/outbox consistency and concurrency approach; minimal health/degraded-service contract; minor-unit/no-overdraft and retention/HTTP/reliability defaults. The six-document layout is preserved. Policy-engine, ingress API and AWS identity alternatives are deferred to their relevant blueprint phases with ADRs; they do not block Phase 02 fundamentals.
+
+**Implementation-entry checks later:** select compatible supported Node/Nest/PostgreSQL/Redis versions from official docs, amount bounds/schema, durable idempotency replay lifecycle, mock delivery dedup/recovery, redacted audit retention and role grants. Do not claim a design is reproducible until its code/tests exist. Production topology and measured AWS estimate require their own reviewed lab design before provisioning.
+
+**Phase 01 exit checklist:**
+
+- [x] Canonical business scope, target stack and historical learning evidence reconciled.
+- [x] Consolidated permissions, data/delivery diagrams, trust boundaries, proposed ADRs, acceptance-evidence map and initial risk register drafted.
+- [x] Learner reviewed and approved the cohesive design on 2026-11-12. Prior introductory transfer reviews are recorded; independent implementation mastery is not claimed.
+- [x] Accepted decisions recorded in blueprint v1.1.0; final document/link/whitespace/bounded credential checks passed 2026-11-12. Runtime tests NOT RUN.
+- [ ] Complete one reviewed milestone commit/PR/merge and verify synchronized main.
+- [ ] Only then mark Phase 01 complete and begin Phase 02 practical Bash/Python/Linux/networking exercises; Phase 03 builds the application incrementally.
+
+**Troubleshooting review:** if a proposal implies Redis is the ledger, public health reveals database credentials, role separation prevents all privileged access, or a plan/table proves a control implemented, correct it before approval. The learner need not author new Markdown or install tools for this review.
+
+**Sources consulted 2026-11-02:**
+
+- [Kubernetes probe semantics](https://kubernetes.io/docs/concepts/workloads/pods/probes/)
+- [OWASP threat modeling guidance](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html)
+- [AWS transactional outbox pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html)
+- Existing transaction/idempotency references in earlier section entries.
+
+These sources inform the design principles, not project-specific defaults or a claim that this lab uses their sample deployments. Final versions/setup/commands are verified when the learner implements each tool.

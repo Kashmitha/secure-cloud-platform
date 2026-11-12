@@ -2,7 +2,7 @@
 
 > **Document role:** The authoritative, stable specification for Project #1. Read this before proposing architecture or implementation. Do not silently replace the business scenario or the committed technology stack.
 >
-> **Version:** 1.0.1 · **Status:** Proposed baseline awaiting initial architecture approval · **Last reviewed:** 2026-10-26
+> **Version:** 1.1.0 · **Status:** Architecture approved; publication pending · **Last reviewed:** 2026-11-12
 
 ## 1. Identity and mission
 
@@ -99,7 +99,9 @@ flowchart LR
   OTEL --> OBS[Prometheus / Grafana / Loki]
   Dev[Developer] --> PR[GitHub PR + checks]
   PR --> Registry[ECR or approved image registry]
-  Registry --> Argo[Argo CD / GitOps]
+  PR --> Desired[Reviewed desired-state Git]
+  Desired --> Argo[Argo CD / GitOps]
+  Registry -->|runtime image pull| API
   Argo --> API
   Secrets[AWS Secrets Manager] --> ESO[External Secrets Operator]
   ESO --> API
@@ -108,6 +110,21 @@ flowchart LR
 **Boundary A:** Public clients → TLS ingress → application authorization. **Boundary B:** Application → private data and cache. **Boundary C:** GitHub CI → signed images and controlled registry. **Boundary D:** GitOps controller → cluster changes. **Boundary E:** AWS identities → scoped cloud permissions and secrets. **Boundary F:** Observability → redacted logs and restricted dashboards.
 
 **Local environment:** WSL2 Ubuntu + Docker + kind/k3d + local PostgreSQL/Redis + local Keycloak; emulate or stub cloud-only integrations where needed. **AWS lab environment:** Terraform-managed VPC, private/public subnets, route tables, security groups, IAM, ECR, S3, EC2 learning exercise, EKS when approved. Use a documented cost/cleanup checklist for every cloud experiment. For a low-cost intermediate phase, compare self-managed Kubernetes on EC2 versus EKS but do not misrepresent them as equivalent managed services.
+
+### Approved architecture decisions — 2026-11-12
+
+The learner approved the consolidated design in ENGINEERING_GUIDE.md, sections A–I and P01-ADR-001 through P01-ADR-006. This blueprint is authoritative; the guide retains detailed rationale, acceptance mapping and the initial OPEN risk register.
+
+- Retain NestJS modular monolith, PostgreSQL durable records, Redis asynchronous work and Keycloak/OIDC.
+- Commit balances, transfer record, retained idempotency result, success audit evidence and notification outbox intent consistently in PostgreSQL. Coordinate conflicting account updates with stable lock ordering and protected funds rechecks; actual queries, deadlock handling and retries require implementation tests.
+- Dispatch durable pending events through Redis with recovery and consumer deduplication. Notification failure must not repeat a committed transfer; exactly-once external delivery is not promised.
+- Customers access authorized records/actions only. Administrators may suspend/reactivate synthetic accounts with reasons and audit evidence, without arbitrary balance/history edits. Suspended source or recipient blocks new transfers; own history remains readable.
+- Separate minimal public liveness from core readiness. Database failure makes the core service unready; notification outages may be tolerated only after durable recovery is implemented and tested. Identity validation fails closed.
+- Accept the guide's single-currency integer-minor-unit, at-least-24-hour replay retention and HTTP defaults as starting points. Exact amount bounds, expiry/reconciliation, response contracts and supported versions remain implementation-entry checks.
+- Availability 99.5%, p95 reads below 500 ms, RPO 24h and RTO 60min are learning targets requiring measurement/window/load/cost review, not achieved guarantees.
+- Local-first and isolated test identities remain mandatory: no public insecure authentication bypass or AWS spend authorized. GitOps reconciles reviewed desired-state Git; an image push alone does not authorize deployment.
+
+All runtime acceptance/security/recovery tests remain NOT RUN and risks remain OPEN. Approval records the design, not independently demonstrated implementation mastery.
 
 ### Security baseline
 
@@ -209,5 +226,7 @@ A task/section is done only when the user has learned the concept, implementatio
 Always check current official docs for commands, versions, deprecations and pricing before using them.
 
 ## Change log
+
+- 1.1.0 — 2026-11-12: learner approved consolidated Phase 01 architecture, permissions, transactional outbox/concurrency and health contract; recorded defaults/implementation-entry limits and corrected delivery authority diagram. Stack and phases unchanged; publication and runtime verification pending.
 
 - 1.0.1 — 2026-10-26: user adopted purpose-based feature/, fix/, docs/, and chore/ branch naming for all future work. Workflow clarification only; financial-services scope, stack, phases, and pending architecture-approval status unchanged.

@@ -2,22 +2,22 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-02 · **Current status:** PHASE 01.9 INTRODUCTORY REVIEW PASSED / GIT CHECKPOINT PENDING · **Current phase:** 01
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-12 · **Current status:** PHASE 01 DESIGN APPROVED / PUBLICATION PENDING · **Current phase:** 01
 
 ## 1. Quick resume card (read this first)
 
 | Field | Verified status |
 |---|---|
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
-| Canonical scope | `PROJECT_BLUEPRINT.md` v1.0.1 |
+| Canonical scope | `PROJECT_BLUEPRINT.md` v1.1.0 |
 | Current phase | **01 — Business architecture and threat model** |
-| Current section | **01.9 — Audit and mock-notification requirements** (committed-transfer/notification-failure outcome reviewed; Git checkpoint pending) |
-| Last completed task | Phase 01.8 introductory concurrency review and four-document commit 6f33270 merged through PR #11 as bf8c932; clean main matching origin/main independently verified. |
-| Next exact action | Learner reviews the four-file diff, stages explicit paths, checks cached content, commits/pushes docs/p01-audit-notifications, opens/merges PR when repository requirements permit, synchronizes clean main and shares commit SHA, PR URL and final status/log. Stop on failures or unexpected changes. |
+| Current section | **Phase 01 consolidated closeout** — permissions/health, architecture, six ADRs, evidence map and initial threat register approved 2026-11-12; publication pending. |
+| Last completed task | Phase 01.9 introductory notification-failure review and four-document commit 803832b merged through PR #12 as 5acf3b7; clean main matching origin/main independently verified. |
+| Next exact action | Run reviewed six-file Git checkpoint on docs/p01-admin-health, open/review/merge PR and synchronize main. Share commit SHA, PR URL, status and log for verification; then start practical Phase 02. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | docs/p01-audit-notifications at bf8c932, created by learner from synchronized main; four carried Markdown files modified, staging empty. No assistant Git mutation. |
+| Git branch / remote / HEAD | docs/p01-admin-health at 5acf3b7 from synchronized main; prior closeout edits preserved. All six root Markdown files modified for accepted design/closeout and permanent milestone rule; staging empty. No assistant commit/push/merge. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | No technical blocker. Introductory notification-failure outcome review passed; Git publication/merge pending; no executed API/database/delivery tests. |
+| Current blocker | No technical blocker. Design approved; learner staged review and publication/merge verification pending. Phase 01 not complete; all runtime controls unimplemented. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -27,7 +27,7 @@
 | Phase | Milestone | Status | Evidence / reference |
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
-| 01 | Business architecture and threat model | **IN PROGRESS — 01.1 through 01.8 complete; 01.9 introductory review passed** | Introductory ownership/role-separation questions answered; detailed requirements, ADRs, diagrams, and risk register not complete |
+| 01 | Business architecture and threat model | **IN PROGRESS — design approved; publication/checkpoint pending** | Consolidated requirements, ADRs, diagrams and initial OPEN risks approved; merge/sync verification pending |
 | 02 | Linux, networking, Git and pre-commit | NOT VERIFIED | — |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** docs/p01-audit-notifications at bf8c932, verified on 2026-11-02; closeout/lesson notes uncommitted.
+- **Current branch:** docs/p01-admin-health at 5acf3b7; learner created it; remaining Phase 01 work consolidated on this branch. No new branch required.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** bf8c932 Merge pull request #11 from Kashmitha/docs/p01-concurrent-transfers; merged head 6f33270; earlier history preserved.
+- **Last commit:** 5acf3b7 Merge pull request #12 from Kashmitha/docs/p01-audit-notifications; merged head 803832b; earlier history preserved.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active section branch:** docs/p01-audit-notifications, created by learner and verified on 2026-11-02. Prior section PR: https://github.com/Kashmitha/secure-cloud-platform/pull/11 — merge evidenced by local Git history and learner output; merge bf8c932891685faa702a9056441e6b13bf909e98, head 6f33270. No live PR metadata/check query.
-- **Next checkpoint:** After Phase 01.9 learner review, combine audit/mock-notification requirements with these closeout notes in the next normal documentation checkpoint. Present all familiar Git/PR/merge steps together; learner executes and assistant verifies. No cleanup-only PR or assistant Git mutation.
+- **Active milestone branch:** docs/p01-admin-health at 5acf3b7. Prior PR #12 merge locally verified; consolidated closeout has no commit/PR yet.
+- **Next checkpoint:** One coherent remaining-Phase-01 design milestone after learner review and decision acceptance. Include earlier closeout records; provide all familiar learner-run staging/checks/commit/push/PR/merge steps together. No quiz-sized or cleanup-only PR.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Continue **Phase 01.9** with the combined learner-run Git checkpoint; notification-failure outcome reviewed on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Continue the **Phase 01 consolidated design review** on docs/p01-admin-health; do not return to serial quiz-sized branches/PRs. Learner architecture review and milestone publication still required. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give the full learner-run add/checks/commit/push/PR/merge workflow in one message; user executes and shares results for verification. Do not impose a separate conversational gate for each familiar command.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -521,3 +521,31 @@
 - Read-only checks verify docs/p01-audit-notifications at bf8c932, four intended Markdown modifications, empty staging and git diff --check PASS before edits. No executed API/database/delivery tests, code, install or new publication. Proposed AC-AUDIT-01/AC-NOTIFY-01 remain unimplemented; preserve durable evidence and distinguish completed transfer from failed/pending delivery.
 - Five-document review: progress records actual answer/evidence and next action; guide records introductory learning result and limits; interview preparation adds one learned notification-failure Q&A; README records introductory review with publication pending. Blueprint and AGENTS unchanged because scope/architecture/permanent preferences remain stable.
 - Proposed commit docs(p01): define audit and notification acceptance requirements. Provide explicit four-file staging/checks/commit/push, web PR to main with change/validation description, required checks/reviews/merge and clean main synchronization together; learner executes and shares commit/PR/results afterward. No assistant Git mutation. Phase 01 overall requirements, administration/health behavior, architecture/trust boundaries, ADRs, diagrams and threat/risk review remain incomplete.
+
+### 2026-11-02 — Phase 01.9 merged and synchronized; administration/health next
+
+- Learner supplied clean main and merge log 5acf3b7. Assistant independently verifies correct WSL path, clean main matching origin/main, GitHub-authored merge 5acf3b760d2f01b2deaa8b657a191d683985e327 with parents bf8c932/803832b, subject identifying PR #12, expected origin and empty staging before closeout edits.
+- Merged checkpoint contains four expected prepared Markdown files, 79 insertions/19 deletions. Committed whitespace and bounded credential-pattern checks PASS (not a comprehensive history scan). No app/infra changes or executed API/database/delivery tests. No live GitHub metadata/check/review query; no formal approval or CI success claimed.
+- Phase 01.9 introductory checkpoint complete. Next unfinished scope is restricted administration and health/readiness requirements, grouped in section 01.10. Begin with one specific administrative permission example; then health behavior. No detailed role matrix or health contract assumed approved yet.
+- Learner creates docs/p01-admin-health from current 5acf3b7; name validated with no existing matching local branch. Four closeout notes carry without a stash. No assistant Git mutation or deletion; no cleanup-only PR needed.
+- Five-document review: progress records actual commit/merge/sync and next task; guide closes 01.9; README and interview status reflect locally evidenced PR #12 merge. Blueprint and AGENTS unchanged because scope/architecture/permanent preferences remain stable. No future admin/health interview answers before learning. Phase 01 architecture/trust boundaries, ADRs, diagrams, risk register and remaining business acceptance decisions remain incomplete.
+
+### 2026-11-02 — Remaining Phase 01 consolidated into one proposed design milestone
+
+- User objected to many planning-only commits and approved consolidating remaining design work. Permanent milestone-granularity rule added to AGENTS: retain small lessons but group related concepts into coherent checkpoints; no PR per quiz answer. Existing history/branches preserved; canonical Phase 02 practical exercises and Phase 03 incremental app implementation remain unchanged.
+- Startup read blueprint/progress and learning docs; inspected actual WSL path, docs/p01-admin-health at 5acf3b7, expected origin, tracked inventory (six Markdown docs plus .gitignore), four carried closeout edits and clean whitespace. No implementation files or staging found; no assistant Git mutations.
+- Added guide draft v0.1 consolidating proposed admin permissions, health/failure semantics, app/data and delivery diagrams, six compact ADR records, request/data defaults, requirement-to-test traceability and ten STRIDE-style initial risks with priority/owner/planned control/test/residual limitations. Consulted current official Kubernetes/OWASP/AWS references; no tools installed or runtime/cloud actions.
+- Proposed decisions remain unapproved: suspend/reactivate permissions and states, locked transactional funds checks/consistent audit and idempotency records, durable outbox/Redis recovery, identity integration boundaries and health degradation policy; minor-unit, replay-window, HTTP and SRE defaults also require review. Existing NestJS modular-monolith/PostgreSQL/Redis/Keycloak and exact platform stack preserved. No detailed blueprint/architecture adoption implied by the user's instruction to draft.
+- Five-document review: guide changed for consolidated draft and learning workflow; progress updated for actual state/evidence/exit gate; README now points to proposed consolidated review while stating no app exists. Blueprint inspected and unchanged until decision approval/version note is appropriate. Interview preparation inspected, no new Q&As because consolidated section is not learned/approved yet; its earlier PR #12 status edit remains. AGENTS changed only for approved permanent checkpoint granularity.
+- Current design evidence is documentation only; proposed acceptance/security/recovery tests NOT RUN. Risk controls all OPEN/planned; no measured SLO, capacity, RPO/RTO or compliance claim. AWS lab costs require later concrete current-price estimate/approval/teardown; no spend authorized or unknown account charges assumed absent.
+- Next learner action: review one cohesive package in guide, approve/correct proposals and briefly explain main data/security boundary. Then record accepted decisions, perform final docs/link/whitespace/bounded credential checks and give one combined learner-run milestone Git/PR/merge checkpoint. Phase 01 remains IN PROGRESS until approval, checkpoint and sync verified; then begin hands-on Phase 02 without further quiz-only PRs.
+- Draft validation PASS: git diff --check; local Markdown file-link targets; balanced fenced blocks; six ADR identifiers and ten risk-register entries present; bounded credential-pattern scan of six root documents clean. These are document/structural checks, not rendered diagram verification or a comprehensive secret/history scan. Five intended Markdown files changed including earlier interview status; blueprint unchanged; nothing staged or committed. Learner approval still pending.
+
+### 2026-11-12 — Consolidated Phase 01 design approved; publication checkpoint prepared
+
+- Learner explicitly reviewed and approved the consolidated design: "Everything looks fine to me. So start next step". Accepted permissions, health, six ADRs, architecture/trust boundaries, risk register and defaults with documented implementation-entry limits. No further quiz-only PR required.
+- Read-only WSL checks: docs/p01-admin-health at 5acf3b7, expected SSH origin, five existing Markdown modifications and empty staging before updates; whitespace PASS. No application/infrastructure work, installations, cloud actions or assistant Git mutations.
+- Five-document synchronization: blueprint v1.1.0 records accepted architecture/version note and corrects deployment-authority diagram; guide records approval and exit checks; progress records actual state/next action; README records accepted-but-unimplemented design and corrected diagram; interview preparation adds three concise reference Q&As without claiming independently demonstrated mastery. Existing AGENTS permanent milestone-granularity edit retained.
+- Validation: whitespace, balanced fences, local Markdown file targets, six ADR identifiers, ten risk entries and bounded credential-pattern scan PASS. No rendered-diagram check, comprehensive secret/history scan or runtime tests. Acceptance/security/recovery tests remain NOT RUN; risks OPEN.
+- Learner checkpoint: review/stage six documents, conventional docs(p01) commit, push current branch, PR to main, required checks/reviews and merge, then synchronize main. New commit SHA and PR URL pending; publication NOT VERIFIED.
+- Phase 01 remains IN PROGRESS for publication. Exact next action after verified merge/sync: practical Phase 02 Linux/Bash/Python/networking/pre-commit exercises grouped into meaningful milestones, followed by incremental Phase 03 NestJS development.
