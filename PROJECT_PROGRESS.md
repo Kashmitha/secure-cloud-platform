@@ -2,7 +2,7 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-13 · **Current status:** PHASE 02 LOCAL TOOLING VERIFIED / CHECKPOINT PENDING · **Current phase:** 02
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-14 · **Current status:** PHASE 02 TOOLING MERGED / TRACKED EXECUTE-BIT FIX REQUIRED · **Current phase:** 02
 
 ## 1. Quick resume card (read this first)
 
@@ -11,13 +11,13 @@
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
 | Canonical scope | `PROJECT_BLUEPRINT.md` v1.1.0 |
 | Current phase | **02 — Linux, networking and Git fundamentals** |
-| Current section | **02.1–02.2 Local tooling milestone** — Bash discovery/failure handling, executable permissions and Python JSON report implemented and verified; reviewed publication checkpoint pending. |
-| Last completed task | Local-tooling implementation/tests: Bash normal/missing-tool and direct invocation, plus Python JSON normal exit 0/missing-tool null exit 1; reviewed 2026-11-13. Unpublished. Last merged milestone remains PR #13 at a3ad424. |
-| Next exact action | Learner reviews/stages five changed documents and two scripts, commits/pushes feature/p02-local-tooling, opens/reviews/merges PR and synchronizes main. Share commit SHA, PR URL and status/log; then start networking exercise. |
+| Current section | **02.1–02.2 publication validation** — PR #14 merged, but Bash mode committed as 100644; direct-execution requirement incomplete. Fix before networking. |
+| Last completed task | Two-script content and five documents published as 9070caf via PR #14, merge bb2e9c8; clean synchronized main verified. Prior local tests passed; tracked executable mode is a newly identified defect. |
+| Next exact action | Learner creates fix/p02-script-executable, chmod u+x, stages four correction docs and Bash script, explicitly git update-index --chmod=+x, checks index mode 100755, tests direct success/failure, then commit/push/PR/merge/sync. No networking until correction verified. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | feature/p02-local-tooling at a3ad424; five carried Markdown modifications plus untracked scripts/. Staging empty; expected SSH origin verified. No assistant Git mutations. |
+| Git branch / remote / HEAD | main=origin/main=bb2e9c8, clean before four Markdown correction edits; staging empty. Expected SSH origin verified. fix/p02-script-executable proposed, not created by assistant. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | No technical blocker. Local tooling publication/staged review pending; Phase 02 networking and hooks unfinished. Application/runtime controls unimplemented. |
+| Current blocker | Bash script stored as 100644 with local core.filemode=false. Working file also 0644 after synchronization; explicit tracked-mode correction needed. Networking and hooks remain unfinished. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -28,7 +28,7 @@
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
 | 01 | Business architecture and threat model | **COMPLETE — 2026-11-12** | Approved blueprint v1.1.0, guide ADRs/diagrams/OPEN risk register; f8e3f3c, PR #13 merge a3ad424 and clean main locally verified |
-| 02 | Linux, networking, Git and pre-commit | **IN PROGRESS — local tooling verified, publication pending** | Two scripts reviewed; syntax and learner success/failure evidence PASS. Networking and pre-commit remain unfinished |
+| 02 | Linux, networking, Git and pre-commit | **IN PROGRESS — PR #14 merged; tracked execute-bit correction pending** | Script content/local tests verified; merged Bash mode 100644 fails direct-execution requirement. Networking/pre-commit pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
 | 05 | Terraform, Ansible, AWS foundations | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** feature/p02-local-tooling at a3ad424; five carried Markdown changes and two untracked scripts; staging empty. No assistant Git mutation.
+- **Current branch:** main at bb2e9c8 matching origin/main, clean before correction notes. Learner creates fix/p02-script-executable next; carry four Markdown edits.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** a3ad424d6d68279d9faa79ab0fdb0bd1c5bc086e, merge PR #13; head f8e3f3c27275a1d8939713b09a680362647cdce1. Earlier history preserved.
+- **Last commit:** bb2e9c8116d4df62c3951e7898ca693cbcecb098, PR #14 merge; head 9070caf7b448374b2f49eca23cfe6b02059b76bf.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active milestone branch:** feature/p02-local-tooling, learner-created. Local tooling checkpoint prepared; commit/PR do not yet exist. Earlier Phase 01 PR #13 merged as a3ad424.
-- **Next checkpoint:** feat(p02): add local environment checks. Five changed Markdown files plus scripts/check-environment.sh and scripts/report-environment.py; learner stages/reviews/commits/pushes/opens PR/merges and supplies evidence.
+- **Active milestone branch:** fix/p02-script-executable proposed, not created. Prior feature/p02-local-tooling published through https://github.com/Kashmitha/secure-cloud-platform/pull/14.
+- **Next checkpoint:** fix(p02): preserve environment script executable mode. Explicitly stage mode 100755 and four corrected docs; learner tests/reviews/publishes/merges and shares evidence.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Phase 01 complete through locally verified PR #13 merge a3ad424. Continue the **Phase 02 local-tooling publication checkpoint** on feature/p02-local-tooling; scripts and learner positive/negative execution verified 2026-11-13. After merge/sync verification begin networking; pre-commit also remains pending. Do not restart design review or serial quiz-sized PRs. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Phase 01 complete through locally verified PR #13 merge a3ad424. PR #14 is merged and synchronized, but **tracked executable mode correction** is required on fix/p02-script-executable before networking. Script content/learner positive-negative execution verified; committed Bash mode 100644 is incomplete. Pre-commit remains pending. Do not restart design review or serial quiz-sized PRs. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give the full learner-run add/checks/commit/push/PR/merge workflow in one message; user executes and shares results for verification. Do not impose a separate conversational gate for each familiar command.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -594,3 +594,11 @@
 - Five-document review: progress records current evidence/checkpoint/next task; guide records verified JSON commands and local-tooling completion boundary; README documents both working scripts and publication pending; interview preparation adds two short Python Q&As with actual examples. Blueprint inspected, unchanged in this step; earlier PR #13 publication-status closeout edit joins this checkpoint. AGENTS unchanged.
 - Final checks: Bash syntax and Python AST syntax PASS; Markdown fences/local targets, trailing whitespace including untracked scripts, and bounded credential-pattern scan PASS. Not a comprehensive secret/history scan, CI pass, or runtime application test. Learner still reviews full staged diff before commit.
 - Proposed conventional commit feat(p02): add local environment checks. Provide full learner-run explicit add, staged checks/diff/modes, commit, push, web PR, required checks/reviews/merge and clean main synchronization in one message. Stop on unexpected files, failures, conflicts or unmet checks. Once actual merge/sync evidence is verified, teach DNS/HTTP/TCP/TLS fundamentals using a small hands-on exercise.
+
+### 2026-11-14 — PR #14 verified; committed executable-mode defect found
+
+- GitHub connector confirms PR #14 merged=true, head 9070caf7b448374b2f49eca23cfe6b02059b76bf, merge bb2e9c8116d4df62c3951e7898ca693cbcecb098, base main, seven expected files (193 insertions/25 deletions). Local main=origin/main=bb2e9c8 clean, expected path/origin, empty staging before correction notes; committed whitespace PASS. Reviews, PR-triggered workflow runs and combined-status entries returned empty: no formal approval or CI pass claimed.
+- Missing acceptance requirement: git ls-tree HEAD reports scripts/check-environment.sh as 100644, not required 100755. Local working mode now 0644. Repository-local .git/config core.filemode=false explains why filesystem chmod was not automatically tracked. Prior learner direct-execution tests were valid for the then-local file, not proof of a clone-reproducible committed mode. This correction blocks advancement, not evidence of defective script logic.
+- Learner fix on dedicated fix/p02-script-executable (name validated; no matching branch): chmod u+x for working tree, stage intended docs/script, then git update-index --chmod=+x scripts/check-environment.sh to explicitly record index mode regardless of core.filemode. Verify staged ls-files mode 100755, diff mode-only change, direct normal 0/missing-tool 1; commit/push/PR/merge/sync and verify final tree. Do not change global config or rewrite history.
+- Five-document review: progress records actual merge and outstanding defect; guide explains filesystem/index distinction and remediation; README qualifies direct execution until tracked-mode fix; interview Q&A adds actual Git-mode failure example. Blueprint inspected, unchanged (no scope/architecture change); AGENTS unchanged. Four documentation edits carry into correction branch; no app/script content edited by assistant.
+- No assistant branch creation, chmod, staging, commit, push, merge or installs. Networking lesson deferred until required mode fix is verified. Documentation whitespace PASS; prior source/functional checks apply to unchanged code. No cloud/service tests or provisioned resources.
