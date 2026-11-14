@@ -91,13 +91,13 @@ git branch --show-current
 
 **Application start commands:** Not yet established. Do not assume `docker compose up`, `npm run start`, Helm installs or cloud deployment commands work until implemented and verified. This section must be updated with tested commands, prerequisites, ports, environment variable names (not values), validation and teardown instructions as components become operational.
 
-## Local developer checks (verified locally; publication pending)
+## Local developer checks (published; executable-mode correction pending)
 
 Run from the project root; Python 3 and Bash are prerequisites. No third-party Python packages required.
 
 ```bash
-# Human-readable tool discovery; direct execution requires owner execute permission.
-./scripts/check-environment.sh
+# Human-readable tool discovery; explicitly invoke Bash while tracked mode is corrected.
+bash scripts/check-environment.sh
 
 # Machine-readable executable paths as JSON.
 python3 scripts/report-environment.py
@@ -105,7 +105,7 @@ python3 scripts/report-environment.py
 
 Both normal cases were verified by the learner with exit 0. Append `securecloud_missing_tool_123` to either command for the verified failure drill: Bash prints an error; Python reports `null`; both return 1. Check `echo $?` immediately afterward.
 
-These scripts discover Git/Python and optional named tools; they do not execute discovered tools or validate versions, service health, credentials or application readiness. Local tests and source review passed; commit/PR/merge of `feature/p02-local-tooling` remain pending. Phase 02 networking and pre-commit are unfinished.
+These scripts discover Git/Python and optional named tools; they do not execute discovered tools or validate versions, service health, credentials or application readiness. Local tests/source review passed; [PR #14](https://github.com/Kashmitha/secure-cloud-platform/pull/14) merged as bb2e9c8. Publication review found the Bash file tracked as non-executable (100644), so the Bash invocation above is usable while a mode correction is pending. Earlier direct-execution tests passed locally but do not establish fresh-clone behavior. Phase 02 networking and pre-commit are unfinished.
 
 ## Repository navigation
 
