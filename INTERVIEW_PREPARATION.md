@@ -2,11 +2,11 @@
 
 > **Purpose:** Small, accurate interview questions and answers accumulated as you complete each section. Add **1–3 questions per completed section**, not a huge question dump. Include the reason behind the answer and a short example from this project once verified.
 >
-> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; checkpoint merged via PR #9. Phase 01.7 same-key retry question reviewed on 2026-11-02; checkpoint merge via PR #10 verified in local Git history. Phase 01.8 competing-transfer question reviewed on 2026-11-02; PR #11 merge locally verified. Phase 01.9 notification-failure outcome reviewed on 2026-11-02; PR #12 merge locally verified. Consolidated Phase 01 design approved 2026-11-12; publication pending.
+> **Status:** Phase 00 completed on 2026-10-26, with workspace evidence and Git workflow Q&As below. Interview mastery is not assumed. Phase 01.1 introductory access questions learned and verified on 2026-10-27; checkpoint merged via PR #4. Phase 01.2 introductory failure-handling question reviewed; checkpoint merged via PR #5. Phase 01.3 missing-login question reviewed on 2026-10-28; checkpoint merged via PR #6. Phase 01.4 expiry question reviewed on 2026-10-31; checkpoint merged via PR #7. Phase 01.5 atomicity question reviewed on 2026-10-31; checkpoint merged via PR #8. Phase 01.6 rejection-rule question reviewed on 2026-10-31; checkpoint merged via PR #9. Phase 01.7 same-key retry question reviewed on 2026-11-02; checkpoint merge via PR #10 verified in local Git history. Phase 01.8 competing-transfer question reviewed on 2026-11-02; PR #11 merge locally verified. Phase 01.9 notification-failure outcome reviewed on 2026-11-02; PR #12 merge locally verified. Consolidated Phase 01 design approved and published through PR #13; merge a3ad424 locally verified 2026-11-12.
 
 ## How to study
 
-**2026-11-12 update:** Consolidated remaining Phase 01 design reviewed and approved; publication pending. Reference answers below do not assert independently demonstrated implementation mastery.
+**2026-11-12 update:** Consolidated remaining Phase 01 design reviewed, approved and published through PR #13; merge a3ad424 locally verified. Reference answers below do not assert independently demonstrated implementation mastery.
 
 1. Answer aloud **before** reading the sample answer.
 2. Explain a practical example from your repository once that phase is complete.
@@ -162,3 +162,32 @@ Use this compact format:
 
 **A:** No. Keep the committed balances and durable transfer/audit evidence. Track delivery as pending/failed and retry notification work for that existing transfer; do not debit/credit again or claim successful delivery. A business reversal would require a separate authorized operation. Reliable delivery handoff, recovery and deduplication still need design and tests.
 **Project example:** learner correctly identified A=75/B=65 after a committed transfer of 25 from A=100/B=40, and selected notification-only retry. These are proposed AC-AUDIT-01/AC-NOTIFY-01 scenarios, not executed API/database/delivery tests.
+
+## Phase 02.1 — Bash tool discovery and failure handling (verified 2026-11-13; unpublished)
+
+**Q1. Why return nonzero when a required tool is missing?**
+
+**A:** Automation needs a machine-readable failure signal as well as a useful message. The script returns 0 when all requested tools are found, and explicitly returns 1 with an error when discovery fails. Finding an executable does not prove its service is healthy.
+**Project example:** learner demonstrated git/python3 success with exit 0 and securecloud_missing_tool_123 failure with exit 1; saved script and syntax inspected.
+
+**Q2. Why quote "$tool" and "$@"?**
+
+**A:** Quoting preserves each argument as one value instead of allowing word splitting and wildcard expansion. "$@" preserves the separate arguments supplied to the script. Names are passed to command discovery without eval or execution of those tools.
+**Project example:** reviewed loop uses git, python3 and quoted optional arguments; tests demonstrated the optional missing-tool path. Space/wildcard argument cases were not separately exercised.
+
+**Q3. Why can bash script.sh work when ./script.sh cannot?**
+
+**A:** Explicit Bash invocation reads the file as input. Direct execution requires execute permission and a valid interpreter line. Adding owner execute with chmod u+x is sufficient here; granting permissions to every user is unnecessary.
+**Project example:** learner changed mode from 0644 to 0744 and demonstrated both direct success (0) and missing-tool failure (1); resulting mode independently inspected. Git later records executable status, not all Unix permission bits.
+
+## Phase 02.2 — Python JSON reporting (verified 2026-11-13; unpublished)
+
+**Q1. Why output JSON instead of only readable messages?**
+
+**A:** Another program can parse named fields without depending on message wording. The dictionary becomes JSON paths for found executables and null for missing ones. JSON alone does not indicate success: the exit code still signals failure.
+**Project example:** learner's extra securecloud_missing_tool_123 field was null and exit status was 1; normal Git/Python fields contained paths with exit 0.
+
+**Q2. Does shutil.which run the command it finds?**
+
+**A:** No. It discovers an executable path or returns None. This is useful for a safe prerequisite report, but does not prove the tool's version, service readiness or credentials. Python None serializes as JSON null.
+**Project example:** reviewed report-environment.py uses standard-library discovery and serialization only; no subprocess or shell execution.

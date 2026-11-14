@@ -2,7 +2,7 @@
 
 > **Purpose:** Your concise, cumulative practical handbook. After every completed section, add a small entry explaining **what the technology does, why it is needed, where configured, how to use it, how to verify it and how to troubleshoot it**. This is not a replacement for the blueprint or full external documentation.
 >
-> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 completed through locally verified PR #11 merge and main synchronization on 2026-11-02; Phase 01.9 completed through locally verified PR #12 merge and main synchronization on 2026-11-02; remaining Phase 01 design consolidated below as draft v0.1; learner review/approval pending. No application implementation yet.
+> **Status:** Phase 00 completed and published through PRs #2/#3 on 2026-10-26; local main synchronized at 2cb63f9. Phase 01.1 completed through merged PR #4 and main synchronization on 2026-10-27; Phase 01.2 completed through merged PR #5 and main synchronization; Phase 01.3 completed through merged PR #6 and main synchronization on 2026-10-28; Phase 01.4 completed through merged PR #7 and main synchronization on 2026-10-31; Phase 01.5 completed through merged PR #8 and main synchronization on 2026-10-31; Phase 01.6 completed through merged PR #9 and main synchronization on 2026-10-31; Phase 01.7 completed through locally verified PR #10 merge and main synchronization on 2026-11-02; Phase 01.8 completed through locally verified PR #11 merge and main synchronization on 2026-11-02; Phase 01.9 completed through locally verified PR #12 merge and main synchronization on 2026-11-02; Phase 01 consolidated design approved and published through PR #13, merge a3ad424 verified 2026-11-12. Phase 02 practical scripting is next. No application implementation yet.
 
 ## How to use this guide
 
@@ -18,7 +18,7 @@
 | Phase | Main tools | What you learn / why it matters | Current guide state |
 |---|---|---|---|
 | 00 | WSL2, VS Code, Git | Reproducible Linux workspace and trustworthy project baseline | Complete; PRs #2/#3 and merge 2cb63f9 |
-| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | Prior learning checkpoints complete; consolidated design/threat review draft pending approval |
+| 01 | Architecture, threat modeling | Define requirements and trust boundaries before building | Complete; consolidated design approved, PR #13 merge a3ad424 locally verified |
 | 02 | Linux, Bash, Python, Git, pre-commit | Automate and validate developer work locally | Pending |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | Build a realistic workload for the platform | Pending |
 | 04 | Docker, BuildKit | Package the workload consistently and securely | Pending |
@@ -393,7 +393,7 @@ These are proposed requirements, NOT EXECUTED API/database/delivery tests. This 
 
 ## Phase 01 consolidated design review — remaining requirements, architecture and threats
 
-**Design v1.0 — learner approved 2026-11-12; drafted 2026-11-02. Status: ACCEPTED DESIGN / PUBLICATION PENDING; not implemented.** The learner approved this consolidated package, including P01-ADR-001 through P01-ADR-006 and the documented defaults/implementation-entry limits. PROJECT_BLUEPRINT.md v1.1.0 records the authoritative accepted summary. Proposal wording below preserves the reviewed draft; it no longer denotes pending design approval. Runtime tests remain NOT RUN and risks OPEN. Publication uses one milestone on `docs/p01-admin-health`.
+**Design v1.0 — learner approved 2026-11-12; drafted 2026-11-02. Status: ACCEPTED DESIGN / PUBLISHED THROUGH PR #13; not implemented.** The learner approved this consolidated package, including P01-ADR-001 through P01-ADR-006 and the documented defaults/implementation-entry limits. PROJECT_BLUEPRINT.md v1.1.0 records the authoritative accepted summary. Proposal wording below preserves the reviewed draft; it no longer denotes pending design approval. Runtime tests remain NOT RUN and risks OPEN. Published as f8e3f3c through PR #13, merge a3ad424; clean synchronized main verified 2026-11-12.
 
 ### Review objective and reading order
 
@@ -569,8 +569,8 @@ Current activity creates no AWS resources and requires no paid service. Existing
 - [x] Consolidated permissions, data/delivery diagrams, trust boundaries, proposed ADRs, acceptance-evidence map and initial risk register drafted.
 - [x] Learner reviewed and approved the cohesive design on 2026-11-12. Prior introductory transfer reviews are recorded; independent implementation mastery is not claimed.
 - [x] Accepted decisions recorded in blueprint v1.1.0; final document/link/whitespace/bounded credential checks passed 2026-11-12. Runtime tests NOT RUN.
-- [ ] Complete one reviewed milestone commit/PR/merge and verify synchronized main.
-- [ ] Only then mark Phase 01 complete and begin Phase 02 practical Bash/Python/Linux/networking exercises; Phase 03 builds the application incrementally.
+- [x] Reviewed milestone f8e3f3c merged through PR #13 as a3ad424; clean main matching origin/main verified 2026-11-12.
+- [x] Phase 01 complete 2026-11-12. Begin Phase 02 practical scripting; application work remains Phase 03.
 
 **Troubleshooting review:** if a proposal implies Redis is the ledger, public health reveals database credentials, role separation prevents all privileged access, or a plan/table proves a control implemented, correct it before approval. The learner need not author new Markdown or install tools for this review.
 
@@ -582,3 +582,53 @@ Current activity creates no AWS resources and requires no paid service. Existing
 - Existing transaction/idempotency references in earlier section entries.
 
 These sources inform the design principles, not project-specific defaults or a claim that this lab uses their sample deployments. Final versions/setup/commands are verified when the learner implements each tool.
+
+## Phase 02.1 — Local tooling automation (started 2026-11-12; success/failure checks passed 2026-11-13)
+
+- Objective/why: turn repeated local tool checks into a small, readable Bash script; later extend with clear failures and combine Bash/Python/network checks and pre-commit into coherent milestones.
+- Concept/fit: Bash runs and connects command-line tools; use Python for richer structured processing later. This first check verifies tool discovery, not Docker daemon health, AWS credentials or application readiness.
+- Prerequisites inspected: WSL Linux repository and synchronized main at a3ad424; Bash, Git and Python discovery checked read-only. No new dependency installation required for this first exercise.
+- Learner task: create feature/p02-local-tooling from current main, carrying these closeout notes. Create scripts/check-environment.sh in VS Code WSL with LF line endings. Start with a Bash shebang, a project heading using printf, pwd, and discovery of git/python3. Initial script now exists; learner reported root-path execution with Git/Python paths and exit 0. Independent Bash syntax check PASS; missing-tool drill pending.
+- Verification planned: Bash syntax check, execution from project root and immediate exit-code inspection. Next increment handles missing commands explicitly and tests that failure path before this milestone is complete.
+- Security/troubleshooting: no sudo, credentials, environment-variable dump or cloud calls. Missing paths indicate tool discovery issues, not permission to auto-install. CRLF can break shell scripts; verify VS Code shows LF. Invoking through bash initially avoids an executable-bit prerequisite; permissions follow in the Linux exercise.
+- Completion criteria: learner-authored script reviewed, syntax/run/failure checks evidenced and exit codes understood. This step alone does not complete Phase 02. No per-answer commit or PR.
+- Official reference: https://www.gnu.org/software/bash/manual/html_node/Invoking-Bash.html and https://www.gnu.org/s/bash/manual/html_node/The-Set-Builtin.html; local help command/help set inspected. Example task commands are not recorded as learner-verified execution.
+
+### Phase 02.1 initial result and troubleshooting — 2026-11-12
+
+- File inspected: scripts/check-environment.sh. Initial Bash syntax check PASS; learner reports execution from project root prints Git/Python paths and exits 0. This verifies command discovery, not runtime/service readiness.
+- Actual failure: executing the root-relative scripts/check-environment.sh path while already in scripts/ looked for a nested directory. Return to project root or use check-environment.sh from that directory; no reinstall or file recreation needed. Exit 127 was the observed Bash file-open error in this attempt.
+- Next small exercise: keep heading/location and replace separate discovery calls with a loop over git, python3 and optional extra arguments. Check each using command -v; print a useful diagnostic to stderr and exit 1 on absence. Verify normal and deliberately missing-tool outcomes before checkpoint. Shell arguments must be quoted; no eval, sudo, secret/environment dump or auto-install.
+- Proposed learner test invocations are not yet verified: bash scripts/check-environment.sh and bash scripts/check-environment.sh securecloud_missing_tool_123. Successful initial commands actually evidenced: bash -n scripts/check-environment.sh; bash scripts/check-environment.sh followed immediately by echo $? from project root.
+
+### Phase 02.1 explicit failure handling verified — 2026-11-13
+
+- What/why/how: loop through git, python3 and optional extra arguments using quoted expansions. A command -v conditional controls explicit OK/ERROR messages and exit 1 on missing tools. Expected absence is handled by the conditional, rather than relying on set -e to provide a useful diagnosis.
+- Verified file: scripts/check-environment.sh. Independent bash -n PASS. Learner ran bash scripts/check-environment.sh: OK for both tools, exit 0; bash scripts/check-environment.sh securecloud_missing_tool_123: ERROR for the added nonexistent tool, exit 1. No tool installation needed for this intentional failure drill.
+- Review/security: arguments stay quoted and are looked up, not evaluated or executed. Error redirection to stderr is present in code; stdout/stderr capture was not separately tested. Discovery does not prove tool versions or service readiness. No credentials/network/cloud calls.
+- Next Linux permissions exercise (not executed yet): current mode inspected as 0644/-rw-r--r--; owner can read/write, group/others can read, nobody has execute permission. bash filename reads a script; ./filename requests direct execution and needs execute permission plus a valid shebang. Learner adds only owner execute with chmod u+x, checks mode, and repeats positive/missing-tool tests through ./scripts/check-environment.sh. Expected mode 0744/-rwxr--r--; no chmod 777 or sudo needed. Official/local reference: chmod --help and the GNU Coreutils file-permissions manual.
+- Section result: initial Bash tool check and failure drill complete. Executable permissions, Python, networking and hooks remain future practical work; no full Phase 02 completion or publication claimed.
+
+### Phase 02.1 permissions result — 2026-11-13
+
+- Learner added owner execute permission only. Actual mode inspected: 0744/-rwxr--r--; direct normal run returns 0, direct missing-tool run returns 1 with the expected message. Syntax and whitespace PASS independently. No need for sudo or permissions for all users.
+- Verified learner commands: chmod u+x scripts/check-environment.sh; ls -l scripts/check-environment.sh; ./scripts/check-environment.sh and ./scripts/check-environment.sh securecloud_missing_tool_123, each execution followed immediately by echo $?. Permission-change execution is learner-reported, resulting mode independently inspected.
+- Why: explicit bash invocation reads script text; direct execution needs execute permission and a valid interpreter line. Git preserves executable/non-executable status, not all owner/group/other bits; review staged file mode when the milestone is committed.
+- Bash/permission increment complete, not published. Continue the same local-tooling milestone with structured Python output; do not start another branch or quiz-only PR.
+
+## Phase 02.2 — Python structured environment report (verified 2026-11-13; publication pending)
+
+- Objective/fit: build a small machine-readable JSON report for future local/CI evidence. Bash coordinates commands; Python is useful for structured data and validation. This supporting automation is not the NestJS application.
+- Prerequisites: inspected Python 3.14.4 in WSL; no packages, virtual environment or install required for standard-library-only code. Alternative: Bash plus jq for JSON, but use the blueprint's Python learning requirement here.
+- Learner task: create scripts/report-environment.py using json, shutil and sys. Discover git/python3 and optional extra command arguments with shutil.which; collect names/paths in a dictionary, serialize with json.dumps(indent=2), and return 1 if any path is None. Do not execute discovered tools or read credentials/environment dumps. Python None serializes to JSON null.
+- Planned verification (not yet executed): normal invocation via python3 should emit valid JSON with paths and exit 0; the optional securecloud_missing_tool_123 name should appear with null and exit 1. Run from project root; keep four-space indentation and use python3, not bash, for the .py file. No executable-bit change needed when an interpreter is supplied.
+- Completion criteria: saved code review, normal/missing-tool results and structured output validated. Then decide checkpoint readiness for the coherent local tooling milestone; Phase 02 still requires networking and hooks evidence. No new Q&As until results.
+- Official docs consulted: https://docs.python.org/3.14/library/shutil.html#shutil.which and Python standard-library json/sys references. No learner Python commands are recorded as verified before results.
+
+### Phase 02.2 verified result and milestone checkpoint — 2026-11-13
+
+- Learner implemented scripts/report-environment.py with json/shutil/sys only. Normal python3 scripts/report-environment.py emitted Git/Python paths in JSON and exit 0; optional securecloud_missing_tool_123 emitted null and exit 1. Actual source reviewed; independent Python AST syntax check PASS without running implementation or producing __pycache__.
+- What/why: dictionary holds name-to-path mappings; shutil.which returns a path or Python None; json.dumps produces machine-readable output (None becomes null). sys.argv[1:] preserves extra command arguments as Python strings. Explicit sys.exit(1) reports discovery failure; normal termination is 0.
+- Security/limits: no third-party dependencies, shell execution, credential dump or cloud calls. Python reports external executable discovery; Bash command -v can also recognize builtins/functions, so equivalence is limited to this project's external tools. Checks do not validate versions, service health or permissions to use cloud resources. Optional repeated names become one JSON dictionary key; no claim of full CLI contract hardening.
+- Troubleshooting: use python3 for the .py file, four-space indentation, project-root relative path and immediate echo $?; never infer success solely from well-formed output. Missing tool is an intentional failure test, not a reason to install it.
+- Milestone checkpoint now prepared: five changed Markdown docs plus two scripts on feature/p02-local-tooling. Stage Bash executable mode and Python regular-file mode; review/commit/push/PR/merge together. Phase 02.1–02.2 implementation validated, publication pending; networking and pre-commit are next unfinished phase requirements. No additional quiz/PR per short answer.

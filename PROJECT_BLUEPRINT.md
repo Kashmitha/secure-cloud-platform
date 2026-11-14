@@ -2,7 +2,7 @@
 
 > **Document role:** The authoritative, stable specification for Project #1. Read this before proposing architecture or implementation. Do not silently replace the business scenario or the committed technology stack.
 >
-> **Version:** 1.1.0 · **Status:** Architecture approved; publication pending · **Last reviewed:** 2026-11-12
+> **Version:** 1.1.0 · **Status:** Architecture approved; published through PR #13 · **Last reviewed:** 2026-11-12
 
 ## 1. Identity and mission
 

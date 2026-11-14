@@ -2,7 +2,7 @@
 
 **Enterprise Secure Cloud-Native Platform — a hands-on DevSecOps and platform engineering portfolio project**
 
-> **Status:** Phase 00 workspace/documentation baseline complete; Phase 01 business architecture in progress. The components below describe the **planned target**, not features already deployed. Verified implementation evidence will be added as milestones are completed.
+> **Status:** Phase 00 workspace/documentation baseline complete; Phase 01 architecture/threat-model design complete through PR #13; Phase 02 practical fundamentals beginning. The components below describe the **planned target**, not features already deployed. Verified implementation evidence will be added as milestones are completed.
 
 ## The challenge
 
@@ -61,7 +61,7 @@ See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the canonical scope and a
 | Milestone | Status |
 |---|---|
 | Phase 00 workspace and documentation baseline | Complete; PRs #2/#3 merged; Linux Git and WSL editor verified; local main synchronized at 2cb63f9 |
-| Phase 01 business architecture | Introductory requirements learning checkpoints published through PR #12; consolidated permissions/architecture/ADRs/threat-register draft prepared in ENGINEERING_GUIDE.md. Design approved 2026-11-12; one remaining publication checkpoint pending; no application implementation. |
+| Phase 01 business architecture | Complete: design approved 2026-11-12, published as f8e3f3c through PR #13, merge a3ad424 locally verified; no application implementation. |
 | API and local containers | Not verified |
 | AWS and Terraform | Not verified |
 | Kubernetes, Helm and GitOps | Not verified |
@@ -73,7 +73,7 @@ For the current verified state, see [`PROJECT_PROGRESS.md`](PROJECT_PROGRESS.md)
 
 ## Phase 01 design review
 
-The consolidated design in [ENGINEERING_GUIDE.md](ENGINEERING_GUIDE.md#phase-01-consolidated-design-review--remaining-requirements-architecture-and-threats) contains permissions, data/delivery diagrams, decision records, acceptance-test mapping and an initial threat register. The learner approved it on 2026-11-12; PROJECT_BLUEPRINT.md v1.1.0 records the authoritative accepted summary. Controls remain unimplemented and unverified; publication checkpoint pending. Related concepts share one milestone checkpoint.
+The consolidated design in [ENGINEERING_GUIDE.md](ENGINEERING_GUIDE.md#phase-01-consolidated-design-review--remaining-requirements-architecture-and-threats) contains permissions, data/delivery diagrams, decision records, acceptance-test mapping and an initial threat register. The learner approved it on 2026-11-12; PROJECT_BLUEPRINT.md v1.1.0 records the authoritative accepted summary. Controls remain unimplemented and unverified; published through [PR #13](https://github.com/Kashmitha/secure-cloud-platform/pull/13), merge a3ad424 verified in local Git history. Related concepts share one milestone checkpoint.
 
 ## Getting started
 
@@ -90,6 +90,22 @@ git branch --show-current
 ```
 
 **Application start commands:** Not yet established. Do not assume `docker compose up`, `npm run start`, Helm installs or cloud deployment commands work until implemented and verified. This section must be updated with tested commands, prerequisites, ports, environment variable names (not values), validation and teardown instructions as components become operational.
+
+## Local developer checks (verified locally; publication pending)
+
+Run from the project root; Python 3 and Bash are prerequisites. No third-party Python packages required.
+
+```bash
+# Human-readable tool discovery; direct execution requires owner execute permission.
+./scripts/check-environment.sh
+
+# Machine-readable executable paths as JSON.
+python3 scripts/report-environment.py
+```
+
+Both normal cases were verified by the learner with exit 0. Append `securecloud_missing_tool_123` to either command for the verified failure drill: Bash prints an error; Python reports `null`; both return 1. Check `echo $?` immediately afterward.
+
+These scripts discover Git/Python and optional named tools; they do not execute discovered tools or validate versions, service health, credentials or application readiness. Local tests and source review passed; commit/PR/merge of `feature/p02-local-tooling` remain pending. Phase 02 networking and pre-commit are unfinished.
 
 ## Repository navigation
 
