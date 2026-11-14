@@ -2,7 +2,7 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-12 · **Current status:** PHASE 01 DESIGN APPROVED / PUBLICATION PENDING · **Current phase:** 01
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-13 · **Current status:** PHASE 02 LOCAL TOOLING VERIFIED / CHECKPOINT PENDING · **Current phase:** 02
 
 ## 1. Quick resume card (read this first)
 
@@ -10,14 +10,14 @@
 |---|---|
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
 | Canonical scope | `PROJECT_BLUEPRINT.md` v1.1.0 |
-| Current phase | **01 — Business architecture and threat model** |
-| Current section | **Phase 01 consolidated closeout** — permissions/health, architecture, six ADRs, evidence map and initial threat register approved 2026-11-12; publication pending. |
-| Last completed task | Phase 01.9 introductory notification-failure review and four-document commit 803832b merged through PR #12 as 5acf3b7; clean main matching origin/main independently verified. |
-| Next exact action | Run reviewed six-file Git checkpoint on docs/p01-admin-health, open/review/merge PR and synchronize main. Share commit SHA, PR URL, status and log for verification; then start practical Phase 02. |
+| Current phase | **02 — Linux, networking and Git fundamentals** |
+| Current section | **02.1–02.2 Local tooling milestone** — Bash discovery/failure handling, executable permissions and Python JSON report implemented and verified; reviewed publication checkpoint pending. |
+| Last completed task | Local-tooling implementation/tests: Bash normal/missing-tool and direct invocation, plus Python JSON normal exit 0/missing-tool null exit 1; reviewed 2026-11-13. Unpublished. Last merged milestone remains PR #13 at a3ad424. |
+| Next exact action | Learner reviews/stages five changed documents and two scripts, commits/pushes feature/p02-local-tooling, opens/reviews/merges PR and synchronizes main. Share commit SHA, PR URL and status/log; then start networking exercise. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | docs/p01-admin-health at 5acf3b7 from synchronized main; prior closeout edits preserved. All six root Markdown files modified for accepted design/closeout and permanent milestone rule; staging empty. No assistant commit/push/merge. |
+| Git branch / remote / HEAD | feature/p02-local-tooling at a3ad424; five carried Markdown modifications plus untracked scripts/. Staging empty; expected SSH origin verified. No assistant Git mutations. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | No technical blocker. Design approved; learner staged review and publication/merge verification pending. Phase 01 not complete; all runtime controls unimplemented. |
+| Current blocker | No technical blocker. Local tooling publication/staged review pending; Phase 02 networking and hooks unfinished. Application/runtime controls unimplemented. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -27,8 +27,8 @@
 | Phase | Milestone | Status | Evidence / reference |
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
-| 01 | Business architecture and threat model | **IN PROGRESS — design approved; publication/checkpoint pending** | Consolidated requirements, ADRs, diagrams and initial OPEN risks approved; merge/sync verification pending |
-| 02 | Linux, networking, Git and pre-commit | NOT VERIFIED | — |
+| 01 | Business architecture and threat model | **COMPLETE — 2026-11-12** | Approved blueprint v1.1.0, guide ADRs/diagrams/OPEN risk register; f8e3f3c, PR #13 merge a3ad424 and clean main locally verified |
+| 02 | Linux, networking, Git and pre-commit | **IN PROGRESS — local tooling verified, publication pending** | Two scripts reviewed; syntax and learner success/failure evidence PASS. Networking and pre-commit remain unfinished |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
 | 05 | Terraform, Ansible, AWS foundations | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** docs/p01-admin-health at 5acf3b7; learner created it; remaining Phase 01 work consolidated on this branch. No new branch required.
+- **Current branch:** feature/p02-local-tooling at a3ad424; five carried Markdown changes and two untracked scripts; staging empty. No assistant Git mutation.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** 5acf3b7 Merge pull request #12 from Kashmitha/docs/p01-audit-notifications; merged head 803832b; earlier history preserved.
+- **Last commit:** a3ad424d6d68279d9faa79ab0fdb0bd1c5bc086e, merge PR #13; head f8e3f3c27275a1d8939713b09a680362647cdce1. Earlier history preserved.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active milestone branch:** docs/p01-admin-health at 5acf3b7. Prior PR #12 merge locally verified; consolidated closeout has no commit/PR yet.
-- **Next checkpoint:** One coherent remaining-Phase-01 design milestone after learner review and decision acceptance. Include earlier closeout records; provide all familiar learner-run staging/checks/commit/push/PR/merge steps together. No quiz-sized or cleanup-only PR.
+- **Active milestone branch:** feature/p02-local-tooling, learner-created. Local tooling checkpoint prepared; commit/PR do not yet exist. Earlier Phase 01 PR #13 merged as a3ad424.
+- **Next checkpoint:** feat(p02): add local environment checks. Five changed Markdown files plus scripts/check-environment.sh and scripts/report-environment.py; learner stages/reviews/commits/pushes/opens PR/merges and supplies evidence.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Continue the **Phase 01 consolidated design review** on docs/p01-admin-health; do not return to serial quiz-sized branches/PRs. Learner architecture review and milestone publication still required. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Phase 01 complete through locally verified PR #13 merge a3ad424. Continue the **Phase 02 local-tooling publication checkpoint** on feature/p02-local-tooling; scripts and learner positive/negative execution verified 2026-11-13. After merge/sync verification begin networking; pre-commit also remains pending. Do not restart design review or serial quiz-sized PRs. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give the full learner-run add/checks/commit/push/PR/merge workflow in one message; user executes and shares results for verification. Do not impose a separate conversational gate for each familiar command.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -549,3 +549,48 @@
 - Validation: whitespace, balanced fences, local Markdown file targets, six ADR identifiers, ten risk entries and bounded credential-pattern scan PASS. No rendered-diagram check, comprehensive secret/history scan or runtime tests. Acceptance/security/recovery tests remain NOT RUN; risks OPEN.
 - Learner checkpoint: review/stage six documents, conventional docs(p01) commit, push current branch, PR to main, required checks/reviews and merge, then synchronize main. New commit SHA and PR URL pending; publication NOT VERIFIED.
 - Phase 01 remains IN PROGRESS for publication. Exact next action after verified merge/sync: practical Phase 02 Linux/Bash/Python/networking/pre-commit exercises grouped into meaningful milestones, followed by incremental Phase 03 NestJS development.
+
+### 2026-11-12 — PR #13 merge verified; Phase 01 complete and Phase 02 introduced
+
+- Learner supplied PR URL https://github.com/Kashmitha/secure-cloud-platform/pull/13 and clean main/log. Independent WSL inspection confirms main=origin/main=a3ad424d6d68279d9faa79ab0fdb0bd1c5bc086e, two-parent GitHub-authored merge of 5acf3b7 and f8e3f3c27275a1d8939713b09a680362647cdce1; expected path/origin, clean working tree and empty staging before closeout edits.
+- Merged six-document milestone contains 289 insertions/24 deletions; committed whitespace check PASS. Blueprint, accepted architecture/ADRs, diagrams and ten OPEN initial risks satisfy Phase 01 design gate. Application/security/recovery tests remain NOT RUN; no risk mitigation or runtime capability inferred from design approval.
+- Live PR page fetch failed and no GitHub repository connector available. Local merge evidence verifies integration; formal review, CI and branch protection were not queried or claimed. This is sufficient to begin the next local learning phase.
+- Five-document inspection: progress advances verified phase/next task and records merge evidence; guide closes Phase 01 and introduces the small Bash task; README and interview preparation correct publication status; blueprint changes publication status only, preserving v1.1.0 architecture. AGENTS unchanged. No new Phase 02 Q&As before results.
+- Proposed feature/p02-local-tooling name validated; no matching local branch found. Learner creates it from current main with these five Markdown closeout edits carried. No assistant branch/stage/commit/push/merge/deletion/install/provisioning.
+- Next task introduced: learner creates scripts/check-environment.sh, first checking location and discovery of Git/Python without credentials/network/cloud. Syntax check, actual run and immediate exit status required; later explicit missing-tool failure drill before milestone completion. No script written or run by assistant, no learner execution assumed.
+- Official GNU Bash reference consulted and local Bash help inspected. Current environment has bash/git/python3 discoverable; no claim about dependency versions or Docker daemon readiness. Broader Phase 02 DNS/HTTP/TCP/TLS, Python and pre-commit work remains pending.
+- Closeout document validation: whitespace, balanced fences, local Markdown targets and bounded credential patterns PASS; staging remains empty. These notes join the practical milestone; no cleanup-only PR.
+
+### 2026-11-12 — First Bash script inspected; relative-path failure resolved
+
+- Learner initially ran scripts/check-environment.sh from inside scripts/, so Bash sought a nested scripts/scripts/check-environment.sh and reported missing file/127. Mentor instructed return to root; learner subsequently reported correct project path, /usr/bin/git, /usr/bin/python3 and exit 0. This is learner-reported run evidence, not assistant-executed implementation.
+- Read-only inspection confirms feature/p02-local-tooling at a3ad424, expected origin/path, five carried Markdown modifications, untracked scripts/ and empty staging. Script contains Bash shebang, set -e, heading, pwd and Git/Python discovery. Independent bash -n and git diff --check PASS. No application or cloud commands run.
+- Initial straight-line discovery script is implemented. Missing-tool diagnostic/failure drill is not yet done; next learner edit introduces a loop over git/python3 and optional extra arguments, explicit stderr error and exit 1. No new commit/PR for this small increment.
+- Five-document review: progress records actual branch/script/run evidence and next step; guide records relative-path root cause and successful initial verification; README adds only the evidenced initial local check with limited scope. Blueprint and interview preparation inspected, no further changes needed: no architecture change or completed milestone requiring new Q&As. Their earlier closeout edits remain; AGENTS unchanged.
+- Validation: script syntax and working-tree whitespace PASS. Runtime identity, database, application, Docker daemon and cloud readiness remain untested. No installation, Git mutation or implementation edit by assistant.
+
+### 2026-11-13 — Bash success and missing-tool failure checks passed
+
+- Learner supplied normal execution showing OK: git / OK: python3 and exit 0; extra securecloud_missing_tool_123 argument produced the explicit ERROR and exit 1. This is learner-run functional evidence; assistant did not execute implementation commands.
+- Inspected actual script: quoted loop over git/python3 and optional positional arguments, command -v conditional with discovery-output suppression, success stdout, error stderr and explicit exit 1. Bash syntax PASS independently; git diff --check PASS. No blocking defect found in this increment. No claim that finding an executable proves its version, daemon health or credentials.
+- Git verified feature/p02-local-tooling at a3ad424, expected path/origin, five carried Markdown edits plus untracked scripts/, empty staging. Actual script mode -rw-r--r-- (0644): running via bash works without executable permission; direct execution needs the next learner change.
+- Five-document review: progress updates actual evidence/date/next action; guide records completed Bash failure handling and introduces Linux permission exercise; README corrects local-check capability; interview preparation adds two concise reviewed-script Q&As. Blueprint inspected and unchanged: no architecture change; its earlier publication closeout edit remains. AGENTS unchanged.
+- Next learner action: add owner execute permission only, inspect resulting mode and verify direct positive/negative execution. No sudo, broad permission grant or implementation edits by assistant. This increment is complete; broader local-tooling milestone and Phase 02 remain in progress. No commit/push/PR yet; group related practical work.
+
+### 2026-11-13 — Executable permissions verified; Python JSON report introduced
+
+- Learner supplied -rwxr--r-- and direct ./scripts/check-environment.sh output with git/python3 OK and exit 0, plus direct extra missing-tool case with ERROR and exit 1. Independent ls confirms owner-only execute addition (0744); syntax and git diff --check PASS. No chmod or implementation execution performed by assistant.
+- Correct boundary: bash file reads the script; direct ./file requires execute permission and uses its shebang. No broad chmod 777, sudo or group/other execute permission needed. Git records a simplified executable bit rather than every Unix permission bit; staged mode will be reviewed at milestone checkpoint.
+- Current Git remains feature/p02-local-tooling at a3ad424, expected origin, five carried Markdown modifications plus untracked scripts/, empty staging. Python 3.14.4 inspected as available; no installation required. No runtime service/cloud verification inferred.
+- Five-document review: progress records permissions evidence/next task; guide completes the permission exercise and introduces 02.2 Python structured output; README now documents verified direct invocation; interview preparation adds one permissions Q&A (three for 02.1 total). Blueprint inspected, unchanged beyond earlier publication closeout; AGENTS unchanged.
+- Next small learner exercise: scripts/report-environment.py, using only json/shutil/sys standard libraries to report discovered paths and null for missing tools as JSON, with exit 0/1. Purpose is machine-readable evidence for later automation, not executing discovered commands. Normal/missing-tool runs and JSON output pending; no Python script written by assistant.
+- Same coherent local-tooling branch/milestone; no new commit/PR now. Phase 02 networking and pre-commit remain pending before phase completion. No app/infra changes, package installation or Git mutations by assistant.
+
+### 2026-11-13 — Python JSON outcomes verified; coherent local-tooling checkpoint prepared
+
+- Learner supplied normal Python JSON with /usr/bin/git and /usr/bin/python3, exit 0; extra securecloud_missing_tool_123 appears as JSON null, exit 1. Saved source matches the taught standard-library implementation. Independent AST parsing PASS without executing script or generating cache; Bash syntax and tracked whitespace PASS. No blocking findings in either small script.
+- Completion boundary: Phase 02.1 Bash/permissions and 02.2 JSON reporting now implemented with learner positive/negative test evidence. This completes a coherent local-tooling implementation milestone, not all Phase 02. Networking and pre-commit remain unfinished. Discovery is not version/service/credential validation; scripts do not run discovered tools or contact cloud services.
+- Actual Git: feature/p02-local-tooling at a3ad424, expected WSL path and origin, five carried Markdown modifications and two untracked scripts, staging empty. Bash mode 0744; Python 0644. Learner must verify staged Bash mode 100755 and Python 100644 at checkpoint. No new SHA/PR yet; no assistant Git mutation.
+- Five-document review: progress records current evidence/checkpoint/next task; guide records verified JSON commands and local-tooling completion boundary; README documents both working scripts and publication pending; interview preparation adds two short Python Q&As with actual examples. Blueprint inspected, unchanged in this step; earlier PR #13 publication-status closeout edit joins this checkpoint. AGENTS unchanged.
+- Final checks: Bash syntax and Python AST syntax PASS; Markdown fences/local targets, trailing whitespace including untracked scripts, and bounded credential-pattern scan PASS. Not a comprehensive secret/history scan, CI pass, or runtime application test. Learner still reviews full staged diff before commit.
+- Proposed conventional commit feat(p02): add local environment checks. Provide full learner-run explicit add, staged checks/diff/modes, commit, push, web PR, required checks/reviews/merge and clean main synchronization in one message. Stop on unexpected files, failures, conflicts or unmet checks. Once actual merge/sync evidence is verified, teach DNS/HTTP/TCP/TLS fundamentals using a small hands-on exercise.
