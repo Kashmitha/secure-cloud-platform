@@ -640,3 +640,70 @@ PR #14 published both scripts as 9070caf, merge bb2e9c8 synchronized locally. Gi
 Actual root cause: repository-local core.filemode=false ignores filesystem execute-bit changes during ordinary detection/staging. The working file after synchronization is 0644. chmod changes the filesystem; the Git index separately determines committed mode. Explicit git update-index --chmod=+x scripts/check-environment.sh stages executable status even when automatic mode detection is disabled. Learner must first restore working permission with chmod u+x, then inspect git ls-files --stage for mode 100755 and git diff --cached --summary for mode change 100644 => 100755.
 
 Fix on fix/p02-script-executable, preserving history and scope. Repeat direct success/missing-tool tests (0/1), review mode-only script change and four correction documents, then publish/merge/synchronize. These remediation commands are proposed, not executed by assistant or verified complete. Do not start networking until final committed mode is verified. No global config change, broad permissions or history rewrite needed.
+
+### 2026-11-14 — PR #15 verified; local tooling milestone complete
+
+GitHub PR #15 merged c34eca5 as 3a90475; clean synchronized main verified. Bash tree mode is 100755, unchanged content blob; Python remains 100644. Working Bash file is executable (0755 after checkout); Git preserves executable status, not all individual Unix permission bits. Remote diff is four correction docs plus mode-only change. Prior learner direct success/failure results and unchanged source remain valid; no new assistant implementation run or fresh-clone test claimed. Reviews/workflow/status entries were empty, not CI PASS. Tracked-mode defect is resolved, so networking may begin.
+
+## Phase 02.3 — Networking: name resolution (positive/negative results verified 2026-11-14)
+
+- Objective/why/fit: understand how a client obtains an IP address for a hostname before connecting to this project's future API/ingress. Successful resolution does not prove a listening TCP port, TLS validity, authentication or application health.
+- Concept: DNS maps names to records including IP addresses. Linux system name resolution may consult /etc/hosts, caches and DNS via configured NSS services; getent exercises the system resolution path rather than being a dedicated DNS-protocol client. dig is a later alternative when direct DNS diagnostics are needed; no installation needed now.
+- Prerequisites inspected: getent, curl and ss are available. Start feature/p02-networking-basics from main at 3a90475 and carry four closeout notes. No AWS resources, real credentials or repo application server required.
+- Small learner task (proposed, not yet verified): getent ahostsv4 example.com followed immediately by echo $?; then getent ahostsv4 securecloud-test.invalid followed by echo $?. ahostsv4 requests IPv4 results; rows may repeat for STREAM/DGRAM/RAW socket types. Exact IP values can vary; do not hard-code them.
+- Expected/negative test: valid public name returns address rows and 0; reserved .invalid name returns no rows and a nonzero not-found code (normally 2). This deliberate lookup failure is not a broken application. If the valid name fails, stop and share output; inspect current resolver/connectivity before changing DNS/VPN/firewall configuration. Do not disable security controls or expose credentials.
+- Completion criteria for this increment: real positive/negative resolver output and exit codes reviewed, with resolution distinguished from service reachability. Group DNS, TCP/HTTP and TLS into one networking milestone; no PR for this short result. No new interview answers before learner evidence.
+- References: installed getent --help; https://www.rfc-editor.org/info/rfc6761/ (.invalid namespace). DNS lookup exercise results NOT RUN by learner at introduction.
+
+### Name-resolution results — 2026-11-14
+
+Learner verified getent ahostsv4 example.com returns IPv4 address rows with exit 0; securecloud-test.invalid returns no rows with exit 2. Two IPs observed, with repeated STREAM/DGRAM/RAW types; neither repetition nor multiple addresses is an error. Do not pin future tests to the observed public IPs. Current branch feature/p02-networking-basics at 3a90475 verified. This proves the system resolver result, not direct DNS packet behavior or endpoint health.
+
+### HTTPS HEAD request (learner result verified 2026-11-21)
+
+- Objective/fit: distinguish name resolution, TCP connection, TLS and HTTP when diagnosing the future API/ingress. For this HTTP/1.1 HTTPS request the conceptual path is hostname resolution, TCP connection (normally destination port 443), TLS negotiation/certificate validation, then HTTP request/response. Configured proxies may change the route and who performs resolution.
+- Tool/alternatives: curl is a command-line transfer client useful in debugging and automation; browser developer tools provide a graphical alternative, while Python requests would add an unnecessary dependency for this exercise. Installed curl 8.18.0 inspected; no installation required.
+- Proposed learner command: curl --http1.1 --head --connect-timeout 5 --max-time 15 https://example.com then echo $?. --http1.1 selects HTTP/1.1; --head sends HEAD to request headers without the response body; connection timeout bounds resolution/connection/handshake phase, overall timeout bounds total transfer. These task commands remain unverified until learner output.
+- Expected/limits: headers with an HTTP status line, normally successful example response and exit 0. curl success is transfer-level and does not by default reject HTTP 4xx/5xx; actual response status must also be inspected. A proxy CONNECT status is not the final origin status. This is not a financial API or end-to-end health test.
+- Security/troubleshooting: default TLS peer/hostname validation stays enabled; do not add -k/--insecure to bypass an error. Share errors as-is before changing CA, proxy, DNS or firewall configuration. No tokens, credentials, installs or AWS resources. Dedicated connection/TLS negative drills follow after this result.
+- Completion criterion for this increment: actual headers/error and immediate exit code reviewed, with transfer success separated from HTTP application result. No new branch/quiz PR. Official curl manual consulted: https://curl.se/docs/manpage.html .
+
+### HTTPS HEAD result — 2026-11-21
+
+Learner command curl --http1.1 --head --connect-timeout 5 --max-time 15 https://example.com returned HTTP/1.1 200 OK and exit 0. Header output identified HTML, GET/HEAD support and a cached Cloudflare response. Transfer succeeded and this HTTP result was successful; it is not an uncached-origin or project-API health test. alt-svc advertising HTTP/3 does not mean this explicitly HTTP/1.1 request used HTTP/3. No insecure flag shown; TLS negotiation/certificate details not separately captured.
+
+### TCP listener and connection refusal (verified learner result 2026-11-21)
+
+- What/why/fit: a port identifies a service endpoint on a host. A listening TCP socket accepts connection attempts; if no service listens, connection can fail before any HTTP response exists. This helps diagnose an unstarted API or wrong port later.
+- Tool/prerequisites: ss lists socket information; -l selects listening, -t TCP, -n numeric addresses/ports. Existing ss/curl inspected; no install needed. Python socket inspection is an alternative, but ss directly teaches the Linux network diagnostic.
+- Learner first inspects ss -ltn 'sport = :18080'. Header only means no matching TCP listener at that instant. If a listener row exists, stop and share output; do not terminate an unrelated service. A race is possible between inspection and request.
+- If no listener: curl --noproxy '*' --head --connect-timeout 3 --max-time 5 http://127.0.0.1:18080 then immediate echo $?. 127.0.0.1 is this WSL network environment's loopback; 18080 is an unprivileged demonstration port, not an assumed permanent free port. --noproxy '*' keeps the local drill off configured proxies. HTTP intentionally isolates connection behavior; no TLS expected in this drill.
+- Expected negative outcome: connection error and curl exit 7, without an HTTP status line. Exit 28 would mean timeout and needs separate interpretation; an HTTP response means some service was reachable. A deliberate refusal is a passed negative test, not evidence of broken project code.
+- Security/completion: no listener started, public access, sudo, config changes, credentials or cloud provisioning. Learner supplies listener output and actual curl error/code; mentor reviews before advancing. Do not infer TLS or app correctness. Official curl exit-code reference: https://curl.se/docs/manpage.html#exit-codes . All drill commands remain proposed until learner results.
+
+### TCP failure result — 2026-11-21
+
+Learner ss output contained only the listening-socket header for port 18080. Local no-proxy curl then failed immediately with error/exit 7 and no HTTP response. Intended negative case PASS: distinguish connection failure from a server-returned HTTP error. No server was started or stopped and no packet capture performed; the result alone does not characterize every network/firewall failure.
+
+### Expired TLS certificate rejection (learner result verified 2026-11-21)
+
+- What/why/fit: TLS protects traffic and authenticates the server using certificate validation, including hostname/trust and validity periods. A server can be reachable yet have an expired certificate. The future HTTPS ingress must not be made to pass by disabling verification. Application login/authorization remain separate controls.
+- Prerequisites/alternatives: existing curl supports HTTPS; use the intentionally expired test endpoint listed by BadSSL. A local openssl-generated expired certificate/server would require more setup and is unnecessary for this small first rejection drill. No dependency installation, account or credentials needed.
+- Proposed command: curl --http1.1 --head --connect-timeout 5 --max-time 15 https://expired.badssl.com followed immediately by echo $?. Expected certificate-expired error and usually exit 60, rather than a successful origin HTTP response. Read actual error text: exit 60 covers peer authentication failures, not only expiry.
+- Security/troubleshooting: leave verification enabled; no -k/--insecure, custom trust-store install, clock change or proxy bypass. A timeout, DNS error, proxy error or successful replacement certificate is different evidence, not an automatically passed certificate test. Share exact output before any environmental change. No sensitive data transmitted. If an HTTPS proxy prints CONNECT headers, those do not establish origin TLS success.
+- Completion criterion: learner demonstrates certificate rejection and distinguishes it from the prior connection/7 and HTTPS-200/0 cases. Then prepare the combined networking milestone checkpoint after documentation/security review; pre-commit remains pending before Phase 02 completion. No quiz-only PR.
+- Official references consulted: https://badssl.com/ (expired test link) and https://curl.se/docs/sslcerts.html (default certificate verification). Proposed exercise not executed by assistant or claimed passed before learner results.
+
+### Networking milestone results and checkpoint — 2026-11-21
+
+Learner expired.badssl.com command returned curl 60 with the explicit OpenSSL reason certificate has expired (10), no origin HTTP response. Intended negative certificate-validation check PASS. Do not bypass the rejection or treat it as a broken lab. This proves the observed expiry rejection, not all trust/hostname/revocation policies.
+
+| Layer / case | Learner-observed result | Meaning / limit |
+|---|---|---|
+| System IPv4 resolution: example.com | Address rows; exit 0 | Name resolved, possibly through NSS/cache/local sources; not service health |
+| Reserved securecloud-test.invalid | No rows; exit 2 | Intended name-not-found case |
+| HTTPS HEAD example.com | HTTP/1.1 200 OK; exit 0 | Successful public HTTPS response/transfer, not project API evidence |
+| Loopback 127.0.0.1:18080 | No matching listener; connection failure/7, no HTTP status | Intended connection failure before HTTP; no packet capture |
+| HTTPS HEAD expired.badssl.com | Expired certificate error/60, no origin HTTP status | Certificate rejected without bypassing verification |
+
+Commands and outputs are recorded in this section and progress log. No further network reruns required without changes or unresolved concerns. Three interview Q&As cover resolution vs health, HTTP vs process status and certificate rejection. Introductory networking exercises complete; four-document checkpoint on feature/p02-networking-basics pending learner commit/PR/merge/sync. No new implementation or script added; this milestone captures practical command evidence. Tooling closeout notes from PR #15 are included. Next after publication verification: pre-commit hook setup and positive/negative drills; full Phase 02 remains incomplete until that evidence exists.
