@@ -2,7 +2,7 @@
 
 > **This is the live, authoritative execution record.** Update after every meaningful task, at every section/phase checkpoint and before ending a session. Never claim completion without evidence.
 >
-> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-14 · **Current status:** PHASE 02 TOOLING MERGED / TRACKED EXECUTE-BIT FIX REQUIRED · **Current phase:** 02
+> **Initialized:** 2026-10-25 · **Last verified update:** 2026-11-21 · **Current status:** PHASE 02 NETWORKING EXERCISES VERIFIED / CHECKPOINT PENDING · **Current phase:** 02
 
 ## 1. Quick resume card (read this first)
 
@@ -11,13 +11,13 @@
 | Project | SecureCloud Enterprise — Enterprise Secure Cloud-Native Platform |
 | Canonical scope | `PROJECT_BLUEPRINT.md` v1.1.0 |
 | Current phase | **02 — Linux, networking and Git fundamentals** |
-| Current section | **02.1–02.2 publication validation** — PR #14 merged, but Bash mode committed as 100644; direct-execution requirement incomplete. Fix before networking. |
-| Last completed task | Two-script content and five documents published as 9070caf via PR #14, merge bb2e9c8; clean synchronized main verified. Prior local tests passed; tracked executable mode is a newly identified defect. |
-| Next exact action | Learner creates fix/p02-script-executable, chmod u+x, stages four correction docs and Bash script, explicitly git update-index --chmod=+x, checks index mode 100755, tests direct success/failure, then commit/push/PR/merge/sync. No networking until correction verified. |
+| Current section | **02.3 Networking fundamentals** — name-resolution success/failure, HTTPS HEAD 200/0, TCP refusal/7 and expired-certificate rejection/60 verified. Combined documentation checkpoint pending. |
+| Last completed task | Learner networking exercises completed through expired-certificate rejection on 2026-11-21; evidence reviewed, publication pending. Last merged checkpoint remains PR #15 at 3a90475. |
+| Next exact action | Learner reviews/stages four changed Markdown files on feature/p02-networking-basics, commits/pushes/opens PR/merges and synchronizes main. Share SHA, PR URL and status/log; then start pre-commit developer checks. |
 | Environment | Verified WSL path: /home/devops_kashmitha/devsecops-mastery/01-secure-cloud-platform; Linux Git 2.53.0 |
-| Git branch / remote / HEAD | main=origin/main=bb2e9c8, clean before four Markdown correction edits; staging empty. Expected SSH origin verified. fix/p02-script-executable proposed, not created by assistant. |
+| Git branch / remote / HEAD | feature/p02-networking-basics at 3a90475, learner-created; four carried Markdown changes, empty staging. Expected WSL path and SSH origin verified. |
 | AWS resources | **Unknown — inspect and ask before changes** |
-| Current blocker | Bash script stored as 100644 with local core.filemode=false. Working file also 0644 after synchronization; explicit tracked-mode correction needed. Networking and hooks remain unfinished. |
+| Current blocker | No technical blocker. Networking publication/staged review pending; pre-commit remains unfinished before Phase 02 completion. Application/runtime controls unimplemented. |
 | Session owner | Any authorized AI or human engineer reading the repository |
 
 ## 2. Phase tracker
@@ -28,7 +28,7 @@
 |---|---|---|---|
 | 00 | Baseline, WSL, Git, documentation | **COMPLETE — 2026-10-26** | WSL/Linux Git verified; VS Code WSL confirmed by learner; PRs #2/#3 merged; main synchronized at 2cb63f9; review/validation evidence recorded |
 | 01 | Business architecture and threat model | **COMPLETE — 2026-11-12** | Approved blueprint v1.1.0, guide ADRs/diagrams/OPEN risk register; f8e3f3c, PR #13 merge a3ad424 and clean main locally verified |
-| 02 | Linux, networking, Git and pre-commit | **IN PROGRESS — PR #14 merged; tracked execute-bit correction pending** | Script content/local tests verified; merged Bash mode 100644 fails direct-execution requirement. Networking/pre-commit pending |
+| 02 | Linux, networking, Git and pre-commit | **IN PROGRESS — networking exercises verified; checkpoint pending** | Tooling PRs #14/#15 merged; DNS/TCP/HTTP/TLS evidence recorded. Pre-commit still unfinished |
 | 03 | NestJS/Spring Boot, PostgreSQL, Redis | NOT VERIFIED | — |
 | 04 | Docker and BuildKit | NOT VERIFIED | — |
 | 05 | Terraform, Ansible, AWS foundations | NOT VERIFIED | — |
@@ -114,13 +114,13 @@
 
 ## 7. Git and release checkpoint
 
-- **Current branch:** main at bb2e9c8 matching origin/main, clean before correction notes. Learner creates fix/p02-script-executable next; carry four Markdown edits.
+- **Current branch:** feature/p02-networking-basics at 3a90475, learner-created; four carried Markdown changes, staging empty.
 - **Remote:** origin configured to git@github.com:Kashmitha/secure-cloud-platform.git (learner-provided fetch/push output). Learner push succeeded via SSH; local tracking reference matches HEAD. PR #2 merged=true verified through GitHub connector; repository protection settings remain unverified.
-- **Last commit:** bb2e9c8116d4df62c3951e7898ca693cbcecb098, PR #14 merge; head 9070caf7b448374b2f49eca23cfe6b02059b76bf.
+- **Last commit:** 3a90475bc44858a9da23b079e99a58312f9df09b, PR #15 merge; head c34eca579058f0b0a800a22cf2e94460101837f6.
 - **Baseline PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/2 — MERGED. Head 1ac55f203788fdf851d547753b25accd2a4758f5; merge commit c3c247447d860b8959bf354e9d5d3a4aeb684031 into main.
 - **Checkpoint PR:** https://github.com/Kashmitha/secure-cloud-platform/pull/3 — MERGED; merge 2cb63f9bd10c75c1d94a2a2d640c59be98ef9010, head f929c74f6fbf4394b410c023404bfd4be425f862.
-- **Active milestone branch:** fix/p02-script-executable proposed, not created. Prior feature/p02-local-tooling published through https://github.com/Kashmitha/secure-cloud-platform/pull/14.
-- **Next checkpoint:** fix(p02): preserve environment script executable mode. Explicitly stage mode 100755 and four corrected docs; learner tests/reviews/publishes/merges and shares evidence.
+- **Active milestone branch:** feature/p02-networking-basics, learner-created from synchronized main at 3a90475; no networking commit/PR yet.
+- **Next checkpoint:** docs(p02): record networking validation evidence. Four changed Markdown files on feature/p02-networking-basics; learner staged review, commit/push/PR/merge/sync. No implementation changes.
 - **Important:** AI must show branch creation, `git status`, `git diff`, `git add`, `git diff --cached`, `git commit`, `git push` and PR instructions at every section; never execute mutating Git actions without approval.
 
 ## 8. Known blockers and risks
@@ -135,7 +135,7 @@
 1. Read `AGENTS.md` → `PROJECT_BLUEPRINT.md` → this file → other docs.
 2. Inspect current WSL directory and Git state, then compare with the records above.
 3. Explain any mismatch, and ask approval before reconciling/deleting/replacing.
-4. Phase 00 is verified complete. Phase 01 complete through locally verified PR #13 merge a3ad424. PR #14 is merged and synchronized, but **tracked executable mode correction** is required on fix/p02-script-executable before networking. Script content/learner positive-negative execution verified; committed Bash mode 100644 is incomplete. Pre-commit remains pending. Do not restart design review or serial quiz-sized PRs. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
+4. Phase 00 is verified complete. Phase 01 complete through locally verified PR #13 merge a3ad424. PRs #14/#15 merged and synchronized; executable mode verified 100755. Continue **Phase 02.3 networking** on proposed feature/p02-networking-basics; networking exercises verified including expired-certificate rejection/60; combined publication checkpoint pending, then pre-commit. Pre-commit remains pending. Do not restart design review or serial quiz-sized PRs. Phase 01.9 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.8 introductory review, local merge evidence and main synchronization verified complete on 2026-11-02. Phase 01.7 introductory learning and local Git merge/synchronization evidence verified complete on 2026-11-02. Phase 01.6 introductory review, publication, PR #9 merge and main synchronization verified complete on 2026-10-31; unchanged-balance clarification remains mentor-supplied evidence. Phase 01.5 learning, publication, PR #8 merge and main synchronization verified complete on 2026-10-31. Phase 01.4 learning, publication, PR #7 merge and main synchronization verified complete on 2026-10-31. Phase 01.3 learning, publication, PR #6 merge and main synchronization verified complete on 2026-10-28. Phase 01.2 learning review, PR merge, main synchronization and note restoration are complete. Phase 01.1 learning, PR merge, main synchronization and note restoration are verified complete. Do not restart Git baseline or ask again for VS Code WSL confirmation.
 5. Teach one small task at a time. After verifying work, update this file and the other four project docs as applicable.
 6. At section completion, give the full learner-run add/checks/commit/push/PR/merge workflow in one message; user executes and shares results for verification. Do not impose a separate conversational gate for each familiar command.
 7. At phase completion, summarize the learning and add 1–3 interview Q&As, update README and the engineering guide, then propose the next phase.
@@ -602,3 +602,50 @@
 - Learner fix on dedicated fix/p02-script-executable (name validated; no matching branch): chmod u+x for working tree, stage intended docs/script, then git update-index --chmod=+x scripts/check-environment.sh to explicitly record index mode regardless of core.filemode. Verify staged ls-files mode 100755, diff mode-only change, direct normal 0/missing-tool 1; commit/push/PR/merge/sync and verify final tree. Do not change global config or rewrite history.
 - Five-document review: progress records actual merge and outstanding defect; guide explains filesystem/index distinction and remediation; README qualifies direct execution until tracked-mode fix; interview Q&A adds actual Git-mode failure example. Blueprint inspected, unchanged (no scope/architecture change); AGENTS unchanged. Four documentation edits carry into correction branch; no app/script content edited by assistant.
 - No assistant branch creation, chmod, staging, commit, push, merge or installs. Networking lesson deferred until required mode fix is verified. Documentation whitespace PASS; prior source/functional checks apply to unchanged code. No cloud/service tests or provisioned resources.
+
+### 2026-11-14 — PR #15 mode correction verified; networking introduced
+
+- GitHub confirms PR #15 merged=true, head c34eca579058f0b0a800a22cf2e94460101837f6, merge 3a90475bc44858a9da23b079e99a58312f9df09b, five expected files. Complete remote diff reviewed: four correction documents and mode-only script change 100644 => 100755, no script-content change. Local main=origin/main=3a90475 clean with empty staging before notes; expected path/origin. Committed whitespace PASS.
+- git ls-tree confirms Bash 100755 with unchanged blob 675c5774f2f568c89eb75689a2e082741eea0f07, Python 100644; working Bash mode 0755 after checkout. Git normalizes executable status rather than preserving the earlier exact 0744 permissions. Prior learner normal/missing-tool results apply to unchanged script content; PR body reports repeat 0/1, not an assistant-run functional test. No fresh clone performed. Outstanding tracked-mode requirement now satisfied; local tooling milestone complete.
+- PR review, PR-triggered workflow-run and status-entry lists returned empty; no formal approval/CI success claimed. This does not block the local learning milestone; CI/hardening remains later work.
+- Five-document review: progress closes mode defect and records networking next; guide records mode evidence and introduces name-resolution task; README restores direct command and published status; interview preparation corrects pending-mode labels and records resolved example. Blueprint inspected, unchanged; AGENTS unchanged. Four saved closeout docs join the next networking milestone, no separate notes PR.
+- Next branch feature/p02-networking-basics validated with no existing match, from current main. Learner creates branch and runs getent ahostsv4 example.com (IPv4 address rows, expected 0) plus securecloud-test.invalid (expected not found/no rows, usually 2). getent uses system NSS/resolver sources; this is not proof every response was a live DNS query or that HTTP/TLS works. Exact IPs may change; repeated socket-type rows are normal.
+- Prerequisites getent/curl/ss discovered; local getent help and RFC 6761 special invalid namespace consulted. No learner DNS results yet, no network config changes/installations or assistant Git mutation. Failure troubleshooting must inspect resolver/VPN/connectivity before changing DNS. Do not skip ahead if resolution results are unexpected.
+- Final documentation whitespace check PASS; staging empty. Phase 02 remains in progress for networking and pre-commit. No application deployment, cloud provisioning or service test claim.
+
+### 2026-11-14 — Name-resolution positive/negative checks passed; HTTPS introduced
+
+- Learner getent ahostsv4 example.com returned IPv4 addresses 104.20.23.154 and 172.66.147.243, each with STREAM/DGRAM/RAW rows, exit 0. These are observed historical values, not fixed expected addresses. getent ahostsv4 securecloud-test.invalid returned no address rows and exit 2 as expected.
+- Evidence verifies system IPv4 name resolution and deliberate not-found behavior. It does not prove a new DNS wire query, TCP service reachability, TLS validity, HTTP success or application readiness. Resolver may use NSS/local sources/caches.
+- Read-only inspection verifies feature/p02-networking-basics at 3a90475, expected path/origin, four carried Markdown changes, empty staging and whitespace PASS. Installed curl 8.18.0 supports HTTPS; no install needed. Learner DNS commands not rerun by assistant.
+- Five-document review: progress records actual results/branch/next action; guide records learned resolver outcomes and introduces HTTP/TCP/TLS request concepts; interview preparation adds one short evidence-based DNS Q&A. README and blueprint inspected, no additional content change triggered; earlier README closeout edit remains. AGENTS unchanged.
+- Next learner task: curl --http1.1 --head --connect-timeout 5 --max-time 15 https://example.com, followed immediately by echo $?. Expected HTTP headers and successful transfer; inspect actual HTTP status separately. No -k/insecure, credentials or cloud commands. Proxy CONNECT may produce an extra status line; inspect final response. No learner HTTPS result yet.
+- Remaining networking milestone includes connection/failure and TLS verification evidence, followed by pre-commit phase requirements. Stay on existing branch; no per-answer commit/PR. No assistant Git mutation, implementation edit or network exercise executed.
+
+### 2026-11-21 — HTTPS HEAD succeeded; local connection-failure drill introduced
+
+- Learner ran curl --http1.1 --head --connect-timeout 5 --max-time 15 https://example.com and immediate echo $?: HTTP/1.1 200 OK, Content-Type text/html; charset=utf-8, allow GET/HEAD, Cloudflare cache HIT and exit 0. Verifies this public HTTPS request completed with successful HTTP status, not the project's unimplemented API or an uncached origin health check. The shown command did not disable TLS verification; negotiated TLS/certificate details were not captured separately.
+- HTTP status 200 is the server response; shell exit 0 is curl's transfer outcome. A future HTTP 4xx/5xx can still yield curl 0 without --fail, so both must be inspected. No claim of independently demonstrated mastery or measured platform SLO.
+- Read-only Git inspection confirms expected WSL path, feature/p02-networking-basics at 3a90475, expected origin, four carried Markdown changes, empty staging and whitespace PASS. curl/ss available. Learner network exercise not rerun by assistant.
+- Five-document review: progress updates actual result/date/next action; guide records HTTPS evidence and introduces TCP listener/refusal exercise; interview preparation adds one short HTTP-vs-exit-code Q&A (two networking Q&As so far). README and blueprint inspected, unchanged in this step: no repository capability or architecture change; prior README closeout edit remains. AGENTS unchanged.
+- Next proposed learner drill: ss -ltn 'sport = :18080'; if no listening rows, curl --noproxy '*' --head --connect-timeout 3 --max-time 5 http://127.0.0.1:18080 followed immediately by echo $?. Expected no HTTP status, connection failure/exit 7. If listener exists, stop and report; do not kill existing services. Loopback avoids external targets and --noproxy ensures local direct path. No server started, config changes, installs, credentials or billable resources.
+- Connection-negative and dedicated TLS evidence still pending; networking checkpoint not ready. Same branch, no per-answer PR. No assistant implementation edit or Git mutation.
+
+### 2026-11-21 — TCP failure drill passed; expired-certificate drill introduced
+
+- Learner ss -ltn sport-filter for 18080 printed the header only: no matching listening TCP socket at inspection time. Bounded no-proxy HEAD to http://127.0.0.1:18080 then failed immediately with curl error 7 and exit 7, with no HTTP status. This is the intended negative-test outcome. No packet capture performed; do not assert a captured TCP RST or broader firewall behavior.
+- Distinction reinforced: a connection error occurs before an HTTP response; HTTP 404 would mean a server was reached and returned a status. This drill does not test TLS or the unimplemented application.
+- Actual Git inspection: feature/p02-networking-basics at 3a90475, expected path/origin, four carried Markdown changes, empty staging, whitespace PASS. No learner commands rerun by assistant.
+- Five-document review: progress records evidence/next action; guide records TCP outcome and introduces TLS certificate expiry validation. README, blueprint and interview preparation inspected, unchanged this step: no project capability/architecture change and reserve final networking Q&A for demonstrated TLS outcome (two already recorded). Existing README/interview closeout edits remain. AGENTS unchanged.
+- Next learner task: curl --http1.1 --head --connect-timeout 5 --max-time 15 https://expired.badssl.com followed immediately by echo $?. BadSSL's own dashboard identifies the expired test endpoint; curl certificate guidance consulted. Expected certificate-expiry rejection (typically exit 60), not HTTP success. Do not use -k/--insecure, install certificates or change CA/proxy settings. A different result requires interpretation of actual error/proxy path before advancing.
+- TLS exercise NOT RUN by learner at introduction. No new branch, installs, cloud resources or assistant implementation/Git mutation. Networking milestone remains incomplete until remaining test evidence is reviewed; pre-commit is a later unfinished Phase 02 task.
+
+### 2026-11-21 — Expired certificate correctly rejected; networking checkpoint prepared
+
+- Learner bounded HTTP/1.1 HTTPS HEAD to expired.badssl.com failed with curl error 60, OpenSSL reason certificate has expired (10), and immediate exit 60. No origin HTTP status returned. This is the intended certificate-expiry negative test; verification was not bypassed. Not proof of every TLS policy, revocation case, hostname mismatch or private-CA configuration.
+- Section evidence complete for the introductory networking milestone: example.com system IPv4 resolution/0; reserved .invalid no result/2; HTTPS HEAD example.com HTTP 200/0; no listener on local port 18080 and curl connection error/7; expired test certificate rejected/60. All functional commands were learner-run; assistant inspected state and source documentation, not reran learner exercises. Public cached response is not project API/deployment evidence; no HTTP 4xx --fail behavior test performed.
+- Read-only Git validation: feature/p02-networking-basics at 3a90475, expected WSL path/origin, four intended Markdown modifications, empty staging, no untracked files, git diff --check PASS. No application/infra/script edits this milestone; no installations or cloud actions.
+- Five-document review: progress marks verified exercises/publication gate/next task; guide records TLS outcome and consolidated evidence table; interview preparation adds third and final concise networking Q&A; README records foundation exercise evidence and pre-commit pending without claiming a deployed platform. Blueprint inspected, unchanged (no architecture/scope change); AGENTS unchanged. Earlier PR #15 closeout records join this single checkpoint.
+- Final document checks: whitespace, balanced Markdown fences, local Markdown targets and bounded credential-pattern scan PASS. Not a comprehensive secret/history scan or CI result. Four-file staged review still required by learner; no new commit SHA/PR URL/publication claimed.
+- Proposed checkpoint docs(p02): record networking validation evidence; deliver all learner-run add/staged checks/diff/commit/push/web PR/review/merge/main synchronization together. Stop on failure, unexpected files, conflicts or unmet GitHub requirements. No assistant Git mutation.
+- Next first unfinished task after verified checkpoint: Phase 02 pre-commit developer quality checks. Verify installed tooling/current official setup before proposing an isolated install and configuration; learner runs commands. Phase 02 not complete until hooks, positive/negative validation and checkpoint evidence exist; Phase 03 application work follows the phase gate.

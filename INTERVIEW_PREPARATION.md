@@ -163,7 +163,7 @@ Use this compact format:
 **A:** No. Keep the committed balances and durable transfer/audit evidence. Track delivery as pending/failed and retry notification work for that existing transfer; do not debit/credit again or claim successful delivery. A business reversal would require a separate authorized operation. Reliable delivery handoff, recovery and deduplication still need design and tests.
 **Project example:** learner correctly identified A=75/B=65 after a committed transfer of 25 from A=100/B=40, and selected notification-only retry. These are proposed AC-AUDIT-01/AC-NOTIFY-01 scenarios, not executed API/database/delivery tests.
 
-## Phase 02.1 — Bash tool discovery and failure handling (local tests verified 2026-11-13; PR #14 merged, mode correction pending)
+## Phase 02.1 — Bash tool discovery and failure handling (local tests verified 2026-11-13; PRs #14/#15 merged; mode fix verified 2026-11-14)
 
 **Q1. Why return nonzero when a required tool is missing?**
 
@@ -180,7 +180,7 @@ Use this compact format:
 **A:** Explicit Bash invocation reads the file as input. Direct execution requires execute permission and a valid interpreter line. Adding owner execute with chmod u+x is sufficient here; granting permissions to every user is unnecessary.
 **Project example:** learner changed mode from 0644 to 0744 and demonstrated both direct success (0) and missing-tool failure (1); resulting mode independently inspected. Git later records executable status, not all Unix permission bits.
 
-## Phase 02.2 — Python JSON reporting (local tests verified 2026-11-13; PR #14 merged, mode correction pending)
+## Phase 02.2 — Python JSON reporting (local tests verified 2026-11-13; PRs #14/#15 merged; mode fix verified 2026-11-14)
 
 **Q1. Why output JSON instead of only readable messages?**
 
@@ -192,4 +192,21 @@ Use this compact format:
 **A:** No. It discovers an executable path or returns None. This is useful for a safe prerequisite report, but does not prove the tool's version, service readiness or credentials. Python None serializes as JSON null.
 **Project example:** reviewed report-environment.py uses standard-library discovery and serialization only; no subprocess or shell execution.
 
-**Publication correction — 2026-11-14:** PR #14 stored the Bash file as 100644 even though chmod and direct execution previously worked locally. This repository has core.filemode=false. Filesystem permission and Git index mode are separate evidence: explicitly stage execute status with git update-index --chmod=+x, verify index/tree mode 100755, and test the working file. The correction is pending; do not claim reproducible direct execution from the existing merged tree.
+**Publication correction — 2026-11-14:** PR #14 stored the Bash file as 100644 even though chmod and direct execution previously worked locally. This repository has core.filemode=false. Filesystem permission and Git index mode are separate evidence: explicitly stage execute status with git update-index --chmod=+x, verify index/tree mode 100755, and test the working file. Resolved through PR #15: committed mode 100755 with unchanged content, merge 3a90475 and working execute permission independently verified. No fresh-clone test performed.
+
+## Phase 02.3 — Networking fundamentals (exercises verified through 2026-11-21; publication pending)
+
+**Q1. Does resolving a hostname prove its API is healthy?**
+
+**A:** No. It shows the system can obtain an address, potentially using DNS, caches or local sources. Connection establishment, TLS validation and the HTTP/application response are separate checks.
+**Project example:** learner getent lookup of example.com returned address rows/0; reserved securecloud-test.invalid returned no rows/2. No HTTP/TLS success inferred from these results.
+
+**Q2. What is the difference between HTTP 200 and curl exit 0?**
+
+**A:** HTTP 200 is the server's successful HTTP response status. Exit 0 reports that curl completed its requested transfer successfully. By default, curl can finish a transfer with exit 0 even when the HTTP status is 4xx/5xx; automation must inspect status or deliberately use an HTTP-failure policy such as --fail.
+**Project example:** learner HTTPS HEAD to example.com returned both HTTP/1.1 200 OK and exit 0 on 2026-11-21. No HTTP-error drill has run yet.
+
+**Q3. Why is rejecting an expired certificate a successful security test?**
+
+**A:** Reachability alone does not establish a valid server identity. The TLS client must reject a certificate that fails validation rather than continue insecurely. Diagnose the reported reason and repair the server/trust configuration appropriately; do not add --insecure just to obtain a response.
+**Project example:** learner expired.badssl.com request failed with curl 60 and certificate has expired; earlier loopback connection failure returned 7 instead. This demonstrates the expiry case, not every possible TLS failure.
