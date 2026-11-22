@@ -194,7 +194,7 @@ Use this compact format:
 
 **Publication correction — 2026-11-14:** PR #14 stored the Bash file as 100644 even though chmod and direct execution previously worked locally. This repository has core.filemode=false. Filesystem permission and Git index mode are separate evidence: explicitly stage execute status with git update-index --chmod=+x, verify index/tree mode 100755, and test the working file. Resolved through PR #15: committed mode 100755 with unchanged content, merge 3a90475 and working execute permission independently verified. No fresh-clone test performed.
 
-## Phase 02.3 — Networking fundamentals (exercises verified through 2026-11-21; publication pending)
+## Phase 02.3 — Networking fundamentals (exercises verified through 2026-11-21; published through PR #16, merge be5ba1f verified)
 
 **Q1. Does resolving a hostname prove its API is healthy?**
 
@@ -210,3 +210,20 @@ Use this compact format:
 
 **A:** Reachability alone does not establish a valid server identity. The TLS client must reject a certificate that fails validation rather than continue insecurely. Diagnose the reported reason and repair the server/trust configuration appropriately; do not add --insecure just to obtain a response.
 **Project example:** learner expired.badssl.com request failed with curl 60 and certificate has expired; earlier loopback connection failure returned 7 instead. This demonstrates the expiry case, not every possible TLS failure.
+
+## Phase 02.4 — Pre-commit developer checks (validated 2026-11-22; publication pending)
+
+**Q1. Does committing .pre-commit-config.yaml install hooks for every clone?**
+
+**A:** No. The configuration is shared, but each clone must install the tool and run pre-commit install. The generated .git/hooks/pre-commit and ignored .venv are local. Later CI can apply the shared policy independently.
+**Project example:** version 4.7.0 and the generated hook were inspected; config uses six hooks from v6.0.0. Actual commit-time output remains pending.
+
+**Q2. Why did a hook return 1 after fixing the file?**
+
+**A:** It detected a defect and changed content, so the developer must review the fix and update staged content before committing. Rerunning against the corrected file should pass.
+**Project example:** learner trailing-space fixture produced Failed/fixed/1, then Passed/0; fixture removed after the test.
+
+**Q3. Can local hooks replace CI or comprehensive secret scanning?**
+
+**A:** No. Hooks run locally and can be bypassed or left uninstalled. CI supplies independent checks, while dedicated security scanners provide broader coverage. A passing private-key hook does not prove every kind of secret is absent.
+**Project example:** manual baseline and whitespace rejection were demonstrated; CI and exhaustive security-negative tests remain unimplemented.
