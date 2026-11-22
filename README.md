@@ -62,7 +62,7 @@ See [`PROJECT_BLUEPRINT.md`](PROJECT_BLUEPRINT.md) for the canonical scope and a
 |---|---|
 | Phase 00 workspace and documentation baseline | Complete; PRs #2/#3 merged; Linux Git and WSL editor verified; local main synchronized at 2cb63f9 |
 | Phase 01 business architecture | Complete: design approved 2026-11-12, published as f8e3f3c through PR #13, merge a3ad424 locally verified; no application implementation. |
-| Phase 02 developer foundations | Bash/Python tooling published through PRs #14/#15. Learner DNS, TCP-failure, HTTPS-response and expired-certificate rejection exercises verified; networking documentation publication and pre-commit pending. Public test endpoints only; no project API deployment implied. |
+| Phase 02 developer foundations | Bash/Python tooling published through PRs #14/#15. Learner DNS, TCP-failure, HTTPS-response and expired-certificate rejection exercises verified; networking evidence published through [PR #16](https://github.com/Kashmitha/secure-cloud-platform/pull/16), merge be5ba1f; pre-commit 4.7.0 verified in an ignored project environment; six-hook configuration and local installation verified with clean baseline checks; controlled whitespace failure/fix/re-run verified. Final commit-hook integration and publication pending. Public test endpoints only; no project API deployment implied. |
 | API and local containers | Not verified |
 | AWS and Terraform | Not verified |
 | Kubernetes, Helm and GitOps | Not verified |
@@ -106,7 +106,23 @@ python3 scripts/report-environment.py
 
 Both normal cases were verified by the learner with exit 0. Append `securecloud_missing_tool_123` to either command for the verified failure drill: Bash prints an error; Python reports `null`; both return 1. Check `echo $?` immediately afterward.
 
-These scripts discover Git/Python and optional named tools; they do not execute discovered tools or validate versions, service health, credentials or application readiness. Local tests/source review passed; [PR #14](https://github.com/Kashmitha/secure-cloud-platform/pull/14) merged as bb2e9c8. [PR #15](https://github.com/Kashmitha/secure-cloud-platform/pull/15) corrected its tracked Bash mode to 100755; merge 3a90475 and working execute permission are verified. Script content is unchanged. No fresh-clone test performed. Phase 02 networking command exercises are verified; their documentation checkpoint and pre-commit setup remain pending.
+These scripts discover Git/Python and optional named tools; they do not execute discovered tools or validate versions, service health, credentials or application readiness. Local tests/source review passed; [PR #14](https://github.com/Kashmitha/secure-cloud-platform/pull/14) merged as bb2e9c8. [PR #15](https://github.com/Kashmitha/secure-cloud-platform/pull/15) corrected its tracked Bash mode to 100755; merge 3a90475 and working execute permission are verified. Script content is unchanged. No fresh-clone test performed. Phase 02 networking command exercises are verified; evidence published through [PR #16](https://github.com/Kashmitha/secure-cloud-platform/pull/16), merge be5ba1f verified; pre-commit 4.7.0 is available in the ignored .venv; the six configured hooks are installed locally and baseline checks passed. Controlled whitespace rejection/fix/re-run passed; final commit-hook integration and publication remain pending.
+
+## Local pre-commit checks (validated; publication pending)
+
+Prerequisites: Python 3.11+ and Git; current WSL validation used Python 3.14.4. From the project root, reproduce the development environment and install this clone's hook:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/pre-commit validate-config
+.venv/bin/pre-commit install
+.venv/bin/pre-commit run --all-files
+```
+
+The tool is pinned to 4.7.0 and upstream hooks to v6.0.0. Configured checks cover YAML/Python syntax, final newlines, trailing whitespace, common private-key patterns and shebang executable status. Baseline runs passed; a synthetic trailing-space fixture was fixed with exit 1 and passed on rerun with exit 0, then removed. Fresh environment recreation was not separately repeated.
+
+`--all-files` checks tracked files: stage new files or explicitly use `--files` to include them. Review any fixer edits, restage intended changes and rerun before committing. `.venv` stays ignored; `.git/hooks` is local and must be installed per clone. These local, bypassable checks complement future CI/security gates and are not a comprehensive secret scan. Actual commit-hook output and this milestone's publication remain pending verification.
 
 ## Repository navigation
 
